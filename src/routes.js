@@ -17,8 +17,6 @@ routes.use((req, res, next) => {
   return next()
 })
 
-routes.use('/', controllers.DashboardController.start)
-
 //Todas as rotas que comecem com (/...) utilizarão o middleware
 routes.use('/categoriaReceita', authMiddleware)
 routes.use('/compra', authMiddleware)
@@ -148,7 +146,7 @@ routes.get('/dicas/instrucoes', authMiddleware, controllers.dicas.instrucoes);
 
 routes.get("/app/dashboard", authMiddleware, controllers.DashboardController.listarDashboard);
 routes.post('/app/dashboard', authMiddleware, controllers.DashboardController.indexFilter);
-/////routes.get("/app/start", authMiddleware, controllers.DashboardController.start);
+routes.get("/app/start", authMiddleware, controllers.DashboardController.start);
 // routes.get("/app/dashboard", controllers.DashboardController.listarDashboard);
 // routes.post('/app/dashboard', controllers.DashboardController.indexFilter);
 // routes.get("/app/start", controllers.DashboardController.start);
