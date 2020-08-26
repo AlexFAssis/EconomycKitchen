@@ -161,7 +161,6 @@ class impostoController {
             const imposto = await Imposto.findByIdAndDelete(id);
             if (imposto) {
                 res.redirect('/imposto/listar');
-                //res.sendStatus(204).end();
             } else {
                 res.sendStatus(404).end();
             }
