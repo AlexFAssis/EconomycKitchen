@@ -18,18 +18,18 @@ routes.use((req, res, next) => {
 })
 
 //Todas as rotas que comecem com (/...) utilizarão o middleware
-// routes.use('/categoriaReceita', authMiddleware)
-// routes.use('/compra', authMiddleware)
-// routes.use('/imposto', authMiddleware)
-// routes.use('/tipoImposto', authMiddleware)
-// routes.use('/insumo', authMiddleware)
-// routes.use('/produto', authMiddleware)
-// routes.use('/receita', authMiddleware)
-// routes.use('/receitaPorDia', authMiddleware)
-// // routes.use('/usuario', authMiddleware)
-// routes.use('/venda', authMiddleware)
-// routes.use('/estoque', authMiddleware)
-// routes.use('/dicas', authMiddleware)
+routes.use('/categoriaReceita', authMiddleware)
+routes.use('/compra', authMiddleware)
+routes.use('/imposto', authMiddleware)
+routes.use('/tipoImposto', authMiddleware)
+routes.use('/insumo', authMiddleware)
+routes.use('/produto', authMiddleware)
+routes.use('/receita', authMiddleware)
+routes.use('/receitaPorDia', authMiddleware)
+// routes.use('/usuario', authMiddleware)
+routes.use('/venda', authMiddleware)
+routes.use('/estoque', authMiddleware)
+routes.use('/dicas', authMiddleware)
 
 //Verificação de erros
 // const  = require('express-async-r');
@@ -108,28 +108,28 @@ routes.post('/receitaPorDia/editar/:id', controllers.receitaPorDia.atualizar);
 routes.post('/receitaPorDia/deletar/:id', controllers.receitaPorDia.excluir);
 routes.post('/receitaPorDia/listar', controllers.receitaPorDia.indexFilter);
 
-routes.get('/usuario/cadastro', controllers.usuario.cadastro);
-routes.get('/usuario/cadastroLogin', controllers.usuario.cadastroLogin);
-routes.get('/usuario/listar', controllers.usuario.listar);
-routes.get('/usuario/login', controllers.usuario.login);
-routes.post('/usuario/validacao', controllers.usuario.validacao);
-routes.get('/usuario/:id', controllers.usuario.obterUm);
-routes.post('/usuario', controllers.usuario.novo);
-routes.post('/usuarioLogin', controllers.usuario.novoLogin);
-routes.get('/usuario/editar/:id', controllers.usuario.editar);
-routes.post('/usuario/editar/:id', controllers.usuario.atualizar);
-routes.post('/usuario/deletar/:id', controllers.usuario.excluir);
-// routes.get('/usuario/cadastro', authMiddleware, controllers.usuario.cadastro);
-// routes.get('/usuario/cadastroLogin', guestMiddleware, controllers.usuario.cadastroLogin);
-// routes.get('/usuario/listar', authMiddleware, controllers.usuario.listar);
-// routes.get('/usuario/login', guestMiddleware, controllers.usuario.login);
-// routes.post('/usuario/validacao', guestMiddleware, controllers.usuario.validacao);
-// routes.get('/usuario/:id', authMiddleware, controllers.usuario.obterUm);
-// routes.post('/usuario', authMiddleware, controllers.usuario.novo);
-// routes.post('/usuarioLogin', guestMiddleware, controllers.usuario.novoLogin);
-// routes.get('/usuario/editar/:id', authMiddleware, controllers.usuario.editar);
-// routes.post('/usuario/editar/:id', authMiddleware, controllers.usuario.atualizar);
-// routes.post('/usuario/deletar/:id', authMiddleware, controllers.usuario.excluir);
+// routes.get('/usuario/cadastro', controllers.usuario.cadastro);
+// routes.get('/usuario/cadastroLogin', controllers.usuario.cadastroLogin);
+// routes.get('/usuario/listar', controllers.usuario.listar);
+// routes.get('/usuario/login', controllers.usuario.login);
+// routes.post('/usuario/validacao', controllers.usuario.validacao);
+// routes.get('/usuario/:id', controllers.usuario.obterUm);
+// routes.post('/usuario', controllers.usuario.novo);
+// routes.post('/usuarioLogin', controllers.usuario.novoLogin);
+// routes.get('/usuario/editar/:id', controllers.usuario.editar);
+// routes.post('/usuario/editar/:id', controllers.usuario.atualizar);
+// routes.post('/usuario/deletar/:id', controllers.usuario.excluir);
+routes.get('/usuario/cadastro', authMiddleware, controllers.usuario.cadastro);
+routes.get('/usuario/cadastroLogin', guestMiddleware, controllers.usuario.cadastroLogin);
+routes.get('/usuario/listar', authMiddleware, controllers.usuario.listar);
+routes.get('/usuario/login', guestMiddleware, controllers.usuario.login);
+routes.post('/usuario/validacao', guestMiddleware, controllers.usuario.validacao);
+routes.get('/usuario/:id', authMiddleware, controllers.usuario.obterUm);
+routes.post('/usuario', authMiddleware, controllers.usuario.novo);
+routes.post('/usuarioLogin', guestMiddleware, controllers.usuario.novoLogin);
+routes.get('/usuario/editar/:id', authMiddleware, controllers.usuario.editar);
+routes.post('/usuario/editar/:id', authMiddleware, controllers.usuario.atualizar);
+routes.post('/usuario/deletar/:id', authMiddleware, controllers.usuario.excluir);
 
 routes.get('/venda/cadastro', controllers.venda.index);
 routes.get('/venda/listar', controllers.venda.listar);
@@ -145,11 +145,11 @@ routes.get('/estoque/listar', authMiddleware, controllers.estoque.listar);
 routes.get('/dicas/instrucoes', authMiddleware, controllers.dicas.instrucoes);
 
 
-// routes.get("/app/dashboard", authMiddleware, controllers.DashboardController.listarDashboard);
-// routes.post('/app/dashboard', authMiddleware, controllers.DashboardController.indexFilter);
-// routes.get("/app/start", authMiddleware, controllers.DashboardController.start);
-routes.get("/app/dashboard", controllers.DashboardController.listarDashboard);
-routes.post('/app/dashboard', controllers.DashboardController.indexFilter);
-routes.get("/app/start", controllers.DashboardController.start);
+routes.get("/app/dashboard", authMiddleware, controllers.DashboardController.listarDashboard);
+routes.post('/app/dashboard', authMiddleware, controllers.DashboardController.indexFilter);
+routes.get("/app/start", authMiddleware, controllers.DashboardController.start);
+// routes.get("/app/dashboard", controllers.DashboardController.listarDashboard);
+// routes.post('/app/dashboard', controllers.DashboardController.indexFilter);
+// routes.get("/app/start", controllers.DashboardController.start);
 
 module.exports = routes;
