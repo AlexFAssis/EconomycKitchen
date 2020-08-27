@@ -27,7 +27,13 @@ class App {
   }
 
   database() {
-    database()
+    var uri = ''
+    if (process.env.NODE_ENV == "production") {
+      uri = 'mongodb+srv://Alex:AFA123456@economyckitchen.p7k5g.mongodb.net/EconomycKitchen?retryWrites=true&w=majority';
+    } else {
+      uri = 'mongodb://localhost:27017/ProjetoTG';
+    }
+    database(uri)
   }
 
   middlewares() {
