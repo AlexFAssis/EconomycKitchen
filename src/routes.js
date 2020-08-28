@@ -146,7 +146,10 @@ routes.get('/dicas/instrucoes', authMiddleware, controllers.dicas.instrucoes);
 
 routes.get("/app/dashboard", authMiddleware, controllers.DashboardController.listarDashboard);
 routes.post('/app/dashboard', authMiddleware, controllers.DashboardController.indexFilter);
-routes.get("/app/start", authMiddleware, controllers.DashboardController.start);
+// routes.get("/app/start", authMiddleware, controllers.DashboardController.start);
+
+routes.get("/", controllers.DashboardController.start);
+
 // routes.get("/app/dashboard", controllers.DashboardController.listarDashboard);
 // routes.post('/app/dashboard', controllers.DashboardController.indexFilter);
 // routes.get("/app/start", controllers.DashboardController.start);
