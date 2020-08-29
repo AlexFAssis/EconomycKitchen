@@ -16,9 +16,7 @@
                   <label for="dtFinal">Data Final<label><br>
                   <input type="text" class="flatpickr col-md-12 col-sm-12" value="{{ dataFinal }}" id="dtFinalDashboard" name="dataFinal"> 
               </div>
-              {# <div class="col-md-3 col-sm-4 d-flex align-items-center" id="btnFiltro"> #}
               <div class="col-md-2 col-lg-2 d-flex align-items-center" id="btnFiltro">
-                  {# <button type="submit" class="btn btn-danger btn-lg col-md-6 col-sm-12" id="btnFiltroDashboard">Filtrar</button> #}
                   <button type="submit" class="btn col-sm-5 col-md-12 btn-danger" id="btnFiltroData">Filtrar</button>
               </div>
             </div>  
@@ -26,7 +24,6 @@
         </div> 
 
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-          {# <h2 class="h2" style="font-weight: bold;">Dashboard</h2> #}
           <h2 class="h2" style="font-weight: bold;">Bem-Vindo: {{usuarioNome}}</h2>
           <div class="btn-toolbar mb-2 mb-md-0">
           </div>
@@ -116,11 +113,7 @@
             <input type="text" class="data_Compra" name="data" value="{{compra.data}}">
             <input type="number" class="total_Compra" name="totalCompra" value="{{compra.totalCompra}}">
           {% endfor %}
-
-          {# {% for receitas in receita%}
-            <input type="text" class="id_Receita" name="_idReceita" value="{{receita._id}}">
-          {% endfor %} #}
-
+          
           <p class="receitas"> {{ receitas }}</p>
         </div>
 

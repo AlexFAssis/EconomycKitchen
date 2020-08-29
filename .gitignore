@@ -1,3 +1,5 @@
 node_modules
-tmp/*
+tmp/sessions
+tmp/uploads
+.env
 

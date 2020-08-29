@@ -7,8 +7,7 @@
         <h3>Cadastro de Usuário</h3>
         <br>
         <form action="/usuario" method="POST">
-          {# {% include "_partials/flash.njk" %} #}
-          {# <input type="hidden" name="_id"> #}
+
           <div class="row">
             <div class="col-xl-4 col-lg-6 col-md-8">
               <div class="form-group">
@@ -16,8 +15,7 @@
                 <input type="text" name="nome" placeholder="Nome" class="form-control" id="nomeUsuario" maxlength="50" required>
               </div>
             </div>
-          {# </div>
-          <div class="row">   #}
+
             <div class="col-xl-4 col-lg-6 col-md-8">
               <div class="form-group">
                 <label for="email">E-mail</label>
@@ -32,8 +30,7 @@
                 <input type="text" name="login" placeholder="Login"  class="form-control" maxlength="50" required>
               </div>
             </div>
-          {# </div>
-          <div class="row"> #}
+
             <div class="col-xl-4 col-lg-6 col-md-8">
               <div class="form-group">
                 <label for="tipo">Tipo de Usuário</label>
@@ -51,8 +48,7 @@
                 <input type="password" name="senha" placeholder="Senha" class="form-control" maxlength="50" required>
               </div>
             </div>
-          {# </div>
-          <div class="row"> #}
+
             <div class="col-xl-4 col-lg-6 col-md-8">
               <div class="form-group">
                 <label for="senhaConfirmacao">Senha Confirmação</label>
@@ -69,7 +65,7 @@
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary col-xl-1 col-lg-2 col-md-4">Criar</button>
+          <button type="submit" class="btn btn-primary col-xl-2 col-lg-3 col-md-4 mt-2">Criar</button>
         </form>
       </div>
     </main>

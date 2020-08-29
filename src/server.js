@@ -2,12 +2,13 @@ const express = require('express');
 const nunjucks = require('nunjucks');
 const path = require('path');
 const database = require('./config/database.js');
-// const mongoose = require('mongoose');
 const flash = require('connect-flash')
 const session = require('express-session')
 // const FileStore = require('session-file-store')(session)
 const dateFilter = require('nunjucks-date-filter');
 // const RedisStore = require('connect-redis')(session);
+// const dotenv = require('dotenv').load()
+require('dotenv').config({ path: __dirname + '/.env' })
 
 
 // const bodyParser = require('body-parser');
@@ -16,10 +17,7 @@ const dateFilter = require('nunjucks-date-filter');
 
 class App {
   constructor() {
-    //App
     this.express = express();
-    //Em ambiente de desenvolvimento
-    // this.isDev = process.env.NODE_ENV != 'production';
     this.database();
     this.middlewares();
     this.views();
@@ -29,9 +27,9 @@ class App {
   database() {
     var uri = ''
     if (process.env.NODE_ENV == "production") {
-      uri = 'mongodb+srv://Alex:AFA123456@economyckitchen.p7k5g.mongodb.net/EconomycKitchen?retryWrites=true&w=majority';
+      uri = process.env.URI_PROD
     } else {
-      uri = 'mongodb://localhost:27017/ProjetoTG';
+      uri = process.env.URI_HOMOLOG
     }
     database(uri)
   }
@@ -63,13 +61,6 @@ class App {
       express: this.express,
       autoescape: true
     }).addFilter('date', dateFilter);
-
-    // let env = nunjucks.configure('views', {
-    //   autoescape: true,
-    //   express: this.express
-    // });
-
-    // env.addFilter('date', dateFilter);
 
     //'Mostrando para o express os arquivos PUBLIC (css, etc)'
     this.express.use(express.static(path.resolve(__dirname, 'public')));

@@ -15,7 +15,6 @@
                 <h3 id="TituloListagem">Listagem Produtos</h3>
                 <br>
 
-                {# <table id="example" class="table table-striped" style="width:100%"> #}
                 <table class="table table-striped" id="dataTable" width="100%">
                     <thead class="">
                     <tr>
@@ -24,8 +23,6 @@
                         <th scope="col" style="width:10%">Preço</th>
                         <th id="colEdit"></th>
                         <th id="colDelete"></th>
-                        {# <th scope="col"></th>
-                        <th scope="col"></th> #}
                     </tr>
                     </thead>
                     <tbody>
@@ -45,12 +42,6 @@
                                 <button type="button" class="btn btn-danger btnDelete" data-toggle="modal" data-target="#modalDelete" onClick="idLinha(this.parentNode.parentNode.id, 'produto')">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>   
-                                {# <form action="/produto/deletar/{{produto._id}}" method="POST" class='ml-2'> 
-                                    <input type="hidden" name="_id" value="{{produto._id}}">
-                                    <button type="submit" class="btn btn-danger">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </form>   #}
                             </td>
                         </tr>
                     {% else %}
@@ -88,5 +79,6 @@
 
     <script src="/assets/js/functions/funcoesProduto.js"></script>
     <script src="/assets/js/functions/funcoesPopup.js"></script>
+    <script src="/assets/js/sb-admin-datatables.min.js" type="text/javascript"></script>
     
 {% endblock%}

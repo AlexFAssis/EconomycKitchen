@@ -7,8 +7,6 @@
           <h3>Editar Produto</h3>
           <br>
           <form action="/produto/editar/{{ produto._id }}" method="POST">
-            {# {% include "_partials/flash.njk" %} #}
-            {# <input type="hidden" name="_id"> #}
             <div class="row">
               <div class="col-md-8 col-lg-6">
                 <div class="form-group">
@@ -25,7 +23,6 @@
                       <span class="input-group-text" id="input1">R$</span>
                     </div>
                     <input type="text" id="preco" class="form-control" name="preco" value='{{produto.preco}}' data-thousands="." data-decimal=","  min="0.01" required/>
-                    {# <input type="tel" name="preco" step="0.01" id="preco" value="{{ produto.preco }}" class="form-control preco" min="1" pattern="([\d]{1,}),[\d]{2}$" required> #}
                   </div>
                 </div>
               </div>
@@ -40,7 +37,6 @@
             </div>
 
             <p id="receitaPoduto" class="hidden">{{receitaPoduto}}</p>
-            {# <p id="precoReceita" class="hidden">{{precoReceita}}</p> #}
 
             <button type="submit" class="btn btn-primary col-xl-2 col-lg-3 col-md-4 mt-2">Confirmar</button>
             <a class="btn btn-primary btnVoltar col-xl-2 col-lg-3 col-md-4 mt-2" href="/produto/listar" role="button">Voltar</a>
@@ -57,63 +53,4 @@
   <p id="controle" class="hidden"> {{controle}}</p>
 
   <script src="/assets/js/functions/funcoesProduto.js"></script>
-
-  {# <script>
-    (function(){
-      'use-strict';
-
-      ocultaReceitas()
-      carregaReceitas()
-  
-      function ocultaReceitas(){
-        let $qtde = document.getElementsByClassName("hidden").length
-        for(let i=0; i < $qtde; i++){
-          document.getElementsByClassName("hidden")[i].style.display = "none";
-        }
-      }
-
-      function carregaReceitas(){
-        let $select = document.getElementsByClassName('selectReceitas')
-        let receitasString = '{{receitasStr}}'
-        let receitasSemEspaco = receitasString.replace(/&quot/g, '')
-        let receitasSemPV = receitasSemEspaco.replace(/;/g, '')
-        let regexId = new RegExp(/(:?id:)(\w*)(:?,nome)/g)
-        let regexNome = new RegExp(/(:?nome:)(.+?)(:?,modo)/g)
-        let $preco = document.getElementById('preco').value;
-        document.getElementById('preco').value = $preco.replace(/\./, ',')
-        
-        let receita = '{{produto.receita}}'
-
-        let nomeReceita = [];
-        let idReceita = [];
-        let receitaId = ''
-        let receitaNome = ''
-        
-        while(receitaId = regexId.exec(receitasSemPV)){
-          idReceita.push(receitaId[2])
-        }
-
-        while(receitaNome = regexNome.exec(receitasSemPV)){
-          nomeReceita.push(receitaNome[2])
-        }
-
-        for(let i=0; i< idReceita.length; i++){
-            let itemSelect = document.createElement("OPTION");
-
-            itemSelect.selected = false;
-            itemSelect.value = idReceita[i];
-            itemSelect.text = nomeReceita[i]; 
-
-            if(idReceita[i] == receita){
-              itemSelect.selected = true;
-            }
-
-            $select[0].appendChild(itemSelect);
-        }
-
-      }
-
-
-    })()
-  </script>  #}
 {% endblock%} 

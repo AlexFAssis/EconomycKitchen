@@ -5,19 +5,8 @@
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" id="main">  
       <div class="cadastro">
         <h3>Editar Receita</h3>
-                          <h3>Window size is <span class="window-size"></span></h3>
-          <p>Knowing this number you can make decisions based in breakpoints of window.</p>
-          <hr>
-          <h3>Screen size is <span class="screen-size"></span></h3>
-          <p>Here you have an idea of device screen size. </p>
         <br>
-        <form action="/receita/editar/{{ receita._id }}" method="POST" enctype="multipart/form-data" id="formPost">
-          {# {% include "_partials/flash.njk" %} #}
-          {# <input type="hidden" name="_id"> #}
-          {# <div class="row col-md-6 col-lg-6" id="error">
-            {% include "_partials/flash.njk" %}
-          </div>  #}
-          
+        <form action="/receita/editar/{{ receita._id }}" method="POST" enctype="multipart/form-data" id="formPost">          
           <div class="row">
             <div class="col-md-8 col-lg-6">
               <img src="/files/{{receita.imgReceita}}" class="card-img-top" id="imgReceita" alt="...">
@@ -46,12 +35,6 @@
           <div>
             <a class="btn btn-primary col-xl-2 col-lg-3 col-md-4" href="#" role="button" id="btnAdicionar">Adicionar Ingrediente</a>
           </div>
-    {# 
-          <div class="row mt-2" id="error" style="display:none">
-            <div class="col-md-6 col-lg-6">
-              <div class="alert alert-danger">Informe ingredientes para a receita</div>
-            </div>
-          </div> #}
 
           <div id="itens">
             {% for itemReceita in itensReceita %}
@@ -132,8 +115,7 @@
                 <input type="number" name="valorMedioPorcao"  step="0.01" class="form-control" id="valorMedioPorcao" value="{{ valorMedioPorcao }}" readOnly>
               </div>
             </div>
-          {# </div> #}
-          {# <div class="row"> #}
+
             <div class="col-xl-3 col-lg-3 col-md-3" id="dtVlMedioEdit">
               <div class="form-group">
                 <label for="valorMedio">Receita</label>
@@ -168,9 +150,6 @@
             <div class="alert alert-danger">É necessário adicionar um item para realizar a gravação</div>
           </div> 
 
-          {# <button type="submit" class="btn btn-primary col-xl-1 col-lg-2 col-md-4" id="btnGravar" disabled>Confirmar</button>
-          <a class="btn btn-primary col-xl-1 col-lg-2 col-md-4 btnVoltar" href="/receita/listar" role="button">Voltar</a> #}
-          
           <button type="submit" class="btn btn-primary col-xl-2 col-lg-3 col-md-4 mt-2" id="btnGravar" disabled>Confirmar</button>
 
           <a class="btn btn-primary col-xl-2 col-lg-3 col-md-4 btnVoltar mt-2" href="/receita/listar" role="button">Voltar</a>
@@ -196,8 +175,6 @@
             <option value="Xicara" class="qtdeInsumo">Xícara(s)</option>
           </select>
 
-
-          {# tirar????? #}
           <select class="hidden" id="receitasItem">
             {% for IdReceitaItens in vetIdReceitaItens %}
               <option value="{{IdReceitaItens}}" ></option>
@@ -225,335 +202,5 @@
 
   <script src="/assets/js/functions/funcoesReceita.js"></script>
 
-  {# <script>
-    (function(){
-      'use strict';
-      
-      //var $dtCompra = document.getElementById('dtCompra');
-      var $btn = document.getElementById('btnAdicionar');
-      var $bntConfirmar = document.getElementsByClassName('btnExcluir btn btn-danger');
-      var receitaImg = document.getElementById("imgReceita");
-      var img = document.querySelector("label[for=imgReceita] img");
-
-      receitaImg.onchange = function (e) {
-        img.classList.add("preview")
-        img.src = URL.createObjectURL(e.target.files[0]);
-      }
-
-      carregaMedidas()
-      carregaInsumos() 
-      carregaCategoria() 
-
-      $btn.addEventListener('click', adicionaIngrediente);
-
-      window.addEventListener("load", function(event) {
-        console.log("Todos os recursos terminaram o carregamento!");
-
-        adicionaEventos()
-        ocultaInsumos()
-        function adicionaEventos(){
-          var $btn = document.getElementsByClassName('btnExcluir btn btn-danger');
-          for(let i = 0; i < $btn.length; i++){
-            $btn[i].addEventListener('click',function(e){
-              somaItens()
-              deletarItem(e.target);
-            });
-          }
-        }
-      });
-
-      for(let i = 0; i < $bntConfirmar.length; i++){
-          $bntConfirmar[i].addEventListener('click',function(e){
-            deletarItem(e.target);
-          });
-      } 
-  
-      function deletarItem(btn){
-        var elementoPai = btn.parentNode
-        if (elementoPai.parentNode) {
-          elementoPai.parentNode.removeChild(elementoPai);
-        }  
-      }
-
-      //Duplicado
-      function adicionaIngrediente(){
-        let $divPrincipal = document.getElementById('itens');
-        let div = document.createElement("DIV")
-        div.setAttribute('class', 'row')
-        $divPrincipal.appendChild(div);
-
-        campoQtde()
-        campoMedida()
-        campoInsumo()
-        botaoExcluir()
-        adicionaEventos()
-
-        function deletarItem(btn){
-          var elementoPai = btn.parentNode
-          if (elementoPai.parentNode) {
-            elementoPai.parentNode.removeChild(elementoPai);
-          }  
-        } 
-
-        function campoQtde(){
-          //Adiciona Campo Quantidade
-          let div1 = document.createElement("DIV")
-          div1.setAttribute("class", "col-md-2 col-xs-2")
-          div.appendChild(div1);
-
-          let quantidade = document.createElement("INPUT");
-          quantidade.setAttribute("type", "number");
-          quantidade.setAttribute("step", "0.01");
-          quantidade.setAttribute("name", "qtdeInsumo");
-          quantidade.setAttribute("value", "0");
-          quantidade.setAttribute("class", "qtde form-control");
-          div1.appendChild(quantidade);
-
-          let labelqtde = document.createElement("LABEL");
-          let txtQtde = document.createTextNode("Quantidade");
-          labelqtde.setAttribute("for", "quantidade");
-          labelqtde.appendChild(txtQtde);
-
-          div1.insertBefore(labelqtde, quantidade);
-        }
-
-        function campoInsumo(){
-          //Adiciona Select Campo Insumo
-          let div2 = document.createElement("DIV")
-          div2.setAttribute("class", "col-md-3 col-xs-3")
-          div.appendChild(div2);
-
-          let select = document.createElement("SELECT");
-          select.setAttribute("name", "insumo");
-          select.setAttribute("class", "form-control");
-          div2.appendChild(select);
-
-          let labelSelect = document.createElement("LABEL");
-          let txtInsumo = document.createTextNode("Insumo");
-          labelSelect.setAttribute("for", "insumo");
-          labelSelect.appendChild(txtInsumo);
-
-          div2.insertBefore(labelSelect, select);
-
-          let final = qtdeInsumos()
-          for (let i=0; i < final; i++){
-            //Adiciona Itens Campo Insumo
-            let itemSelect = document.createElement("OPTION");
-            //itemSelect.setAttribute("id", i);
-            itemSelect.value = carregaItens(i).value;
-            itemSelect.text = carregaItens(i).text;
-            select.appendChild(itemSelect);
-          }
-        }
-
-        function campoMedida(){
-          //Adiciona Campo Marca
-          let div3 = document.createElement("DIV")
-          div3.setAttribute("class", "col-md-2 col-xs-2")
-          div.appendChild(div3);
-
-          let select = document.createElement("SELECT");
-          select.setAttribute("name", "medida");
-          select.setAttribute("class", "form-control");
-          div3.appendChild(select);
-
-          let labelSelectQtde = document.createElement("LABEL");
-          let txtQtdeInsumo = document.createTextNode("Medida");
-          labelSelectQtde.setAttribute("for", "medida");
-          labelSelectQtde.appendChild(txtQtdeInsumo);
-
-          div3.insertBefore(labelSelectQtde, select);
-
-          //Unico
-          let final = qtdeitemMedida()
-          for (let i=0; i < final; i++){
-            //Adiciona Itens Campo Insumo
-            let itemSelect = document.createElement("OPTION");
-            //itemSelect.setAttribute("id", i);
-            itemSelect.value = carregaItensMedida(i).value;
-            itemSelect.text = carregaItensMedida(i).text;
-            select.appendChild(itemSelect);
-          }
-        }
-
-        function botaoExcluir(){
-          let div4 = document.createElement("DIV")
-          div4.setAttribute("class", "col-md-2 col-xs-2")
-          div.appendChild(div4);
-          //Se for button gera submit
-          let btnExcluir = document.createElement("INPUT");
-          btnExcluir.setAttribute("type", "button");
-          btnExcluir.setAttribute("name", "btnExcluir");
-          btnExcluir.setAttribute("value", "Excluir Item");
-          btnExcluir.setAttribute("class", "btnExcluir btn btn-danger mt-4");
-          div4.appendChild(btnExcluir);
-        }
-
-        function adicionaEventos(){
-          var $valores = div.getElementsByClassName('vlr');
-          var $qtdes = div.getElementsByClassName('qtde');
-
-          var $btn = document.getElementsByClassName('btnExcluir btn btn-danger');
-          for(let i = 0; i < $btn.length; i++){
-            $btn[i].addEventListener('click',function(e){
-              deletarItem(e.target);
-            });
-          }
-        }
-    
-      }
-
-      function ocultaInsumos(){
-        let $qtde = document.getElementsByClassName("hidden").length
-        for(let i=0; i < $qtde; i++){
-          document.getElementsByClassName("hidden")[i].style.display = "none";
-        }
-      }
-
-      function qtdeInsumos(){
-        let $qtdeInsumos = document.getElementsByClassName("itemInsumo").length;
-
-        return $qtdeInsumos;
-      }
-
-      function qtdeitemMedida(){
-        let $qtdeItensMedida = document.getElementsByClassName("hidden")[1].length
-
-        return $qtdeItensMedida;
-      }
-
-      function carregaItens(indice){
-        let $insumos = document.getElementsByClassName("itemInsumo")[indice];
-
-        return $insumos;
-      }
-
-      function carregaItensMedida(indice){
-        let $medidas = document.getElementsByClassName("qtdeInsumo")[indice];
-
-        return $medidas;
-      }
-
-      function carregaMedidas(){
-        let $divMedidasHidden = document.getElementById('medidasHidden')
-        let $divMedidas = document.getElementsByClassName('medidas')
-        let itensReceitaString = '{{itStr}}'
-
-        let regex = new RegExp(/(?:medida:)([\w?\s]*)(?:,)/g)
-        //Ver a possibilidade de tirar os dois de uma só vez
-        let removeEspaco = itensReceitaString.replace(/&quot/g, '')
-        let removePV = removeEspaco.replace(/;/g, '')
-
-        let resultado = [];
-        let medida = ''
-        while(medida = regex.exec(removePV)){
-            resultado.push(medida[1])
-        }
-
-        for(let i=0; i < $divMedidas.length; i++){
-          for(let j = 0; j < $divMedidasHidden.length; j++){
-            let itemSelect = document.createElement("OPTION");
-
-            itemSelect.selected = false;
-            itemSelect.value = resultado[j];
-            itemSelect.text = $divMedidasHidden[j].text; 
-
-            if(resultado[i] == $divMedidasHidden[j].value){
-              itemSelect.selected = true;
-              itemSelect.value = resultado[i];
-              itemSelect.text = $divMedidasHidden[i].text;
-            }
-
-            $divMedidas[i].appendChild(itemSelect);
-          }
-        }
-      }
-
-      function carregaCategoria(){
-        let categorias = '{{categoriasReceita}}'
-        let categoriaSemEspaco = categorias.replace(/&#39/g, '')
-        let regex = new RegExp(/(?:_id:\s)(\w*)(?:,\s)/g)
-        let regexNome = new RegExp(/(?:;)(\w*)(?:;,)/g)
-        let $select = document.getElementById('selectCategorias')
-        let categ = '{{receita.categoriaReceita}}'
-
-        let valor = [];
-        let nome = [];
-        let medidaId = ''
-        let medidaNome = ''
-
-        while(medidaId = regex.exec(categorias)){
-          valor.push(medidaId[1])
-        }
-
-        while(medidaNome = regexNome.exec(categoriaSemEspaco)){
-          nome.push(medidaNome[1])
-        }
-
-        for(let i=0; i < valor.length; i++){
-          let itemSelect = document.createElement("OPTION");
-          itemSelect.selected = false;
-          itemSelect.value = valor[i];
-          itemSelect.text = nome[i];
-
-          if(valor[i] == categ){
-            itemSelect.selected = true;
-          }
-
-          $select.appendChild(itemSelect);
-        }
-      }
-
-      function carregaInsumos(){
-        let $select = document.getElementsByClassName('selectInsumos')
-        let insumos = '{{insumos}}'
-        let insumosRemoveEspaco = insumos.replace(/&#39/g, '')
-        let regexIdInsumo = new RegExp(/(?:_id:\s)(\w*)(?:,\s)/g)
-        let regexNomeInsumo = new RegExp(/(?:;)(\w*\W*\w*\s*\w*\s*\w*\W*)(?:;,)/g)
-        //substituir por esse
-        //(?:;)(.{0,50})(?:;,)
-
-        let itensReceitaString = '{{itStr}}'
-        let itensRemoveEspaco = itensReceitaString.replace(/&quot/g, '')
-        let itensRemoveVirgula = itensRemoveEspaco.replace(/;/g, '')
-        let regexIdItem = new RegExp(/(?:insumo:)(\w*)(?:,)/g)
-  
-        let idInsumo = [];
-        let nomeInsumo = [];
-        let idItemReceita = [];
-        let insumoId = ''
-        let insumoNome = ''
-        let itemIdReceita = ''
-
-        while(insumoId = regexIdInsumo.exec(insumosRemoveEspaco)){
-          idInsumo.push(insumoId[1])
-        }
-
-        while(insumoNome = regexNomeInsumo.exec(insumosRemoveEspaco)){
-          nomeInsumo.push(insumoNome[1])
-        } 
-
-        while(itemIdReceita = regexIdItem.exec(itensRemoveVirgula)){
-          idItemReceita.push(itemIdReceita[1])
-        }
-
-        for(let i=0; i < $select.length; i++){
-          for(let j = 0; j < idInsumo.length; j++){
-            let itemSelect = document.createElement("OPTION");
-
-            itemSelect.selected = false;
-            itemSelect.value = idInsumo[j];
-            itemSelect.text = nomeInsumo[j]; 
-
-            if(idItemReceita[i] == idInsumo[j]){
-              itemSelect.selected = true;
-            }
-
-            $select[i].appendChild(itemSelect);
-          }
-        } 
-      }
-    })()
-  </script>     #}
 {% endblock%} 
     

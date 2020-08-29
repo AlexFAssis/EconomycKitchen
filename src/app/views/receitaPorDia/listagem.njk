@@ -15,9 +15,6 @@
                                 <label for="dtFinal">Data Final<label><br>
                                 <input type="text" class="flatpickr col-md-12 col-sm-12" value="{{ dataAtual }}" id="dtFinal" name="dtFinal" placeholder="Escolha uma data"> 
                             </div>
-                            {# <div class="col-md-3 col-sm-4 d-flex align-items-center">
-                                <button type="submit" class="btn btn-danger btn-lg col-md-6 col-sm-12" >Filtrar</button>
-                            </div> #}
                             <div class="col-md-2 col-lg-2 d-flex align-items-center">
                                 <button type="submit" class="btn col-sm-5 col-md-12 btn-danger" id="btnFiltroData">Filtrar</button>
                             </div>
@@ -34,14 +31,11 @@
                 <h3 id="TituloListagem">Listagem Receitas Por Dia</h3>
                 <br>
 
-                {# <table id="example" class="table table-striped" style="width:100%"> #}
                 <table class="table table-striped" id="dataTable" width="100%">
                     <thead class="">
                     <tr>
-                        {# <th scope="col">Receita</th> #}
                         <th scope="col" style="display:none">Id</th>
                         <th scope="col">Data</th>
-                        {# <th scope="col"></th> #}
                         <th id="colEdit"></th>
                         <th id="colDelete"></th>
                     </tr>
@@ -49,13 +43,8 @@
                     <tbody>
                     {% for receitaPorDia in receitasPorDia%}
                         <tr id="{{ receitaPorDia._id }}">
-                        {# <th scope="row">{{receitaPorDia.receita.nome}}</th> #}
-                        {# <td class="dataFormatada">{{receitaPorDia.data}}</td> #}
                         <th class="classId"  style="display:none">{{ receitaPorDia._id }}</th>
-                        {# <th data-sort='YYYYMMDD' scope="row" class="tirarNegrito classDesc">{{ receitaPorDia.data | date("DD/MM/YYYY") }}</th> #}
                         <th scope="row" class="tirarNegrito classDesc">{{ receitaPorDia.data | date("DD/MM/YYYY") }}</th>
-
-                        {# <td></td> #}
                         <td>
                             <a href="editar/{{receitaPorDia._id}}">
                                 <button class="btn btn-primary">
@@ -67,12 +56,6 @@
                             <button type="button" class="btn btn-danger btnDelete" data-toggle="modal" data-target="#modalDelete" onClick="idLinha(this.parentNode.parentNode.id, 'receita por dia')">
                                 <i class="fas fa-trash-alt"></i>
                             </button>           
-                            {# <form action="/receitaPorDia/deletar/{{receitaPorDia._id}}" method="POST"> 
-                                <input type="hidden" name="_id" value="{{receitaPorDia._id}}">
-                                <button type="submit" class="btn btn-danger">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>    #}
                         </td>
                         </tr>
                     {% else %}
@@ -110,5 +93,6 @@
 
     <script src="/assets/js/functions/funcoesReceitaPorDia.js"></script>
     <script src="/assets/js/functions/funcoesPopup.js"></script>
+    <script src="/assets/js/sb-admin-datatables.min_date.js" type="text/javascript"></script> 
 
 {% endblock%}

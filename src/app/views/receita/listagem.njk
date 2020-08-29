@@ -3,7 +3,6 @@
 {% block body %}
     <p id="totalPaginasNavegacao" style="display:none">{{receitas.pages}} </p>
     <p id="paginaAtual" style="display:none">{{receitas.page }} </p>
-    {# <p id="teste" style="background-color:red; float:right;"> </p> #}
 
     <div class="row"> 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" id="main">  
@@ -18,9 +17,6 @@
 
                 <h3 id="TituloListagem">Listagem Receitas</h3>
                 <br>
-
-                {# <div class="row  row-cols-md-3 row-cols-xl-3 row-cols-sm-2">  #}
-
                     {{ contador }}
                         {% set contador = 0 %}
 
@@ -30,16 +26,13 @@
                             <div class="row ml-1">
                         {% endif %}
 
-                        {# <div class="col col-sm-	col-md-	col-lg-	col-xl mb-4"> #}
                         <div class="col-sm-8 col-md-6 col-lg-6 col-xl-3 mb-3">
-                        {# <div class="col"> #}
                             <div class="card " id="{{receita._id}}">
                                 <img src="/files/{{receita.imgReceita}}" class="card-img-top receita" alt="..." >
                                 <div class="card-body receita">
                                     <h5 class="classId"  style="display:none">{{receita._id}}</h5>
                                     <h5 class="card-title classDesc">{{receita.nome}}</h5>
                                     <form action="/receita/deletar/{{receita._id}}" method="POST" class="formReceita"> 
-                                        {# <a href="editar/{{receita._id}}"><button class="btn btn-success mt-1 mr-4">Editar Receita</button></a> #}
                                         <a href="editar/{{receita._id}}">
                                             <input type="button" class="btn btn-primary mt-1 mr-2" value="Editar">
                                         </a>
@@ -71,7 +64,6 @@
                     {% if contador != 4 %}
                         </div>
                     {% endif %}
-                {# </div> #}
 
                 <div class="row ml-1 mt-2 mb-2"> 
                 </div> 
@@ -134,5 +126,6 @@
 
     <script src="/assets/js/functions/funcoesPopup.js"></script>  
     <script src="/assets/js/functions/funcoesReceita.js"></script>
+    <script src="/assets/js/sb-admin-datatables.min.js" type="text/javascript"></script>  #}
 {% endblock%}
 

@@ -8,6 +8,7 @@
 $(document).ready(function () {
   $('#dataTable').DataTable({
     "order": [[1, "desc"]], //or asc 
+    "columnDefs": [{ "targets": 1, "type": "date-eu" }],
   });
 });
 

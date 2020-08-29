@@ -15,7 +15,6 @@
                 <h3 id="TituloListagem">Listagem de Usuários</h3>
                 <br>
 
-                {# <table id="example" class="table table-striped" style="width:100%"> #}
                 <table class="table table-striped" id="dataTable" width="100%">
                     <thead class="">
                     <tr>
@@ -45,12 +44,6 @@
                             <button type="button" class="btn btn-danger btnDelete" data-toggle="modal" data-target="#modalDelete" onClick="idLinha(this.parentNode.parentNode.id, 'usuário')">
                                 <i class="fas fa-trash-alt"></i>
                             </button>           
-                            {# <form action="/usuario/deletar/{{usuario._id}}" method="POST"> 
-                                <input type="hidden" name="_id" value="{{usuario._id}}">
-                                <button type="submit" class="btn btn-danger">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>    #}
                         </td>
                         </tr>
                     {% else %}
@@ -86,5 +79,5 @@
         </main>
     </div> 
     <script src="/assets/js/functions/funcoesPopup.js"></script>
-
+    <script src="/assets/js/sb-admin-datatables.min.js" type="text/javascript"></script> 
 {% endblock%}

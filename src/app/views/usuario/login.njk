@@ -1,11 +1,8 @@
 {% include "_partials/head.njk" %}
-{# {% include "_partials/footer.njk" %} #}
 
-{# <body class="bg-dark"> #}
 <body class="bgLogin">
   <div class="container">
       <div class="card mx-auto login" style="bottom: 100px">
-          {# <div class="card-header">Login</div> #}
           <div class="card-body">
               <form  action="/usuario/validacao" method="POST">
                   {% include "_partials/flash.njk" %}

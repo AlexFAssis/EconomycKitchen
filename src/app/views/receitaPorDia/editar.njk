@@ -14,8 +14,6 @@
           <p>Here you have an idea of device screen size. </p>
 
         <form action="/receitaPorDia/editar/{{ receitaPorDia._id }}" method="POST">
-          {# {% include "_partials/flash.njk" %} #}
-          {# <input type="hidden" name="_id"> #}
           <div class="row">
             <div class="col-sm-4 col-md-3 col-lg-3 col-xl-2">
               <div class="form-group">
@@ -83,23 +81,6 @@
             {% endfor %}
           </select>
 
-          {# <select  class="hidden">
-            {% for receita in receitas %}
-              <option value="{{ receita._id }}" class="receitaItemHidden"> {{ receita.nome }}</option>
-            {% endfor %}
-          </select> #}
-
-          {# {% for receita in receitas %}
-              <input type="text" class="hidden receitaRendimento" value="{{ receita.qtdeRendimento }}">
-          {% endfor %} #}
-
-          {# <select  class="hidden" id="receitasItem">
-            {% for IdReceitaPorDiaItem in vetIdReceitaPorDiaItens %}
-              <option value="{{IdReceitaPorDiaItem.id}}" >{{IdReceitaPorDiaItem.qtdeRendimento}}</option>
-            {% endfor %}
-          </select> #}
-
-
           <input type="number" value="{{ controle }}" id="controle" style="display:none;"> 
 
         </form>
@@ -108,61 +89,5 @@
   </div>   
 
   <script src="/assets/js/functions/funcoesReceitaPorDia.js"></script>
-    {# (function(){ #}
-      {# 'use strict'; #}
-      {# window.addEventListener("load", function(event) {
-        ocultaReceitas()
-        carregaReceitas()
-      })  #}
-      
-      {# flatpickr('.flatpickr', {
-        dateFormat: 'd/m/Y',
-      }) #}
-
-      {# function ocultaReceitas(){
-        let $qtde = document.getElementsByClassName("hidden").length
-        for(let i=0; i < $qtde; i++){
-          document.getElementsByClassName("hidden")[i].style.display = "none";
-        }
-      }
-
-      function carregaReceitas(){
-        let $select = document.getElementsByClassName('selectReceitas')
-        let receitasString = '{{receitasStr}}'
-        let receitasSemEspaco = receitasString.replace(/&quot/g, '')
-        let receitasSemPV = receitasSemEspaco.replace(/;/g, '')
-        let regexId = new RegExp(/(:?id:)(\w*)(:?,nome)/g)
-        let regexNome = new RegExp(/(:?nome:)(.*)(:?,modo)/g)
-        
-        let receita = '{{receitaPorDia.receita}}'
-
-        let nomeReceita = [];
-        let idReceita = [];
-        let receitaId = ''
-        let receitaNome = ''
-        
-        while(receitaId = regexId.exec(receitasSemPV)){
-          idReceita.push(receitaId[2])
-        }
-
-        while(receitaNome = regexNome.exec(receitasSemPV)){
-          nomeReceita.push(receitaNome[2])
-        }
-
-        for(let i=0; i< idReceita.length; i++){
-            let itemSelect = document.createElement("OPTION");
-
-            itemSelect.selected = false;
-            itemSelect.value = idReceita[i];
-            itemSelect.text = nomeReceita[i]; 
-
-            if(idReceita[i] == receita){
-              itemSelect.selected = true;
-            }
-
-            $select[0].appendChild(itemSelect);
-        }
-      } #}
-    {# })() #}
-  {# </script> #}
+   
 {% endblock%} 

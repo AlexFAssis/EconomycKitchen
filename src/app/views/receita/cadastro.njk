@@ -7,12 +7,6 @@
         <h3>Cadastro de Receita</h3>
         <br>
         <form action="/receita" method="POST" enctype="multipart/form-data" id="formPost" name="myForm">
-          {# <input type="hidden" name="_id"> #}
-
-          {# <div class="row col-md-6 col-lg-6" id="error">
-            {% include "_partials/flash.njk" %}
-          </div>  #}
-
           <div class="row">
             <div class="col-md-8 col-lg-6">
               <div class="form-group">
@@ -35,13 +29,6 @@
           <div>
             <a class="btn btn-primary col-xl-2 col-lg-3 col-md-4" href="#" role="button" id="btnAdicionar">Adicionar Ingrediente</a>
           </div>
-          {# <br> #}
-
-          {# <div class="row mt-2" id="error" style="display:none">
-            <div class="col-md-6 col-lg-6">
-              <div class="alert alert-danger">Informe ingredientes para a receita</div>
-            </div>
-          </div> #}
 
           <div id="itens"> 
           </div> 
@@ -97,9 +84,7 @@
             <div class="alert alert-danger">É necessário adicionar um item para realizar a gravação</div>
           </div> 
 
-          {# <button type="submit" class="btn btn-primary col-xl-1 col-lg-2 col-md-4" id="btnGravar" disabled>Criar</button> #}
           <button type="submit" class="btn btn-primary col-xl-2 col-lg-3 col-md-4" id="btnGravar" disabled>Criar</button>
-          {# <button type="button" class="btn btn-primary col-xl-1 col-lg-2 col-md-4" id="btnValidacao">Criar</button> #}
 
           <select class="hidden">
             {% for insumo in insumos %}

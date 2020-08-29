@@ -4,21 +4,12 @@
   <div class="row"> 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" id="main">  
       <div class="listagem">
-        {# <a href="/imposto/cadastro">
-          <button class="btn btn-warning">
-            <i class="fas fa-plus-circle"></i>
-          </button>
-        </a> #}
-
         <h3 id="TituloListagem">Estoque</h3>
-
         <table class="table table-striped" id="dataTable" width="100%">
           <thead class="">
             <tr>
               <th scope="col">Receita</th>
               <th scope="col">Quantidade</th>
-              {# <th id="colEdit"></th>
-              <th id="colDelete"></th> #}
             </tr>
           </thead>
           <tbody>
@@ -26,22 +17,6 @@
               <tr>
                   <th scope="row" class="tirarNegrito">{{estoqueItem.receita.nome}}</th>
                   <td class="">{{estoqueItem.quantidade}}</td>
-                  {# <td class="dataFormatada">{{imposto.dataPgto}}</td> #}
-                  {# <td>
-                      <a href="editar/{{imposto._id}}">
-                          <button class="btn btn-primary">
-                            <i class="fas fa-edit"></i>
-                          </button>
-                      </a>
-                  </td>
-                  <td>             
-                    <form action="/imposto/deletar/{{imposto._id}}" method="POST"> 
-                        <input type="hidden" name="_id" value="{{imposto._id}}">
-                        <button type="submit" class="btn btn-danger">
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </form> 
-                  </td>   #}
               </tr>
             {% else %}
               <th scope="row"></th>
@@ -53,4 +28,6 @@
       </div>
     </main>
   </div>  
+
+  <script src="/assets/js/sb-admin-datatables.min.js" type="text/javascript"></script> 
 {% endblock%}

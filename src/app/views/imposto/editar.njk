@@ -9,7 +9,6 @@
         
         <form action="/imposto/editar/{{ imposto._id }}" method="POST">
           {% include "_partials/flash.njk" %} 
-          {# <input type="hidden" name="_id"> #}
           <div class="row">
             <div class="col-md-4 col-lg-4">
               <div class="form-group">
@@ -41,7 +40,6 @@
                     <span class="input-group-text" id="input1">R$</span>
                   </div>
                   <input type="text" id="vl" class="form-control" name="valor" value='{{imposto.valor}}' data-thousands="." data-decimal=","  min="0.01" required/>
-                  {# <input type="number" name="valor" value='{{imposto.valor}}' step="0.01" id="vl" class="form-control" min="0.01" required> #}
                 </div>
               </div>
             </div>
@@ -91,16 +89,6 @@
 
     $valor.addEventListener('blur', calculaTotal)
     $qtde.addEventListener('blur', calculaTotal)
-{# 
-    function calculaTotal(){
-      debugger
-      let $valorTotal = document.getElementById('vlTotal')
-      let valorTotal = 0;
-
-      valorTotal = $qtde.value * $valor.value
-
-      return $valorTotal.value = valorTotal.toFixed(2)
-    } #}
 
     function calculaTotal() {
       let $valorTotal = document.getElementById('vlTotal')

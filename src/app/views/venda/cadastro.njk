@@ -7,10 +7,7 @@
           <h3>Registro de Venda</h3>
           <br>
           <form action="/venda" method="POST">
-            {# {% include "_partials/flash.njk" %} #}
-            {# <input type="hidden" name="_id"> #}
             <div class="row">
-              {# <div class="col-xl-4 col-lg-6 col-md-8"> #}
               <div class="col-md-4 col-lg-3 col-xl-2">
                 <div class="form-group">
                   <label for="data">Data</label>
@@ -47,7 +44,6 @@
               </div>
             </div>
             <div class="row">
-              {# <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4"> #}
               <div class="col-md-4 col-lg-3 col-xl-2">
                 <div class="form-group">
                   <label for="valor">Valor</label>
@@ -59,11 +55,9 @@
                   </div>
                 </div>
               </div>
-              {# <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4"> #}
               <div class="col-md-4 col-lg-3 col-xl-2">
                 <div class="form-group">
                   <label for="desconto">Desconto</label>
-                  {# <input type="number" name="desconto" placeholder="Desconto" step="0.01" value="0" id="desconto"class="form-control"> #}
                   <input type="text" class="form-control" name="desconto" id="desconto" data-thousands="." data-decimal="," />
                 </div>
               </div>
@@ -75,45 +69,14 @@
               </div>
             </div>
 
-
-            {# <label for="valor">Valor</label>
-            <input type="number" name="valorTotal" placeholder="" step="0.01" id="vlVenda" required>
-            <br><br> #}
-
-            {# <label for="data">Data</label>
-            <input type="text" name="data" id="dtVenda" class="flatpickr" placeholder="Escolha uma data" required>
-            <br><br> #}
-
-            {# <label for="metodoPagamento">Método de Pagamento</label>
-            <select name="metodoPagamento" name="metodoPagamento" id="mtdoPagto">
-              <option value="Dinheiro" name="metodoPagamento">Dinheiro</option>
-              <option value="Credito" name="metodoPagamento">Cartão de Crédito</option>
-              <option value="Debito" name="metodoPagamento">Cartão de Débito</option>
-            </select>
-            <br><br>
-
-            <label for="qtdeParcelas" >Quantidade de Parcelas</label>
-            <input type="number" name="qtdeParcelas" id="qtdeParcelas">
-            <br><br> #}
-
-            {# <label for="desconto">Desconto</label>
-            <input type="number" name="desconto" placeholder="Desconto" step="0.01" value="0">
-            <br><br> #}
-
-            {# <label for="usuario">Usuário</label>
-            <select name="usuario">
-              {% for usuario in usuarios %}
-                <option value="{{ usuario._id }}" name="usuario">{{ usuario.nome }}</option>
-              {% endfor %} 
-            </select>  #}
             <div class="row" id="error">
               <div class="col-xl-4 col-lg-6 col-md-4 col-sm-8">
                 {% include "_partials/flash.njk" %}
               </div>
             </div> 
-            {# <div> #}
-              <a class="btn btn-primary col-md-4 col-lg-3 col-xl-2 mt-2" href="#" role="button" id="btnAdicionar">Adicionar Item</a>
-            {# </div> #}
+           
+            <a class="btn btn-primary col-md-4 col-lg-3 col-xl-2 mt-2" href="#" role="button" id="btnAdicionar">Adicionar Item</a>
+          
             <br>
 
             <div id="itens"> 
@@ -139,225 +102,5 @@
     </div> 
 
   <script src="/assets/js/functions/funcoesVenda.js"></script>
-
-  <script>
-    (function(){
-      {# 'use strict';
-      var $mtdoPagto = document.getElementById('mtdoPagto')
-      var $btn = document.getElementById('btnAdicionar'); #}
-
-      {# $btn.addEventListener('click', adicionaItemCompra); #}
-
-      {# window.addEventListener("load", function(event) {
-        console.log("Todos os recursos terminaram o carregamento!");
-        var $qtdeParcelas = document.getElementById('qtdeParcelas').disabled = true;
-        ocultaProdutos();
-      }); #}
-{# 
-      flatpickr('.flatpickr', {
-        dateFormat: 'd/m/Y',
-      }) #}
-
-      {# $mtdoPagto.addEventListener('change', function(){
-        verificaParcelas($mtdoPagto.value)
-      }, false) #}
-
-    })()
-
-    {# function verificaParcelas(valor){
-      var $qtdeParcelas = document.getElementById('qtdeParcelas')
-      $qtdeParcelas.disabled = false;
-      if(valor != 'Credito'){
-        $qtdeParcelas.disabled = true;
-      }
-    } #}
-
-    {# function adicionaItemCompra(){
-      var $divPrincipal = document.getElementById('itens');
-      let div = document.createElement("DIV")
-      div.setAttribute('class', 'row')
-      $divPrincipal.appendChild(div);
-
-      campoProduto()
-      campoQtde()
-      campoValor()
-      botaoExcluir()
-      adicionaEventos()
-      somaItens()
-
-      function deletarItem(btn){
-        var elementoPai = btn.parentNode
-        if (elementoPai.parentNode) {
-          elementoPai.parentNode.removeChild(elementoPai);
-        }  
-      }
-
-      function campoQtde(){
-        //Adiciona Campo Quantidade
-        let div1 = document.createElement("DIV")
-        div1.setAttribute("class", "col-md-2 col-xs-2")
-        div.appendChild(div1);
-
-        let quantidade = document.createElement("INPUT");
-        quantidade.setAttribute("type", "number");
-        quantidade.setAttribute("step", "0.01");
-        quantidade.setAttribute("name", "quantidade");
-        quantidade.setAttribute("value", "1");
-        quantidade.setAttribute("class", "qtde form-control");
-        div1.appendChild(quantidade);
-
-        let labelqtde = document.createElement("LABEL");
-        let txtQtde = document.createTextNode("Quantidade");
-        labelqtde.setAttribute("for", "quantidade");
-        labelqtde.appendChild(txtQtde);
-
-        div1.insertBefore(labelqtde, quantidade);
-      } 
-
-      function campoProduto(){
-        //Adiciona Select Campo Produto
-        let div2 = document.createElement("DIV")
-        div2.setAttribute("class", "col-md-3 col-xs-3")
-        div.appendChild(div2);
-        let select = document.createElement("SELECT");
-        select.setAttribute("name", "produto");
-        select.setAttribute("class", "Prod form-control");
-        div2.appendChild(select);
-
-        let labelSelect = document.createElement("LABEL");
-        let txtProduto = document.createTextNode("Produto");
-        labelSelect.setAttribute("for", "produto");
-        labelSelect.appendChild(txtProduto);
-
-        div2.insertBefore(labelSelect, select);
-
-        let final = qtdeProdutos()
-        for (let i=0; i < final; i++){
-          //Adiciona Itens Campo Insumo
-          let itemSelect = document.createElement("OPTION");
-          itemSelect.setAttribute("class", "prod");
-          itemSelect.setAttribute("name", "produto");
-          itemSelect.setAttribute("id", i);
-          itemSelect.value = carregaItens(i).value;
-          itemSelect.text = carregaItens(i).text;
-          select.appendChild(itemSelect);
-        }
-      }
-
-      function campoValor(){
-        let div3 = document.createElement("DIV")
-        div3.setAttribute("class", "col-md-2 col-xs-2")
-        div.appendChild(div3);
-
-        let valor = document.createElement("INPUT");
-        valor.setAttribute("type", "number");
-        valor.setAttribute("step", "0.01");
-        valor.setAttribute("name", "valor");
-        valor.readOnly = true;
-        valor.value = buscaValor(0); //1 = new
-        valor.setAttribute("class", "vl form-control");
-        div3.appendChild(valor);
-
-        let labelqtde = document.createElement("LABEL");
-        let txtQtde = document.createTextNode("Valor");
-        labelqtde.setAttribute("for", "valor");
-        labelqtde.appendChild(txtQtde);
-
-        div3.insertBefore(labelqtde, valor);
-      }
-
-      function botaoExcluir(){
-        let div4 = document.createElement("DIV")
-        div4.setAttribute("class", "col-md-2 col-xs-2")
-        div.appendChild(div4);
-        //Se for button gera submit
-        let btnExcluir = document.createElement("INPUT");
-        btnExcluir.setAttribute("type", "button");
-        btnExcluir.setAttribute("name", "btnExcluir");
-        btnExcluir.setAttribute("value", "Excluir Item");
-        btnExcluir.setAttribute("class", "btnExcluir btn btn-danger mt-4");
-        div4.appendChild(btnExcluir);
-      }
-
-      function adicionaEventos(){
-        let $campoValor = document.getElementsByClassName('vl');
-        let $produtos = document.getElementsByClassName('Prod');
-        let $qtde = document.getElementsByClassName('qtde');
-
-        for(let i = 0; i < $qtde.length; i++){
-          $qtde[i].addEventListener('blur',function(e){
-            somaItens()
-          }); 
-        } 
-
-        for(let i = 0; i < $produtos.length; i++){
-          $produtos[i].addEventListener('change',function(e){
-            $campoValor[i].value = buscaValor(e.target);
-            somaItens()
-          }); 
-        } 
-
-        let $btn = document.getElementsByClassName('btnExcluir btn btn-danger');
-        for(let i = 0; i < $btn.length; i++){
-          $btn[i].addEventListener('click',function(e){
-            deletarItem(e.target);
-            somaItens()
-          });
-        }
-
-      }
-    }  #}
-
-    {# function ocultaProdutos(){
-      let $qtde = document.getElementsByClassName("hidden").length
-      for(let i=0; i < $qtde; i++){
-        document.getElementsByClassName("hidden")[i].style.display = "none";
-      }
-    } #}
-
-    {# function qtdeProdutos(){
-      $qtdeProdutos = document.getElementsByClassName("itemVenda").length;
-
-      return $qtdeProdutos;
-    }  #}
-
-    {# function carregaItens(indice){
-      $produtos = document.getElementsByClassName("itemVenda")[indice];
-
-      return $produtos;
-    } #}
-
-    {# function buscaValor(indice){
-      let $produtos = document.getElementsByClassName('itemVenda')
-      let $valor = document.getElementsByClassName('precoProduto')
-
-      if(indice == 0){
-        for(let i=0; i < $produtos.length; i++){
-          if($produtos[indice].value == $valor[i].value){
-            $valor = $valor[0].text;
-          }
-        }
-      } else{
-        $valor = $valor[indice.selectedIndex].text;
-      } 
-
-      return $valor;
-    } #}
-
-    {# function somaItens(){
-      let $campoValor = document.getElementsByClassName('vl')
-      let $produtos = document.getElementsByClassName('Prod');
-      let $qtde = document.getElementsByClassName('qtde');
-      let $vlTotal = document.getElementById('vlVenda');
-      let vlTotal = 0
-
-      for(let i = 0; i< $campoValor.length; i++){
-        vlTotal +=  ($qtde[i]).value * parseFloat($campoValor[i].value)
-      }
-
-      $vlTotal.value = vlTotal.toFixed(2)
-    } #}
-
-   </script> 
 
 {% endblock%}

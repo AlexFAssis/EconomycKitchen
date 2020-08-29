@@ -7,7 +7,6 @@
         <h3>Editar Tipo de Imposto/Despesa</h3>
         <br>
         <form action="/tipoImposto/editar/{{ tipoImposto._id }}" method="POST">
-          {# <input type="hidden" name="_id"> #}
           <div class="row">
             <div class="col-md-8 col-lg-6">
               <div class="form-group">
@@ -18,13 +17,6 @@
             </div>
           </div>
 
-          {# <div class="row">
-            <div class="col-xl-4 col-lg-6 col-md-8 col-sm-8">
-              <div class="form-group">
-              {% include "_partials/flash.njk" %} 
-              </div>
-            </div>
-          </div>  #}
           <button type="submit" class="btn btn-primary col-xl-2 col-lg-3 col-md-4 mt-2">Confirmar</button>
           <a class="btn btn-primary btnVoltar col-xl-2 col-lg-3 col-md-4 mt-2" href="/tipoImposto/listar" role="button">Voltar</a>
         </form>

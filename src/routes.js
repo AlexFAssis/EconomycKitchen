@@ -148,7 +148,9 @@ routes.get("/app/dashboard", authMiddleware, controllers.DashboardController.lis
 routes.post('/app/dashboard', authMiddleware, controllers.DashboardController.indexFilter);
 // routes.get("/app/start", authMiddleware, controllers.DashboardController.start);
 
-routes.get("/", controllers.DashboardController.start);
+// routes.get("/", controllers.DashboardController.start);
+routes.get("/", guestMiddleware, controllers.DashboardController.start);
+// routes.get("/", authMiddleware, controllers.DashboardController.start);
 
 // routes.get("/app/dashboard", controllers.DashboardController.listarDashboard);
 // routes.post('/app/dashboard', controllers.DashboardController.indexFilter);

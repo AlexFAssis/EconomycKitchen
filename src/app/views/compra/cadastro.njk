@@ -8,8 +8,6 @@
           <br>
           
           <form action="/compra" method="POST">
-            {# {% include "_partials/flash.njk" %} #}
-            {# <input type="hidden" name="_id"> #}
             <div class="row">
               <div class="col-md-4 col-lg-3 col-xl-2">
                 <div class="form-group">
@@ -43,14 +41,10 @@
             </div>    
             <a class="btn btn-primary mb-2 col-xl-2 col-lg-3 col-md-4" href="#" role="button" id="btnAdicionar">Adicionar Item</a>
 
-          {# <div class="row" id="itens"> #}
             <div id="itens">
             </div>
-          {# </div> #}
 
-            {# <div class="form-group mt-2"> #}
-              <button type="submit" class="btn btn-primary col-xl-2 col-lg-3 col-md-4 mt-2">Criar</button>
-            {# </div> #}
+            <button type="submit" class="btn btn-primary col-xl-2 col-lg-3 col-md-4 mt-2">Criar</button>
 
             <select class="hidden">
               {% for insumo in insumos %}
@@ -58,244 +52,13 @@
               {% endfor %}
             </select>
 
-          
-            {# <label for="data">Data</label>
-            <br>
-            <input type="text" name="data" id="dtCompra"  class="flatpickr" placeholder="Escolha uma data" required> 
-            <br><br>
-
-            <label for="local">Local</label>
-            <input type="text" name="local" placeholder="Local" class="x" required>
-            <br><br>
-            
-            <label for="valor">Valor</label>
-            <input type="number" name="valorTotal" step="0.01" id="valor" required>
-            <br><br>
-
-            <div>
-              <a class="btn btn-primary" href="#" role="button" id="btnAdicionar">Adicionar Item de Compra</a>
-            </div>
-            <br>
-
-            <div id="itens" class="col-md-8 col-sm-1"> 
-            </div>  
-            
-            <button type="submit" class="btn btn-primary">Criar</button>
-
-            <select>
-              {% for insumo in insumos %}
-                <option value="{{ insumo._id }}" name="receita" class="itemInsumo"> {{ insumo.nome }}</option>
-              {% endfor %}
-            </select>
-            <br><br> #}
-
           </form>
         </div>
       </main>
   </div> 
 
-  {# <script> #}
   <script src="/assets/js/functions/funcoesCompra.js"></script>
 
-
-  {# (function(){
-    'use strict';
-    var $btn = document.getElementById('btnAdicionar');
-    
-    window.addEventListener("load", function(event) {
-      console.log("Todos os recursos terminaram o carregamento!");
-      ocultaInsumos();
-    });
-
-    $btn.addEventListener('click', adicionaItemCompra);
-
-    flatpickr('.flatpickr', {
-      dateFormat: 'd/m/Y',
-    })
-  })()
-
-  function adicionaItemCompra(){
-    var $divPrincipal = document.getElementById('itens');
-    let div = document.createElement("DIV")
-    div.setAttribute('class', 'row')
-    $divPrincipal.appendChild(div);
-      
-    campoQtde()
-    campoValor()
-    campoMarca()
-    campoInsumo()
-    botaoExcluir()
-    adicionaEventos()
-
-    function deletarItem(btn){
-        var elementoPaiBtn = btn.parentNode
-        var elementoPai = elementoPaiBtn.parentNode
-
-        if (elementoPai.parentNode) {
-          elementoPai.parentNode.removeChild(elementoPai);
-        }  
-    }
-
-    function campoQtde(){
-      //Adiciona Campo Quantidade
-      let div1 = document.createElement("DIV")
-      div1.setAttribute("class", "col-md-2 col-xs-2")
-      div.appendChild(div1);
-
-      let quantidade = document.createElement("INPUT");
-      quantidade.setAttribute("type", "number");
-      quantidade.setAttribute("step", "0.01");
-      quantidade.setAttribute("name", "quantidade");
-      quantidade.setAttribute("value", "1");
-      quantidade.setAttribute("class", "qtde form-control");
-      div1.appendChild(quantidade);
-
-      let labelqtde = document.createElement("LABEL");
-      let txtQtde = document.createTextNode("Quantidade");
-      labelqtde.setAttribute("for", "quantidade");
-      labelqtde.appendChild(txtQtde);
-
-      div1.insertBefore(labelqtde, quantidade);
-    }  
-
-    function campoValor(){
-      //Adiciona Campo Valor
-      let div2 = document.createElement("DIV")
-      div2.setAttribute("class", "col-md-2 col-xs-2")
-      div.appendChild(div2);
-      let qtdeItensCriados = document.getElementsByClassName('vlr').length
-
-      let valor = document.createElement("INPUT");
-      valor.setAttribute("type", "number");
-      valor.setAttribute("step", "0.01");
-      valor.setAttribute("name", "valor");
-      valor.setAttribute("value", "0");
-      valor.setAttribute("class", "vlr form-control");
-      valor.setAttribute("id", qtdeItensCriados);
-      div2.appendChild(valor);
-
-      let labelValor = document.createElement("LABEL");
-      let txtVlr = document.createTextNode("Valor");
-      labelValor.setAttribute("for", "valor");
-      labelValor.appendChild(txtVlr);
-
-      div2.insertBefore(labelValor, valor); 
-    }
-    
-    function campoMarca(){
-      //Adiciona Campo Marca
-      let div3 = document.createElement("DIV")
-      div3.setAttribute("class", "col-md-3 col-xs-3")
-      div.appendChild(div3);
-      let marca = document.createElement("INPUT");
-      marca.setAttribute("type", "text");
-      marca.setAttribute("name", "marca");
-      marca.setAttribute("value", "Marca");
-      marca.setAttribute("class", "mrc form-control");
-      div3.appendChild(marca);
-
-      let labelMarca = document.createElement("LABEL");
-      let txtMarca = document.createTextNode("Marca");
-      labelMarca.setAttribute("for", "marca");
-      labelMarca.appendChild(txtMarca);
-
-      div3.insertBefore(labelMarca, marca);
-    }
-
-    function campoInsumo(){
-      let div4 = document.createElement("DIV")
-      div4.setAttribute("class", "col-md-3 col-xs-3")
-      div.appendChild(div4);
-      //Adiciona Select Campo Insumo
-      let select = document.createElement("SELECT");
-      select.setAttribute("name", "insumo");
-      select.setAttribute("class", "insumo form-control");
-      div4.appendChild(select);
-
-      let labelSelect = document.createElement("LABEL");
-      let txtInsumo = document.createTextNode("Itens");
-      labelSelect.setAttribute("for", "insumo");
-      labelSelect.appendChild(txtInsumo);
-
-      div4.insertBefore(labelSelect, select);
-
-      let final = qtdeInsumos()
-      for (let i=0; i < final; i++){
-        //Adiciona Itens Campo Insumo
-        let itemSelect = document.createElement("OPTION");
-        itemSelect.setAttribute("id", i);
-        itemSelect.value = carregaItens(i).value;
-        itemSelect.text = carregaItens(i).text;
-        select.appendChild(itemSelect);
-      }
-    }
-
-    function botaoExcluir(){
-      let div5 = document.createElement("DIV")
-      div5.setAttribute("class", "col-md-2 col-xs-2")
-      div.appendChild(div5);
-      //Se for button gera submit
-      let btnExcluir = document.createElement("INPUT");
-      btnExcluir.setAttribute("type", "button");
-      btnExcluir.setAttribute("name", "btnExcluir");
-      btnExcluir.setAttribute("value", "Excluir Item");
-      btnExcluir.setAttribute("class", "btnExcluir btn btn-danger mt-4");
-      div5.appendChild(btnExcluir);
-    }
-
-    function adicionaEventos(){
-      var $valores = document.getElementsByClassName('vlr');
-      var $qtdes = document.getElementsByClassName('qtde');
-
-      for(let i = 0; i < $valores.length; i++){
-          $valores[i].addEventListener('blur',somaItens);
-      }
-
-      for(let i = 0; i < $qtdes.length; i++){
-        $qtdes[i].addEventListener('blur',somaItens);
-      }
-
-      var $btn = document.getElementsByClassName('btnExcluir btn btn-danger');
-      for(let i = 0; i < $btn.length; i++){
-          $btn[i].addEventListener('click',function(e){
-            deletarItem(e.target);
-            somaItens()
-          });
-      }
-    }
-  }
-
-  function ocultaInsumos(){
-    document.getElementsByTagName("select")[0].style.display = "none";
-  } 
-
-  function qtdeInsumos(){
-    $qtdeInsumos = document.getElementsByClassName("itemInsumo").length;
-
-    return $qtdeInsumos;
-  }
-
-  function carregaItens(indice){
-    $insumos = document.getElementsByClassName("itemInsumo")[indice];
-
-    return $insumos;
-  }
-
-  function somaItens(){
-    let $valorItem = document.getElementsByClassName('vlr');
-    let $qtdeItem = document.getElementsByClassName('qtde');
-    let $vlTotal = document.getElementById('valor');
-    let qtdeItensCriados = $valorItem.length
-    let valorTotal = 0;
-
-    for(let i=0; i < qtdeItensCriados; i++){
-      valorTotal += parseFloat($valorItem[i].value * $qtdeItem[i].value);
-    }
-
-    $vlTotal.value = valorTotal.toFixed(2)  
-  } #}
-
-{# </script>   #}
 {% endblock%}
 
 

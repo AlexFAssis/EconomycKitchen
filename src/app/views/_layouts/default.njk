@@ -3,7 +3,6 @@
 
 {# Head #}
 {% include "_partials/head.njk" %}
-{# {% include "_partials/footer.njk" %} #}
 
 <body>
   
@@ -66,32 +65,16 @@
           </a>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="/dicas/instrucoes">Instruções de Uso</a>
-            {# <a class="dropdown-item" href="/dicas/fatorCorrecao">Fator de Correção Ingredientes</a> #}
           </div>
         </li>
       </ul>
-      {# <form class="form-inline my-2 my-lg-0">
-        <ul class="navbar-nav mr-auto">
-            <a class="nav-link" href="/usuario/login">
-              Login
-              <i class="fas fa-address-card"></i>
-            </a>
-            <a class="nav-link" href="/usuario/cadastro">
-              Registro
-              <i class="fas fa-user-lock"></i>
-            </a>
-        <ul>
-      </form> #}
+
       <form class="form-inline my-2 my-lg-0" id="formExit">
         <ul class="navbar-nav mr-auto">
-            <a class="nav-link" href="/app/start">
+            <a class="nav-link" href="/">
               Sair
               <i class="fas fa-sign-out-alt"></i>
             </a>
-            {# <a class="nav-link" href="/usuario/cadastro">
-              Registro
-              <i class="fas fa-user-lock"></i>
-            </a> #}
         <ul>
       </form>
     </div>
@@ -113,14 +96,5 @@
     </div>
   </footer> 
 </body>
-
-<script>
-  {# $data = document.getElementById('example')
-  if ($data) {
-    $(document).ready(function() {
-        $('#example').DataTable();
-    } );
-  }   #}
-</script>
 
 </html>

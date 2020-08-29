@@ -8,8 +8,6 @@
         <br>
 
         <form action="/imposto" method="POST">
-          {# {% include "_partials/flash.njk" %} #}
-          {# <input type="hidden" name="_id"> #}
           <div class="row">
             <div class="col-md-4 col-lg-4">
               <div class="form-group">
@@ -35,7 +33,6 @@
               <div class="form-group">
                 <label for="dataPgto">Data do Pagamento</label>
                 <input type="text" name="dataPgto" class="flatpickr form-control" value={{dataPagto}}>
-                {# <input type="text" name="dataPgto" class="flatpickr form-control" placeholder="Escolha uma data"> #}
               </div>
             </div>
           </div>
@@ -47,8 +44,6 @@
                   <div class="input-group-prepend">    
                     <span class="input-group-text" id="input1">R$</span>
                   </div>
-                  {# <input type="number" name="valor" value='0' step="0.01" id="vl" class="form-control" min="0.01" required> #}
-                  {# <input type="number" name="valor" step="0.01" id="vl" class="form-control" min="0.01" required> #}
                   <input type="text" id="vl" class="form-control" name="valor" data-thousands="." data-decimal=","  min="0.01" required/>
                 
                 </div>
@@ -89,35 +84,4 @@
 
   <script src="/assets/js/functions/funcoesImposto.js"> </script>
 
-  {# <script>
-    $(function() {
-      $('#vl').maskMoney();
-    })
-  </script> #}
-
-
-  {# <script>
-    (function(){
-      'use strict';
-      
-      flatpickr('.flatpickr', {
-        dateFormat: 'd/m/Y',
-      })
-    })()
-
-    let $qtde = document.getElementById('qtde')
-    let $valor = document.getElementById('vl')
-
-    $valor.addEventListener('blur', calculaTotal)
-    $qtde.addEventListener('blur', calculaTotal)
-
-    function calculaTotal(){
-      let $valorTotal = document.getElementById('vlTotal')
-      let valorTotal = 0;
-
-      valorTotal = $qtde.value * $valor.value
-
-      return $valorTotal.value = parseFloat(valorTotal.toFixed(2)) 
-    }
-  </script> #}
 {% endblock%}

@@ -11,8 +11,7 @@
         </a>
 
         <h3 id="TituloListagem">Listagem de Impostos</h3>
-        
-        {# <table id="example" class="table table-striped" style="width:100%">  #}
+
         <table class="table table-striped" id="dataTable" width="100%">
           <thead class="">
             <tr>
@@ -28,7 +27,6 @@
               {% for imposto in impostos%}
               <tr id="{{imposto._id}}">
                   <th scope="row" class="classId" style="display:none">{{imposto._id}}</th>
-                  {# <td class="dataFormatada">{{imposto.dataPgto}}</td> #}
                   <th scope="row" class="tirarNegrito">{{ imposto.dataPgto | date("DD/MM/YYYY") }}</th>
                   <th scope="row" class="tirarNegrito classDesc">{{imposto.tipoImposto.descricao}}</th>
                   <td class="preco">R${{imposto.valorTotal}}</td>
@@ -43,12 +41,6 @@
                     <button type="button" class="btn btn-danger btnDelete" data-toggle="modal" data-target="#modalDelete" onClick="idLinha(this.parentNode.parentNode.id, 'imposto')">
                         <i class="fas fa-trash-alt"></i>
                     </button>       
-                    {# <form action="/imposto/deletar/{{imposto._id}}" method="POST"> 
-                        <input type="hidden" name="_id" value="{{imposto._id}}">
-                        <button type="submit" class="btn btn-danger">
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </form>  #}
                   </td>  
               </tr>
             {% else %}
@@ -83,7 +75,7 @@
 
         <script src="/assets/js/functions/funcoesImposto.js"> </script>
         <script src="/assets/js/functions/funcoesPopup.js"></script>
-
+        <script src="/assets/js/sb-admin-datatables.min_date.js" type="text/javascript"></script> 
       </div>
     </main>
   </div>     

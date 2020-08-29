@@ -6,24 +6,15 @@
       <div class="cadastro">
         <h3>Editar Venda</h3>
         <br>
-
-                  <h3>Window size is <span class="window-size"></span></h3>
-          <p>Knowing this number you can make decisions based in breakpoints of window.</p>
-          <hr>
-          <h3>Screen size is <span class="screen-size"></span></h3>
-          <p>Here you have an idea of device screen size. </p>
         <form action="/venda/editar/{{ venda._id }}" method="POST">
-          {# {% include "_partials/flash.njk" %} #}
-          {# <input type="hidden" name="_id"> #}
+
           <div class="row">
-            {# <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4"> #}
             <div class="col-md-4 col-lg-3 col-xl-2">
               <div class="form-group">
                 <label for="data">Data</label>
                 <input type="text" name="data" id="dtVenda" value="{{dataVenda}}" class="flatpickr form-control" required>
               </div>
             </div>
-            {# <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4"> #}
             <div class="col-md-4 col-lg-3 col-xl-2">
               <div class="form-group">
                 <label for="usuario">Usuário</label>
@@ -33,7 +24,6 @@
             </div>
           </div>
           <div class="row">
-            {# <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4"> #}
             <div class="col-md-4 col-lg-3 col-xl-2">
               <div class="form-group">
                 <label for="metodoPagamento">Método de Pagamento</label>
@@ -42,7 +32,6 @@
                 </select>
               </div>
             </div>
-            {# <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4"> #}
             <div class="col-md-4 col-lg-3 col-xl-2">
               <div class="form-group">
                 <label for="qtdeParcelas">Quantidade de Parcelas</label>
@@ -51,7 +40,6 @@
             </div>
           </div>
           <div class="row">
-            {# <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4"> #}
             <div class="col-md-4 col-lg-3 col-xl-2">
               <div class="form-group">
                 <label for="valor">Valor</label>
@@ -59,17 +47,14 @@
                   <div class="input-group-prepend">    
                     <span class="input-group-text" id="input1">R$</span>
                   </div>
-                  {# <input type="number" name="valorTotal" value="{{venda.valorTotal}}" step="0.01" id="vlVenda" class="form-control" readOnly required> #}
                   <input type="text" id="vlVenda" class="form-control" name="valorTotal" value='{{venda.valorTotal}}' data-thousands="." data-decimal=","  min="0.01" readonly/>
                 </div>
               </div>
             </div>
-            {# <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4"> #}
             <div class="col-md-4 col-lg-3 col-xl-2">
               <div class="form-group">
                 <label for="desconto">Desconto</label>
                 <input type="text" class="form-control" value="{{venda.desconto}}" id="desconto" name="desconto" data-thousands="." data-decimal="," />
-                {# <input type="number" name="desconto" value="{{venda.desconto}}" step="0.01" id="desconto" class="form-control"> #}
               </div>
             </div>
           </div>
@@ -86,9 +71,7 @@
             </div>
           </div> 
 
-          {# <div> #}
-            <a class="btn btn-primary mb-2 col-md-4 col-lg-3 col-xl-2" href="#" role="button" id="btnAdicionar">Adicionar Item</a>
-          {# </div> #}
+          <a class="btn btn-primary mb-2 col-md-4 col-lg-3 col-xl-2" href="#" role="button" id="btnAdicionar">Adicionar Item</a>
 
           <div id="itens">
             {% for itemVenda in itensVenda %}
@@ -108,7 +91,6 @@
                         <div class="input-group-prepend">    
                           <span class="input-group-text" id="input2">R$</span>
                         </div>
-                        {# <input type="number" step="0.01" name="valor" value="{{ itemVenda.valor }}" class="vl form-control" readOnly> #}
                         <input type="text" class="vl form-control" name="valor" value='{{ itemVenda.valor }}' data-thousands="." data-decimal=","  min="0.01" readonly/>
                       </div> 
                     </div> 
@@ -162,348 +144,5 @@
   </div> 
 
   <script src="/assets/js/functions/funcoesVenda.js"></script>
-
-  <script>
-    (function(){
-      {# 'use strict'; #}
-      {# var $mtdoPagto = document.getElementById('mtdoPagto')
-      var $btn = document.getElementById('btnAdicionar')
-      var $btnExcluir = document.getElementsByClassName('btnExcluir btn btn-danger')
-      
-      $btn.addEventListener('click', adicionaItemCompra); #}
-      
-      {# window.addEventListener("load", function(event) {
-        console.log("Todos os recursos terminaram o carregamento!"); #}
-
-        
-        {# adicionaEventos()
-        carregaMetodoPgto()
-        carregaUsuario()
-
-        carregaProduto()  #}
-        
-        {# function adicionaEventos(){
-          let $campoValor = document.getElementsByClassName('vl');
-          let $produtos = document.getElementsByClassName('Prod');
-          let $qtde = document.getElementsByClassName('qtde');
-
-          for(let i = 0; i < $qtde.length; i++){
-            $qtde[i].addEventListener('blur',function(e){
-              somaItens()
-            }); 
-          }
-
-          for(let i = 0; i < $produtos.length; i++){
-            $produtos[i].addEventListener('change',function(e){
-              $campoValor[i].value = buscaValor(e.target);
-              somaItens()
-            }); 
-          } 
-
-          var $btn = document.getElementsByClassName('btnExcluir btn btn-danger');
-          for(let i = 0; i < $btn.length; i++){
-              $btn[i].addEventListener('click',function(e){
-                deletarItem(e.target);
-                somaItens()
-              });
-          }
-        } #}
-        {# ocultaCampos(); #}
-
-        {# $mtdoPagto.addEventListener('change', function(){
-          verificaParcelas($mtdoPagto.value)
-        }, false) #}
-      {# }); #}
-
-      {# flatpickr('.flatpickr', {
-        dateFormat: 'd/m/Y',
-      }) #}
-{# 
-      for(let i = 0; i < $btnExcluir.length; i++){
-          $btnExcluir[i].addEventListener('click',function(e){
-            deletarItem(e.target);
-          });
-      }  #}
-
-      {# function verificaParcelas(valor){
-        var $qtdeParcelas = document.getElementById('qtdeParcelas')
-        $qtdeParcelas.disabled = false;
-        if(valor != 'Credito'){
-           $qtdeParcelas.value = '0'
-          $qtdeParcelas.disabled = true;
-        }
-      } #}
-
-      {# somente edição #}
-      function deletarItem(btn){
-        var elementoPai = btn.parentNode
-        if (elementoPai.parentNode) {
-          elementoPai.parentNode.removeChild(elementoPai);
-        }  
-      }
-
-      {# //Duplicado
-      function adicionaItemCompra(){
-        var $divPrincipal = document.getElementById('itens');
-        let div = document.createElement("DIV")
-        div.setAttribute('class', 'row')
-        $divPrincipal.appendChild(div);
-
-        campoProduto()
-        campoQtde()
-        campoValor()
-        botaoExcluir()
-        adicionaEventos()
-        somaItens()
-
-        function deletarItem(btn){
-          var elementoPai = btn.parentNode
-          if (elementoPai.parentNode) {
-            elementoPai.parentNode.removeChild(elementoPai);
-          }  
-        }
-
-        function campoQtde(){
-          //Adiciona Campo Quantidade
-          let div1 = document.createElement("DIV")
-          div1.setAttribute("class", "col-md-2")
-          div.appendChild(div1);
-
-          let quantidade = document.createElement("INPUT");
-          quantidade.setAttribute("type", "number");
-          quantidade.setAttribute("step", "0.01");
-          quantidade.setAttribute("name", "quantidade");
-          quantidade.setAttribute("value", "1");
-          quantidade.setAttribute("class", "qtde form-control");
-          div1.appendChild(quantidade);
-
-          let labelqtde = document.createElement("LABEL");
-          let txtQtde = document.createTextNode("Quantidade");
-          labelqtde.setAttribute("for", "quantidade");
-          labelqtde.appendChild(txtQtde);
-
-          div1.insertBefore(labelqtde, quantidade);
-        } 
-
-        function campoProduto(){
-          //Adiciona Select Campo Produto
-          let div2 = document.createElement("DIV")
-          div2.setAttribute("class", "col-md-3 ")
-          div.appendChild(div2);
-          let select = document.createElement("SELECT");
-          select.setAttribute("name", "produto");
-          select.setAttribute("class", "Prod form-control");
-          div2.appendChild(select);
-
-          let labelSelect = document.createElement("LABEL");
-          let txtProduto = document.createTextNode("Produto");
-          labelSelect.setAttribute("for", "produto");
-          labelSelect.appendChild(txtProduto);
-
-          div2.insertBefore(labelSelect, select);
-
-          let final = qtdeProdutos()
-          for (let i=0; i < final; i++){
-            //Adiciona Itens Campo Insumo
-            let itemSelect = document.createElement("OPTION");
-            itemSelect.setAttribute("class", "Prod");
-            itemSelect.setAttribute("name", "produto");
-            itemSelect.setAttribute("id", i);
-            itemSelect.value = carregaItens(i).value;
-            itemSelect.text = carregaItens(i).text;
-            select.appendChild(itemSelect);
-          }
-        }
-
-        function campoValor(){
-          let div3 = document.createElement("DIV")
-          div3.setAttribute("class", "col-md-2 ")
-          div.appendChild(div3);
-
-          let valor = document.createElement("INPUT");
-          valor.setAttribute("type", "number");
-          valor.setAttribute("step", "0.01");
-          valor.setAttribute("name", "valor");
-          valor.readOnly = true;
-          valor.value = buscaValor(0); //1 = new
-          valor.setAttribute("class", "vl form-control");
-          div3.appendChild(valor);
-
-          let labelqtde = document.createElement("LABEL");
-          let txtQtde = document.createTextNode("Valor");
-          labelqtde.setAttribute("for", "valor");
-          labelqtde.appendChild(txtQtde);
-
-          div3.insertBefore(labelqtde, valor);
-        }
-
-        function botaoExcluir(){
-          let div4 = document.createElement("DIV")
-          div4.setAttribute("class", "col-md-2 ")
-          div.appendChild(div4);
-          //Se for button gera submit
-          let btnExcluir = document.createElement("INPUT");
-          btnExcluir.setAttribute("type", "button");
-          btnExcluir.setAttribute("name", "btnExcluir");
-          btnExcluir.setAttribute("value", "Excluir Item");
-          btnExcluir.setAttribute("class", "btnExcluir btn btn-danger mt-4");
-          div4.appendChild(btnExcluir);
-        }
-
-        function adicionaEventos(){
-          let $campoValor = document.getElementsByClassName('vl');
-          let $produtos = document.getElementsByClassName('Prod');
-          let $qtde = document.getElementsByClassName('qtde');
-
-          for(let i = 0; i < $qtde.length; i++){
-            $qtde[i].addEventListener('blur',function(e){
-              somaItens()
-            }); 
-          }
-
-          for(let i = 0; i < $produtos.length; i++){
-            $produtos[i].addEventListener('change',function(e){
-              $campoValor[i].value = buscaValor(e.target);
-              somaItens()
-            }); 
-          } 
-
-          var $btn = document.getElementsByClassName('btnExcluir btn btn-danger');
-          for(let i = 0; i < $btn.length; i++){
-              $btn[i].addEventListener('click',function(e){
-                deletarItem(e.target);
-                somaItens()
-              });
-          }
-        }
-      } #}
-
-      {# function ocultaCampos(){
-          let $qtde = document.getElementsByClassName("hidden").length
-          for(let i=0; i < $qtde; i++){
-            document.getElementsByClassName("hidden")[i].style.display = "none";
-          }
-      } #}
-{# 
-      function qtdeProdutos(){
-        let $qtdeProdutos = document.getElementsByClassName("ProdutosHidden").length;
-
-        return $qtdeProdutos;
-      }  #}
-
-      {# function carregaItens(indice){
-        let $produtos = document.getElementsByClassName("ProdutosHidden")[indice];
-
-        return $produtos;
-      } #}
-
-      {# function buscaValor(indice){
-        let $produtos = document.getElementsByClassName("ProdutosHidden")
-        let $valor = document.getElementsByClassName('precoProduto') 
-
-        if(indice == 0){
-          for(let i=0; i < $produtos.length; i++){
-            if($produtos[indice].value == $valor[i].value){
-              $valor = $valor[0].text;
-            }
-          }
-        } else{
-          $valor = $valor[indice.selectedIndex].text;
-        } 
-
-        return $valor;
-      } #}
-
-      {# function somaItens(){
-
-      }  #}
-
-    //Fazer uma só função para as 3 coisas
-      {# function carregaMetodoPgto(){
-        let $select = document.getElementsByClassName('selectMetodo')
-        let $metodoHidden = document.getElementById('mtdoPagtoHidden')
-        let metodoPagto ='{{venda.metodoPagamento}}'
-        var $qtdeParcelas = document.getElementById('qtdeParcelas')
-
-        for(let i=0; i< $metodoHidden.length; i++){
-            let itemSelect = document.createElement("OPTION");
-
-            itemSelect.selected = false;
-            
-            itemSelect.value = $metodoHidden[i].value;
-            itemSelect.text = $metodoHidden[i].text; 
-
-            if($metodoHidden[i].value == metodoPagto){
-              itemSelect.selected = true;
-            }
-
-            $select[0].appendChild(itemSelect);
-        }
-
-        $qtdeParcelas.disabled = false;
-        if(metodoPagto != 'Credito'){
-          $qtdeParcelas.disabled = true;
-        } 
-      }
-
-      function carregaUsuario(){
-        let $select = document.getElementsByClassName('selectUsuarios')
-        let $usuariosHidden = document.getElementById('users')
-        let usuario ='{{venda.usuario}}'
-
-        for(let i=0; i< $usuariosHidden.length; i++){
-            let itemSelect = document.createElement("OPTION");
-
-            itemSelect.selected = false;
-            itemSelect.value = $usuariosHidden[i].value;
-            itemSelect.text = $usuariosHidden[i].text; 
-
-            if($usuariosHidden[i].value == usuario){
-              itemSelect.selected = true;
-            }
-
-            $select[0].appendChild(itemSelect);
-        }   
-      }
-
-      function carregaProduto(){
-        let produtosVenda = '{{vetIdProdutos}}'
-        let ids = produtosVenda.split(',')
-        let $selectProdutos = document.getElementsByClassName('Prod')
-        let $produtosHidden = document.getElementsByClassName('ProdutosHidden')
-      
-        for(let i=0; i < $selectProdutos.length; i++){
-          for(let j=0; j < $produtosHidden.length; j++){
-            let itemSelect = document.createElement("OPTION");
-
-            itemSelect.selected = false;
-            itemSelect.value = $produtosHidden[i].value;
-            itemSelect.text = $produtosHidden[i].text; 
-
-            if(ids[i] == $produtosHidden[j].value){
-              itemSelect.selected = true;
-            }
-
-            $selectProdutos[i].appendChild(itemSelect);
-          }  
-        }
-      }  #}
-
-      {# function somaItens(){
-          let $campoValor = document.getElementsByClassName('vl')
-          let $produtos = document.getElementsByClassName('Prod');
-          let $qtde = document.getElementsByClassName('qtde');
-          let $vlTotal = document.getElementById('vlVenda');
-          let vlTotal = 0
-
-          for(let i = 0; i< $campoValor.length; i++){
-            vlTotal +=  ($qtde[i]).value * parseFloat($campoValor[i].value)
-          }
-
-          $vlTotal.value = vlTotal.toFixed(2)
-      } #}
-
-    })()
-  </script>
 
 {% endblock%} 
