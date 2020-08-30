@@ -57,17 +57,4 @@ Usuario.methods = {
     }
 }
 
-//É da model e não da instância
-// Usuario.statics = {
-//     generateToken({ id }) {
-//         //1º - Campos incluidos no token
-//         //2º - Segredo do token
-//         //3º - Tempo de expiração
-//         //authConfig esta no arquivo config/auth
-//         return jwt.sign({ id }, authConfig.secret, {
-//             expiresIn: authConfig.ttl
-//         })
-//     }
-// }
-
 module.exports = mongoose.model('Usuario', Usuario);

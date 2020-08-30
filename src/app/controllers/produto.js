@@ -1,7 +1,6 @@
 const Produto = require('../models/Produto');
 const Receita = require('../models/Receita');
 const ItemVenda = require('../models/ItemVenda');
-// const ItemReceita = require('../models/ItemReceita');
 
 class produtoController {
 
@@ -75,7 +74,6 @@ class produtoController {
 
         if (produto) {
             return res.render('produto/editar', { produto, receitas, receitaPoduto: produto.receita, precoReceita: produto.preco, controle: 1, title: 'Edição de Produto' })
-            // return res.render('produto/editar', { produto, receitas, receitasStr: JSON.stringify(receitas), controle: 1, title: 'Edição de Produto' })
         } else {
             console.error('Produto não encontrado')
         }
@@ -87,7 +85,6 @@ class produtoController {
             const id = req.params.id;
             const produtoReceita = await Produto.findById(id)
             const produtos = await Produto.find()
-
 
             let achou = false
             if (produtos.length > 0) {

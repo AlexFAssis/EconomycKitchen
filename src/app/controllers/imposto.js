@@ -66,36 +66,6 @@ class impostoController {
         }
     }
 
-    // async listarDashboard(req, res) {
-    //     const date = new Date();
-    //     const date30 = new Date()
-    //     date30.setDate(date30.getDate() - 30);
-    //     const dtInicialMoment = moment(date30, "DD/MM/YYYY");
-    //     const dtFinalMoment = moment(date, "DD/MM/YYYY H:mm:ss");
-
-    //     try {
-    //         const impostos = await Imposto.aggregate([
-    //             {
-    //                 $match: {
-    //                     dataPgto: { $gte: dtInicialMoment._d, $lt: dtFinalMoment._d }
-    //                 }
-    //             },
-    //             {
-    //                 $group: {
-    //                     _id: "$dataPgto",
-    //                     "dataPgto": { $first: "$dataPgto" },
-    //                     total: { $sum: "$valorTotal" }
-    //                 }
-    //             },
-    //             { $sort: { _id: 1 } }
-    //         ])
-    //         return res.render('menu/dashboardImposto', { impostos, title: 'Dashboard de Imposto' })
-    //     } catch (erro) {
-    //         console.error(erro);
-    //         res.sendStatus(500).end();
-    //     }
-    // }
-
     async obterUm(req, res) {
         const id = req.params.id;
         try {
@@ -115,14 +85,6 @@ class impostoController {
         const dataPgto = formataData(imposto.dataPgto);
         const usuarios = await Usuario.find().sort({ nome: 'asc' })
 
-        // console.log('---------**------------')
-        // console.log(usuarios)
-        // console.log('---------------------')
-        // console.log('---------------------')
-        // console.log(tiposImposto)
-        // console.log('---------------------')
-        // console.log('---------##----------')
-
         if (imposto) {
             return res.render('imposto/editar', { imposto, tiposImposto, dataPgto, usuariosStr: JSON.stringify(usuarios), itStr: JSON.stringify(tiposImposto), title: 'Edição de Imposto' })
         } else {
@@ -137,13 +99,11 @@ class impostoController {
 
         try {
             const data = moment(formatDate(req.body.dataPgto))
-            // let valorAux = parseFloat(req.body.valor)
             let valor = req.body.valor.replace(/,/g, ".")
             let valorTotal = req.body.valorTotal.replace(/,/g, ".")
             const imposto = await Imposto.findByIdAndUpdate(id, { dataPgto: data, valor: valor, tipoImposto: req.body.tipoImposto, qtde: req.body.qtde, itemImposto: req.body.itemImposto, usuario: req.body.usuario, valorTotal: valorTotal });
 
             if (imposto) {
-                //HTTP 204: No content - OK
                 res.redirect('/imposto/listar')
             } else {
                 res.sendStatus(404).end();

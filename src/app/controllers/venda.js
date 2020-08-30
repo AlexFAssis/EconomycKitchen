@@ -30,12 +30,7 @@ class vendaController {
             let passou = false;
             let criou = false;
 
-            // if (req.body.data) {
             var data = moment(formatDate(req.body.data))
-            // } else {
-            //     passou = true;
-            //     vetError.push('Informe a data da compra');
-            // }
 
             if (req.body.valorTotal <= 0) {
                 passou = true;
@@ -239,30 +234,7 @@ class vendaController {
                 vetError.push('Vendas com valor menor que R$50,00 não podem ser parceladas');
             }
 
-            // if (req.body.quantidade == undefined) {
-            //     passou = true;
-            //     vetError.push('Informe itens para a venda')
-            // } else {
-            //     // if (req.body.quantidade) {
-            //     //     if (typeof req.body.quantidade != 'object') {
-            //     //         if (req.body.quantidade <= 0) {
-            //     //             passou = true;
-            //     //             vetError.push('Informe o quantidade do item')
-            //     //         }
-            //     //     } else {
-            //     //         for (let i = 0; i < req.body.quantidade.length; i++) {
-            //     //             if (req.body.quantidade[i] <= 0) {
-            //     //                 passou = true;
-            //     //                 vetError.push('Informe a quantidade para o item: ' + i);
-            //     //             }
-            //     //         }
-
-            //     //     }
-            //     // }
-            // }
-
             if (passou) {
-                // req.flash('error', vetError)
                 return res.redirect(`/venda/editar/${id}`);
             } else {
 
@@ -276,7 +248,6 @@ class vendaController {
                 const venda = await Venda.findByIdAndUpdate(id, { data: data._d, valorTotal: valorTotal, metodoPagamento: req.body.metodoPagamento, qtdeParcelas: req.body.qtdeParcelas, desconto: descontoAux, usuario: req.body.usuario });
                 var estoqueItens = await ItemVenda.find({ venda: venda._id })
                 var vetEstoqueItens = []
-                // var achou = false
 
                 if (estoqueItens.length > 0) {
                     for (let i = 0; i < estoqueItens.length; i++) {
@@ -402,13 +373,6 @@ class vendaController {
                             }
                         }
                     }
-
-                    // if (criou) {
-                    //     return res.redirect('/venda/listar');
-                    // } else {
-                    //     req.flash('error', 'Ocorreu um erro ao cadastrar a venda')
-                    //     return res.redirect('/venda/cadastro')
-                    // }
                 }
 
                 if (venda) {

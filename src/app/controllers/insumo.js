@@ -66,7 +66,12 @@ class insumoController {
         const insumo = await Insumo.findOne({ _id: req.params.id });
 
         if (insumo) {
-            return res.render('insumo/editar', { insumo, valorEstoque: insumo.valorEstoque.toFixed(2), precoMedio: insumo.precoMedio.toFixed(5), title: 'Edição de Insumo' })
+
+            if (insumo.valorEstoque == 0) {
+                insumo.precoMedio = 0
+            }
+
+            return res.render('insumo/editar', { insumo, valorEstoque: insumo.valorEstoque.toFixed(2), precoMedio: insumo.precoMedio.toFixed(4), title: 'Edição de Insumo' })
         } else {
             console.error('Insumo não encontrado')
         }

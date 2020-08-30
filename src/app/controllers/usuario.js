@@ -81,12 +81,10 @@ class usuarioController {
 
             if (passou) {
                 req.flash('error', vetError)
-                // return res.render('usuario/cadastroLogin', { nome: nome, login: login, email: email, title: 'Cadastro de Usuário' })
                 return res.redirect('/usuario/cadastroLogin')
             } else {
                 vetError.push('Usuário criado com sucesso')
                 await Usuario.create(req.body);
-                // return res.redirect('/usuario/cadastroLogin')
                 return res.redirect('/usuario/login')
             }
 
@@ -137,7 +135,6 @@ class usuarioController {
         try {
             const usuario = await Usuario.findByIdAndUpdate(id, req.body);
             if (usuario) {
-                //HTTP 204: No content - OK
                 res.redirect('/usuario/listar')
             } else {
                 res.sendStatus(404).end();
@@ -175,7 +172,6 @@ class usuarioController {
                 const usuario = await Usuario.findByIdAndDelete(id);
                 if (usuario) {
                     res.redirect('/usuario/listar');
-                    //res.sendStatus(204).end();
                 } else {
                     res.sendStatus(404).end();
                 }

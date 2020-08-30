@@ -148,7 +148,11 @@ class compraController {
 
                                 let qtdeEstoque = parseFloat(insumoOld.qtdeEstoque);
                                 let valorEstoque = parseFloat(insumoOld.valorEstoque);
-                                let precoMedio = parseFloat(insumoOld.precoMedio);
+                                var precoMedio = 0
+
+                                if (valorEstoque > 0 || qtdeEstoque > 0) {
+                                    var precoMedio = parseFloat(insumoOld.precoMedio);
+                                }
 
                                 switch (req.body.unidadeMedida) {
                                     case 'Litro(s)':
@@ -169,7 +173,7 @@ class compraController {
                                 }
 
                                 //Atualiza estoque e preço médio
-                                valorEstoque += parseFloat(req.body.valor);
+                                valorEstoque += parseFloat(req.body.valor.replace(/\,/, '.'))
                                 if (qtdeEstoque > 0) {
                                     precoMedio = parseFloat(valorEstoque / qtdeEstoque);
                                 } else {
@@ -287,7 +291,7 @@ class compraController {
         const id = req.params.id;
         try {
             const compra = await Compra.findById(id);
-            if (compra) { //compra encontrado, variavel preenchidad
+            if (compra) {
                 res.send(compra);
             }
         } catch (erro) {
@@ -304,7 +308,6 @@ class compraController {
 
         if (compra) {
             return res.render('compra/editar', { compra, dataCompra, itensCompra: itensCompra, insumos: insumos, title: 'Edição de Compras' })
-            // return res.render('compra/editar', { compra, dataCompra, itensCompra: itensCompra, insumos: insumos, itStr: JSON.stringify(itensCompra), title: 'Edição de Compras' })
         } else {
             console.error('Compra não encontrada')
         }
@@ -330,18 +333,18 @@ class compraController {
                     switch (itemCompra[i].unidadeMedida) {
                         case 'Litro(s)':
                         case 'KG':
-                            qtdeEstoque -= parseFloat(itemCompra[i].quantidade) * 1000;
+                            qtdeEstoque -= parseFloat(itemCompra[i].quantidade.replace(/\,/, '.')) * 1000;
                             break;
                         case 'ML':
                         case 'Grama(s)':
                         case 'Unidade(s)':
-                            qtdeEstoque -= parseFloat(itemCompra[i].quantidade);
+                            qtdeEstoque -= parseFloat(itemCompra[i].quantidade.replace(/\,/, '.'));
                             break;
                         case 'MG':
-                            qtdeEstoque -= parseFloat(itemCompra[i].quantidade) / 1000;
+                            qtdeEstoque -= parseFloat(itemCompra[i].quantidade.replace(/\,/, '.')) / 1000;
                             break;
                         case 'Dúzia':
-                            qtdeEstoque -= parseFloat(itemCompra[i].quantidade) * 12;
+                            qtdeEstoque -= parseFloat(itemCompra[i].quantidade.replace(/\,/, '.')) * 12;
                             break;
                     }
 
@@ -366,8 +369,7 @@ class compraController {
 
                 if (typeof req.body.insumo != 'object') {
                     let valorItem = req.body.valor.replace(/,/g, ".")
-                    // let valorAux = req.body.valor.replace(/\./, '')
-                    // valorAux = valorAux.replace(/\,/, '.')
+
                     await ItemCompra.create({ quantidade: req.body.quantidade, valor: valorItem, marca: req.body.marca, insumo: req.body.insumo, unidadeMedida: req.body.unidadeMedida, compra: compra._id });
 
                     const insumoOld = await Insumo.findById(req.body.insumo);
@@ -378,23 +380,23 @@ class compraController {
                     switch (req.body.unidadeMedida) {
                         case 'Litro(s)':
                         case 'KG':
-                            qtdeEstoque += parseFloat(req.body.quantidade) * 1000;
+                            qtdeEstoque += parseFloat(req.body.quantidade.replace(/\,/, '.')) * 1000;
                             break;
                         case 'ML':
                         case 'Grama(s)':
                         case 'Unidade(s)':
-                            qtdeEstoque += parseFloat(req.body.quantidade);
+                            qtdeEstoque += parseFloat(req.body.quantidade.replace(/\,/, '.'));
                             break;
                         case 'MG':
-                            qtdeEstoque += parseFloat(req.body.quantidade) / 1000;
+                            qtdeEstoque += parseFloat(req.body.quantidade.replace(/\,/, '.')) / 1000;
                             break;
                         case 'Dúzia':
-                            qtdeEstoque += parseFloat(req.body.quantidade) * 12;
+                            qtdeEstoque += parseFloat(req.body.quantidade.replace(/\,/, '.')) * 12;
                             break;
                     }
 
                     //Atualiza Preço Médio
-                    valorEstoque += parseFloat(req.body.valor);
+                    valorEstoque += parseFloat(req.body.valor).replace(/\,/, '.')
                     if (qtdeEstoque > 0) {
                         precoMedio = parseFloat(valorEstoque / qtdeEstoque);
                     } else {
@@ -408,8 +410,6 @@ class compraController {
                 } else {
                     for (let i = 0; i < total; i++) {
                         try {
-                            // let valorAux = req.body.valor[i].replace(/\./, '')
-                            // valorAux = valorAux.replace(/\,/, '.')
                             let valorItem = req.body.valor[i].replace(/,/g, ".")
                             await ItemCompra.create({ quantidade: req.body.quantidade[i], valor: valorItem, marca: req.body.marca[i], insumo: req.body.insumo[i], unidadeMedida: req.body.unidadeMedida[i], compra: compra._id });
 
@@ -451,7 +451,6 @@ class compraController {
                         }
                         catch (erro) {
                             console.error(erro);
-                            //HTTP 500: Internal server error
                             res.sendStatus(500).end();
                         }
                     }
@@ -459,7 +458,6 @@ class compraController {
             }
 
             if (compra) {
-                //HTTP 204: No content - OK
                 res.redirect('/compra/listar')
             } else {
                 res.sendStatus(404).end();
@@ -520,7 +518,6 @@ class compraController {
 
             if (compra) {
                 res.redirect('/compra/listar');
-                //res.sendStatus(204).end();
             } else {
                 res.sendStatus(404).end();
             }

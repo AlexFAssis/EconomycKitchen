@@ -1,8 +1,7 @@
 module.exports = (req, res, next) => {
-  console.log('AUTHHHHHH')
-  console.log('sessaoooooo')
+  console.log('AUTH')
   console.log(req.session)
-  console.log('usuariooooooo')
+  console.log('Usuário Sessão Auth')
   console.log(req.session.usuario)
   if (req.session && req.session.usuario) {
     /*
@@ -13,7 +12,6 @@ module.exports = (req, res, next) => {
     //usado em todos arquivos .njk
     res.locals.usuario = req.session.usuario;
 
-    //prossegue
     return next();
   }
 

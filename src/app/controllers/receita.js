@@ -117,9 +117,9 @@ class receitaController {
                         } else if (!newObj) {
                             throw new Error("Objeto não encontrado")
                         } else {
-                            // if (req.body.insumo != undefined) {
+
                             var total = req.body.insumo.length;
-                            // }
+
                             if (typeof req.body.insumo != 'object') {
                                 try {
                                     criou = true;
@@ -155,33 +155,6 @@ class receitaController {
                 }
             }
 
-            // await Receita.create({ nome: req.body.nome, modoPreparo: req.body.modoPreparo, obs: req.body.obs, qtdeRendimento: req.body.qtdeRendimento, tempoPreparo: req.body.tempoPreparo, categoriaReceita: req.body.categoriaReceita, imgReceita: filename }, async function (err, newObj) {
-            //     if (err) {
-            //         throw err;
-            //     } else if (!newObj) {
-            //         throw new Error("Objeto não encontrado")
-            //     } else {
-            //         if (req.body.insumo != undefined) {
-            //             var total = req.body.insumo.length;
-            //         }
-            //         if (typeof req.body.insumo != 'object') {
-            //             await ItemReceita.create({ qtdeInsumo: req.body.qtdeInsumo, medida: req.body.medida, insumo: req.body.insumo, receita: newObj._id });
-            //         } else {
-            //             for (let i = 0; i < total; i++) {
-            //                 try {
-            //                     await ItemReceita.create({ qtdeInsumo: req.body.qtdeInsumo[i], medida: req.body.medida[i], insumo: req.body.insumo[i], receita: newObj._id });
-            //                 }
-            //                 catch (erro) {
-            //                     console.error(erro);
-            //                     res.sendStatus(500).end();
-            //                 }
-            //             }
-            //         }
-            //     }
-            // })
-
-            //return res.redirect('/receita/listar');
-
         } catch (erro) {
             console.error(erro);
             res.sendStatus(500).end();
@@ -209,12 +182,6 @@ class receitaController {
                     sort: '-criadaEm'
                 })
 
-            // let totalItens = receitas.total //total de itens
-            // let limitePorPagina = receitas.limit //limite de paginas
-            // let paginaAtual = receitas.page //página atual
-            // let totalPagina = receitas.pages //total de páginas
-
-            // return res.send(receitas)
             return res.render('receita/listagem', { receitas, title: 'Listagem de Receita' })
         } catch (erro) {
             console.error(erro);
@@ -349,7 +316,6 @@ class receitaController {
 
                 if (receita) {
                     res.redirect('/receita/listar');
-                    //res.sendStatus(204).end();
                 } else {
                     res.sendStatus(404).end();
                 }
@@ -617,8 +583,6 @@ class receitaController {
         let { dtInicial, dtFinal, receita } = req.params;
         let dataString = dtFinal.split('-')
         var dataFinal = new Date(`${dataString[1]} ${dataString[0]} ,${dataString[2]}  20:59:59`);
-
-        // if (dtInicial && dtFinal) {
         var dtInicialMoment = moment(dtInicial, "DD/MM/YYYY");
         var dtFinalMoment = moment(dataFinal, "DD/MM/YYYY H:mm:ss");
 
@@ -673,7 +637,6 @@ class receitaController {
 
         var vlTotalImpostos = 0;
         if (impostos.length > 0) {
-            //let qtdeImpostos = impostos.length;
             for (let i = 0; i < impostos.length; i++) {
                 vlTotalImpostos += impostos[i].valorTotal;
             }
@@ -759,20 +722,13 @@ class receitaController {
 
 
                     for (let j = 0; j < historicoReceitas.length; j++) {
-
-                        // let dataHistorico = historicoReceitas[j].dtCalculoPrecoMedio
-
-                        // if (dataAux != dataHistorico) {
-                        // dataAux = dataHistorico
                         console.log(historicoReceitas[j].receitaNome)
                         console.log(historicoReceitas[j].receita.toString())
                         console.log(historicoReceitas[j].valorMedio)
 
-                        // var achouHistorico = true
                         objReceitaHistorico.id = historicoReceitas[j].receita
                         objReceitaHistorico.vlMedio += parseFloat(historicoReceitas[j].valorMedio)
                         objReceitaHistorico.quantidade = historicoReceitas.length
-                        // }
                     }
 
                     vetReceitasHistorico.push(objReceitaHistorico)

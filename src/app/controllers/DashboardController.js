@@ -50,7 +50,6 @@ class DashboardController {
         },
         { $sort: { _id: 1 } }
       ])
-      // return res.render('menu/dashboard', { vendas, title: 'Dashboard' })
     } catch (erro1) {
       console.error(erro1);
       res.sendStatus(500).end();
@@ -162,14 +161,6 @@ class DashboardController {
         { $sort: { _id: 1 } }
       ])
 
-      // const usuario = req.session.usuario.nome
-      console.log('Sessão')
-      console.log(req.session)
-      // console.log(req.session.usuario)
-      // console.log(req.session.usuario.nome)
-
-
-      //const usuarioNome = 'Teste'
       const usuarioNome = req.session.usuario.nome
 
       return res.render('menu/dashboard', { impostos, vendas, compras, dataInicial, dataFinal, usuarioNome, receitas: JSON.stringify(VetProdutosAux), title: 'Dashboard' })

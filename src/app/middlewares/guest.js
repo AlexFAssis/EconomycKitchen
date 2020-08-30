@@ -1,11 +1,11 @@
 module.exports = (req, res, next) => {
-  console.log('GUESSSTTTTT')
-  console.log('sessaoooooo')
+
+  console.log('GUEST')
   console.log(req.session)
-  console.log('usuariooooooo')
+  console.log('Usuário Sessão')
   console.log(req.session.usuario)
+
   if (req.session && !req.session.usuario) {
-    //prossegue
     return next();
   }
 

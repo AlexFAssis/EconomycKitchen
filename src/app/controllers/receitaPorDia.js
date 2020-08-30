@@ -11,7 +11,6 @@ const Produto = require('../models/Produto');
 class receitaPorDiaController {
 
     async index(req, res) {
-        // const receitas = await Receita.find()
         const produtos = await Produto.find().populate('receita')
         var data = new Date();
         var dia = data.getDate() < 10 ? '0' + data.getDate() : data.getDate();
@@ -21,7 +20,6 @@ class receitaPorDiaController {
         var dataReceita = dia + '/' + mes + '/' + ano
 
         return res.render('receitaPorDia/cadastro', { produtos, dataReceita, title: 'Cadastro de Receitas Por Dia' })
-        // return res.render('receitaPorDia/cadastro', { receitas, dataReceita, title: 'Cadastro de Receitas Por Dia' })
     }
 
     async novo(req, res) {
@@ -82,10 +80,10 @@ class receitaPorDiaController {
                             for (let i = 0; i < itensReceita.length; i++) {
                                 if (temEstoque) {
                                     let qtdeIngrediente = req.body.quantidade
-                                    let medida = itensReceita[0].medida
-                                    let insumoReceita = itensReceita[0].insumo
+                                    let medida = itensReceita[i].medida
+                                    let insumoReceita = itensReceita[i].insumo
                                     let qtdeInsumo = 0
-                                    let qtdeIngredienteReceita = itensReceita[0].qtdeInsumo
+                                    let qtdeIngredienteReceita = itensReceita[i].qtdeInsumo
 
                                     switch (medida) {
                                         case 'L':
@@ -176,8 +174,6 @@ class receitaPorDiaController {
                                             var qtdeInsumo = 0
                                             let qtdeIngredienteReceita = itensReceita[x].qtdeInsumo
 
-                                            // let qtdeIngredienteReceita = itensReceita[0].qtdeInsumo
-
                                             switch (medida) {
                                                 case 'L':
                                                 case 'KG':
@@ -195,16 +191,16 @@ class receitaPorDiaController {
                                                     qtdeInsumo = parseFloat(qtdeIngrediente * 20) * qtdeIngredienteReceita;
                                                     break;
                                                 case 'Colher Chá':
-                                                    qtdeInsumo = parseFloat(qtdeIngrediente * 10) * qtdeIngredienteReceita;;
+                                                    qtdeInsumo = parseFloat(qtdeIngrediente * 10) * qtdeIngredienteReceita;
                                                     break;
                                                 case 'Xicara':
-                                                    qtdeInsumo = parseFloat(qtdeIngrediente * 100) * qtdeIngredienteReceita;;
+                                                    qtdeInsumo = parseFloat(qtdeIngrediente * 100) * qtdeIngredienteReceita;
                                                     break;
                                                 case 'Duzia':
-                                                    qtdeInsumo = parseFloat(qtdeIngrediente * 12) * qtdeIngredienteReceita;;
+                                                    qtdeInsumo = parseFloat(qtdeIngrediente * 12) * qtdeIngredienteReceita;
                                                     break;
                                                 case 'Copo':
-                                                    qtdeInsumo = parseFloat(qtdeIngrediente * 250) * qtdeIngredienteReceita;;
+                                                    qtdeInsumo = parseFloat(qtdeIngrediente * 250) * qtdeIngredienteReceita;
                                                     break;
                                             }
                                         }
@@ -241,9 +237,6 @@ class receitaPorDiaController {
                                                     break;
                                                 }
                                             }
-
-                                            // const estoqueUpdate = parseFloat(estoque[0].quantidade) + parseFloat(req.body.quantidade)
-                                            // await Estoque.findByIdAndUpdate(estoque[0]._id, { quantidade: estoqueUpdate })
                                         } else {
                                             await Estoque.create({ quantidade: req.body.quantidade, receita: req.body.receita });
                                         }
@@ -296,10 +289,17 @@ class receitaPorDiaController {
                                             console.log('qtdeEstoque: ' + qtdeEstoque)
                                             console.log('qtde: ' + req.body.quantidade)
                                             console.log('insumoOld: ' + insumoOld.nome)
-                                            console.log('qtdeEstoque: ' + qtdeEstoque)
                                             console.log('qtdeInsumo: ' + qtdeInsumo)
+
                                             //Atualiza Estoque e preço médio
                                             valorEstoque = qtdeEstoque * precoMedio;
+
+                                            // if (qtdeEstoque > 0) {
+                                            //     valorEstoque = qtdeEstoque * precoMedio
+                                            // } else {
+                                            //     precoMedio = 0;
+                                            //     valorEstoque = 0;
+                                            // }
 
                                             if (insumoOld) {
                                                 try {
@@ -386,6 +386,14 @@ class receitaPorDiaController {
                                                     }
 
                                                     valorEstoque = qtdeEstoque * precoMedio;
+
+                                                    // if (qtdeEstoque > 0) {
+                                                    //     valorEstoque = qtdeEstoque * precoMedio
+                                                    // } else {
+                                                    //     precoMedio = 0;
+                                                    //     valorEstoque = 0;
+                                                    // }
+
                                                     if (insumoOld) {
                                                         try {
                                                             await Insumo.findByIdAndUpdate(insumoOld._id, { qtdeEstoque: qtdeEstoque, valorEstoque: valorEstoque, precoMedio: precoMedio })
@@ -435,7 +443,6 @@ class receitaPorDiaController {
                 .populate('receita')//.sort({ data: 'desc' })
 
             return res.render('receitaPorDia/listagem', { receitasPorDia, title: 'Listagem de Receitas Por Dia' })
-            // res.send(receitasPorDia);
         } catch (erro) {
             console.error(erro);
             res.sendStatus(500).end();
@@ -528,7 +535,7 @@ class receitaPorDiaController {
                             let qtdeInsumo = itensReceita[j].qtdeInsumo;
                             const insumoOld = await Insumo.findById(itensReceita[j].insumo);
                             let qtdeEstoque = parseFloat(insumoOld.qtdeEstoque);
-                            let valorEstoque = 0 //////////////////////////////////////////////////// verificar pq não usa no await
+                            let valorEstoque = 0;
                             let precoMedio = parseFloat(insumoOld.precoMedio);
 
                             switch (medida) {
@@ -562,14 +569,13 @@ class receitaPorDiaController {
                             }
 
                             valorEstoque = qtdeEstoque * precoMedio;
+
                             if (insumoOld) {
                                 await Insumo.findByIdAndUpdate(insumoOld._id, { qtdeEstoque: qtdeEstoque, qtdeEstoque: qtdeEstoque, precoMedio: precoMedio });
                             }
                         }
                     }
                 }
-                //Remove Itens e preço médio
-                // await ItemReceitaPorDia.remove({ receitaPorDia: receitasPorDia._id })
             }
 
             if (req.body.quantidade != undefined) {
@@ -596,27 +602,27 @@ class receitaPorDiaController {
                                     qtdeInsumo = parseFloat(qtdeIngrediente * 1000) * qtdeIngredienteReceita;
                                     break;
                                 case 'MG':
-                                    qtdeInsumo = parseFloat(qtdeIngrediente / 1000) * qtdeIngredienteReceita;;
+                                    qtdeInsumo = parseFloat(qtdeIngrediente / 1000) * qtdeIngredienteReceita;
                                     break;
                                 case 'G':
                                 case 'Unidade':
                                 case 'ML':
-                                    qtdeInsumo = parseFloat(qtdeIngrediente) * qtdeIngredienteReceita;;
+                                    qtdeInsumo = parseFloat(qtdeIngrediente) * qtdeIngredienteReceita;
                                     break;
                                 case 'Colher Sopa':
-                                    qtdeInsumo = parseFloat(qtdeIngrediente * 20) * qtdeIngredienteReceita;;
+                                    qtdeInsumo = parseFloat(qtdeIngrediente * 20) * qtdeIngredienteReceita;
                                     break;
                                 case 'Colher Chá':
-                                    qtdeInsumo = parseFloat(qtdeIngrediente * 10) * qtdeIngredienteReceita;;
+                                    qtdeInsumo = parseFloat(qtdeIngrediente * 10) * qtdeIngredienteReceita;
                                     break;
                                 case 'Xicara':
-                                    qtdeInsumo = parseFloat(qtdeIngrediente * 100) * qtdeIngredienteReceita;;
+                                    qtdeInsumo = parseFloat(qtdeIngrediente * 100) * qtdeIngredienteReceita;
                                     break;
                                 case 'Duzia':
-                                    qtdeInsumo = parseFloat(qtdeIngrediente * 12) * qtdeIngredienteReceita;;
+                                    qtdeInsumo = parseFloat(qtdeIngrediente * 12) * qtdeIngredienteReceita;
                                     break;
                                 case 'Copo':
-                                    qtdeInsumo = parseFloat(qtdeIngrediente * 250) * qtdeIngredienteReceita;;
+                                    qtdeInsumo = parseFloat(qtdeIngrediente) * qtdeIngredienteReceita;
                                     break;
                             }
 
@@ -701,6 +707,7 @@ class receitaPorDiaController {
                             }
 
                             valorEstoque = qtdeEstoque * precoMedio;
+
                             if (insumoOld) {
                                 await Insumo.findByIdAndUpdate(insumoOld._id, { qtdeEstoque: qtdeEstoque, valorEstoque: valorEstoque, precoMedio: precoMedio })
                             }
@@ -765,30 +772,30 @@ class receitaPorDiaController {
                                     switch (medida) {
                                         case 'L':
                                         case 'KG':
-                                            qtdeInsumo = parseFloat(qtdeIngrediente * 1000) * qtdeIngredienteReceita;;
+                                            qtdeInsumo = parseFloat(qtdeIngrediente * 1000) * qtdeIngredienteReceita;
                                             break;
                                         case 'MG':
-                                            qtdeInsumo = parseFloat(qtdeIngrediente / 1000) * qtdeIngredienteReceita;;
+                                            qtdeInsumo = parseFloat(qtdeIngrediente / 1000) * qtdeIngredienteReceita;
                                             break;
                                         case 'G':
                                         case 'Unidade':
                                         case 'ML':
-                                            qtdeInsumo = parseFloat(qtdeIngrediente) * qtdeIngredienteReceita;;
+                                            qtdeInsumo = parseFloat(qtdeIngrediente) * qtdeIngredienteReceita;
                                             break;
                                         case 'Colher Sopa':
-                                            qtdeInsumo = parseFloat(qtdeIngrediente * 20) * qtdeIngredienteReceita;;
+                                            qtdeInsumo = parseFloat(qtdeIngrediente * 20) * qtdeIngredienteReceita;
                                             break;
                                         case 'Colher Chá':
-                                            qtdeInsumo = parseFloat(qtdeIngrediente * 10) * qtdeIngredienteReceita;;
+                                            qtdeInsumo = parseFloat(qtdeIngrediente * 10) * qtdeIngredienteReceita;
                                             break;
                                         case 'Xicara':
-                                            qtdeInsumo = parseFloat(qtdeIngrediente * 100) * qtdeIngredienteReceita;;
+                                            qtdeInsumo = parseFloat(qtdeIngrediente * 100) * qtdeIngredienteReceita;
                                             break;
                                         case 'Duzia':
-                                            qtdeInsumo = parseFloat(qtdeIngrediente * 12) * qtdeIngredienteReceita;;
+                                            qtdeInsumo = parseFloat(qtdeIngrediente * 12) * qtdeIngredienteReceita;
                                             break;
                                         case 'Copo':
-                                            qtdeInsumo = parseFloat(qtdeIngrediente * 250) * qtdeIngredienteReceita;;
+                                            qtdeInsumo = parseFloat(qtdeIngrediente * 250) * qtdeIngredienteReceita;
                                             break;
                                     }
                                 }
