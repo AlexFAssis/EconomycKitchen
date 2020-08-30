@@ -70,6 +70,7 @@ routes.post('/tipoImposto/deletar/:id', controllers.tipoImposto.excluir);
 
 routes.get('/insumo/cadastro', controllers.insumo.index);
 routes.get('/insumo/listar', controllers.insumo.listar);
+routes.get('/insumo/listarTodos', controllers.insumo.listarTodos);
 routes.get('/insumo/:id', controllers.insumo.obterUm);
 routes.post('/insumo', controllers.insumo.novo);
 routes.get('/insumo/editar/:id', controllers.insumo.editar);

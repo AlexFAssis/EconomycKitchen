@@ -41,8 +41,17 @@ class insumoController {
     async listar(req, res) {
         try {
             const insumos = await Insumo.find()
-                .populate('categoriaInsumo');
             return res.render('insumo/listagem', { insumos, title: 'Listagem de Insumo' })
+        } catch (erro) {
+            console.error(erro);
+            res.sendStatus(500).end();
+        }
+    }
+
+    async listarTodos(req, res) {
+        try {
+            const insumos = await Insumo.find()
+            return res.render('insumo/listagemInsumos', { insumos, title: 'Listagem de Insumos' })
         } catch (erro) {
             console.error(erro);
             res.sendStatus(500).end();
