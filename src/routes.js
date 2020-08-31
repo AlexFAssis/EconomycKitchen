@@ -123,6 +123,7 @@ routes.get('/usuario/cadastro', authMiddleware, controllers.usuario.cadastro);
 routes.get('/usuario/cadastroLogin', guestMiddleware, controllers.usuario.cadastroLogin);
 routes.get('/usuario/listar', authMiddleware, controllers.usuario.listar);
 routes.get('/usuario/login', guestMiddleware, controllers.usuario.login);
+routes.get('/usuario/logout', controllers.usuario.logout);
 routes.post('/usuario/validacao', guestMiddleware, controllers.usuario.validacao);
 routes.get('/usuario/:id', authMiddleware, controllers.usuario.obterUm);
 routes.post('/usuario', authMiddleware, controllers.usuario.novo);

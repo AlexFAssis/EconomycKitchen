@@ -235,7 +235,7 @@ class compraController {
                                     }
 
                                     //Atualiza estoque e preço médio
-                                    valorEstoque += parseFloat(req.body.valor[i]);
+                                    valorEstoque += parseFloat(req.body.valor[i].toString().replace(/\,/, '.'));
                                     if (qtdeEstoque > 0) {
                                         precoMedio = parseFloat(valorEstoque / qtdeEstoque);
                                     } else {
@@ -333,23 +333,30 @@ class compraController {
                     switch (itemCompra[i].unidadeMedida) {
                         case 'Litro(s)':
                         case 'KG':
-                            qtdeEstoque -= parseFloat(itemCompra[i].quantidade.replace(/\,/, '.')) * 1000;
+                            qtdeEstoque -= parseFloat(itemCompra[i].quantidade) * 1000;
                             break;
                         case 'ML':
                         case 'Grama(s)':
                         case 'Unidade(s)':
-                            qtdeEstoque -= parseFloat(itemCompra[i].quantidade.replace(/\,/, '.'));
+                            qtdeEstoque -= parseFloat(itemCompra[i].quantidade);
                             break;
                         case 'MG':
-                            qtdeEstoque -= parseFloat(itemCompra[i].quantidade.replace(/\,/, '.')) / 1000;
+                            qtdeEstoque -= parseFloat(itemCompra[i].quantidade) / 1000;
                             break;
                         case 'Dúzia':
-                            qtdeEstoque -= parseFloat(itemCompra[i].quantidade.replace(/\,/, '.')) * 12;
+                            qtdeEstoque -= parseFloat(itemCompra[i].quantidade) * 12;
                             break;
                     }
 
                     //Preço médio
-                    valorEstoque -= parseFloat(itemCompra[i].valor);
+                    console.log('----x----')
+                    console.log(valorEstoque)
+                    console.log(itemCompra[i].valor)
+                    console.log(itemCompra[i].valor.toString())
+                    console.log(itemCompra[i].valor.toString().replace(/\,/, '.'))
+                    console.log('----x----')
+
+                    valorEstoque -= parseFloat(itemCompra[i].valor.toString().replace(/\,/, '.'));
                     if (qtdeEstoque > 0) {
                         precoMedio = parseFloat(valorEstoque / qtdeEstoque);
                     } else {
@@ -380,23 +387,30 @@ class compraController {
                     switch (req.body.unidadeMedida) {
                         case 'Litro(s)':
                         case 'KG':
-                            qtdeEstoque += parseFloat(req.body.quantidade.replace(/\,/, '.')) * 1000;
+                            qtdeEstoque += parseFloat(req.body.quantidade) * 1000;
                             break;
                         case 'ML':
                         case 'Grama(s)':
                         case 'Unidade(s)':
-                            qtdeEstoque += parseFloat(req.body.quantidade.replace(/\,/, '.'));
+                            qtdeEstoque += parseFloat(req.body.quantidade);
                             break;
                         case 'MG':
-                            qtdeEstoque += parseFloat(req.body.quantidade.replace(/\,/, '.')) / 1000;
+                            qtdeEstoque += parseFloat(req.body.quantidade) / 1000;
                             break;
                         case 'Dúzia':
-                            qtdeEstoque += parseFloat(req.body.quantidade.replace(/\,/, '.')) * 12;
+                            qtdeEstoque += parseFloat(req.body.quantidade) * 12;
                             break;
                     }
 
+                    console.log('----x1----')
+                    console.log(valorEstoque)
+                    console.log(req.body.valor)
+                    console.log(req.body.valor.toString())
+                    console.log(req.body.valor.toString().replace(/\,/, '.'))
+                    console.log('----x1----')
+
                     //Atualiza Preço Médio
-                    valorEstoque += parseFloat(req.body.valor).replace(/\,/, '.')
+                    valorEstoque += parseFloat(req.body.valor.replace(/\,/, '.'))
                     if (qtdeEstoque > 0) {
                         precoMedio = parseFloat(valorEstoque / qtdeEstoque);
                     } else {
@@ -437,8 +451,15 @@ class compraController {
                                     break;
                             }
 
+                            console.log('----x2----')
+                            console.log(valorEstoque)
+                            console.log(req.body.valor[i])
+                            console.log(req.body.valor[i].toString())
+                            console.log(req.body.valor[i].toString().replace(/\,/, '.'))
+                            console.log('----x2----')
+
                             //Atualiza Preço Médio
-                            valorEstoque += parseFloat(req.body.valor[i]);
+                            valorEstoque += parseFloat(req.body.valor[i].toString().replace(/\,/, '.'));
                             if (qtdeEstoque > 0) {
                                 precoMedio = parseFloat(valorEstoque / qtdeEstoque);
                             } else {
@@ -502,7 +523,7 @@ class compraController {
                     }
 
                     //Atualiza Preço Médio
-                    valorEstoque -= parseFloat(itemCompra[i].valor);
+                    valorEstoque -= parseFloat(itemCompra[i].valor.toString().replace(/\,/, '.'));
                     if (qtdeEstoque > 0) {
                         precoMedio = parseFloat(valorEstoque / qtdeEstoque);
                     } else {

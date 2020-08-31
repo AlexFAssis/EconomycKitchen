@@ -29,27 +29,28 @@
                     </button>
                 </a>
 
+                {{tipoUsuario}}
+
                 <h3 class="mt-2" id="TituloListagem">Listagem de Vendas</h3>
                 <br>
 
                 <table class="table table-striped" id="dataTable" width="100%">
                     <thead class="">
-                    <tr>
-                        <th scope="col" style="display:none">Id</th>
-                        <th scope="col">Data</th>
-                        <th scope="col">Valor</th>
-                        <th scope="col">Usuário</th>
-                        <th id="colEdit"></th>
-                        {% if tipoUsuario == Administrador %}
-                            <th id="colDelete"></th>
-                        {% endif %}
-                    </tr>
+                        <tr>
+                            <th scope="col" style="display:none">Id</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Usuário</th>
+                            <th id="colEdit"></th>
+                            {% if tipoUsuario == 'Administrador' %}
+                                <th id="colDelete">Y</th>
+                            {% endif %}
+                        </tr>
                     </thead>
                     <tbody>
                     {% for venda in vendas %}
                         <tr id="{{venda._id}}">
                         <th class="classId"  style="display:none">{{ venda._id }}</th>
-                        {# <th data-sort='YYYYMMDD' class="tirarNegrito classDesc">{{ venda.data | date("DD/MM/YYYY") }}</th> #}
                         <th class="tirarNegrito classDesc">{{ venda.data | date("DD/MM/YYYY") }}</th>
                         <td class="valorListagem">R${{venda.valorTotal}}</td>
                         <td>{{venda.usuario.nome}}</td>
@@ -60,17 +61,11 @@
                                 </button>
                             </a>
                         </td>
-                        {% if tipoUsuario == Administrador %}  
+                        {% if tipoUsuario == 'Administrador' %} 
                             <td>  
                                 <button type="button" class="btn btn-danger btnDelete" data-toggle="modal" data-target="#modalDelete" onClick="idLinha(this.parentNode.parentNode.id, 'venda')">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>           
-                                {# <form action="/venda/deletar/{{venda._id}}" method="POST"> 
-                                    <input type="hidden" name="_id" value="{{venda._id}}">
-                                    <button type="submit" class="btn btn-danger">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </form>    #}
                             </td>
                         {% endif %}
                         </tr>

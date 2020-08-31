@@ -223,6 +223,11 @@ class usuarioController {
         req.session.usuario = usuario
         return res.redirect('../app/dashboard')
     }
+
+    async logout(req, res) {
+        req.session.destroy()
+        return res.redirect('/')
+    }
 }
 
 module.exports = new usuarioController;

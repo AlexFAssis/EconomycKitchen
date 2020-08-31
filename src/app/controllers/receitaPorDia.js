@@ -358,30 +358,30 @@ class receitaPorDiaController {
                                                     switch (medida) {
                                                         case 'L':
                                                         case 'KG':
-                                                            qtdeEstoque -= parseInt(qtdeInsumo * 1000) * req.body.quantidade[i];
+                                                            qtdeEstoque -= parseInt(qtdeInsumo * 1000) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                         case 'MG':
-                                                            qtdeEstoque -= parseInt(qtdeInsumo / 1000) * req.body.quantidade[i];
+                                                            qtdeEstoque -= parseInt(qtdeInsumo / 1000) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                         case 'ML':
                                                         case 'G':
                                                         case 'Unidade':
-                                                            qtdeEstoque -= parseInt(qtdeInsumo) * req.body.quantidade[i];
+                                                            qtdeEstoque -= parseInt(qtdeInsumo) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                         case 'Colher Sopa':
-                                                            qtdeEstoque -= parseInt(qtdeInsumo * 20) * req.body.quantidade[i];
+                                                            qtdeEstoque -= parseInt(qtdeInsumo * 20) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                         case 'Colher Cha':
-                                                            qtdeEstoque -= parseInt(qtdeInsumo * 10) * req.body.quantidade[i];
+                                                            qtdeEstoque -= parseInt(qtdeInsumo * 10) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                         case 'Xicara':
-                                                            qtdeEstoque -= parseInt(qtdeInsumo * 100) * req.body.quantidade[i];
+                                                            qtdeEstoque -= parseInt(qtdeInsumo * 100) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                         case 'Duzia':
-                                                            qtdeEstoque -= parseInt(qtdeInsumo * 12) * req.body.quantidade[i];
+                                                            qtdeEstoque -= parseInt(qtdeInsumo * 12) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                         case 'Copo':
-                                                            qtdeEstoque -= parseInt(qtdeInsumo * 250) * req.body.quantidade[i];
+                                                            qtdeEstoque -= parseInt(qtdeInsumo * 250) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                     }
 
@@ -958,37 +958,37 @@ class receitaPorDiaController {
                             switch (medida) {
                                 case 'L':
                                 case 'KG':
-                                    qtdeEstoque += parseFloat(qtdeInsumo * 1000) * itensReceitaPorDia[i].quantidade;
+                                    qtdeEstoque += parseFloat(qtdeInsumo * 1000) * itensReceitaPorDia[i].quantidade.toString().replace(/\,/, '.');
                                     break;
                                 case 'MG':
-                                    qtdeEstoque += parseFloat(qtdeInsumo / 1000) * itensReceitaPorDia[i].quantidade;
+                                    qtdeEstoque += parseFloat(qtdeInsumo / 1000) * itensReceitaPorDia[i].quantidade.toString().replace(/\,/, '.');
                                     break;
                                 case 'ML':
                                 case 'G':
                                 case 'Unidade':
-                                    qtdeEstoque += parseFloat(qtdeInsumo) * itensReceitaPorDia[i].quantidade;
+                                    qtdeEstoque += parseFloat(qtdeInsumo) * itensReceitaPorDia[i].quantidade.toString().replace(/\,/, '.');
                                     break;
                                 case 'Colher Sopa':
-                                    qtdeEstoque += parseFloat(qtdeInsumo * 20) * itensReceitaPorDia[i].quantidade;
+                                    qtdeEstoque += parseFloat(qtdeInsumo * 20) * itensReceitaPorDia[i].quantidade.toString().replace(/\,/, '.');
                                     break;
                                 case 'Colher Cha':
-                                    qtdeEstoque += parseFloat(qtdeInsumo * 10) * itensReceitaPorDia[i].quantidade;
+                                    qtdeEstoque += parseFloat(qtdeInsumo * 10) * itensReceitaPorDia[i].quantidade.toString().replace(/\,/, '.');
                                     break;
                                 case 'Xicara':
-                                    qtdeEstoque += parseFloat(qtdeInsumo * 100) * itensReceitaPorDia[i].quantidade;
+                                    qtdeEstoque += parseFloat(qtdeInsumo * 100) * itensReceitaPorDia[i].quantidade.toString().replace(/\,/, '.');
                                     break;
                                 case 'Duzia':
-                                    qtdeEstoque += parseFloat(qtdeInsumo * 12) * itensReceitaPorDia[i].quantidade;
+                                    qtdeEstoque += parseFloat(qtdeInsumo * 12) * itensReceitaPorDia[i].quantidade.toString().replace(/\,/, '.');
                                     break;
                                 case 'Copo':
-                                    qtdeEstoque += parseFloat(qtdeInsumo * 250) * itensReceitaPorDia[i].quantidade;
+                                    qtdeEstoque += parseFloat(qtdeInsumo * 250) * itensReceitaPorDia[i].quantidade.toString().replace(/\,/, '.');
                                     break;
                             }
 
                             console.log('------------')
                             console.log('medida: ' + medida)
                             console.log('qtdeEstoque: ' + qtdeEstoque)
-                            console.log('qtde: ' + itensReceitaPorDia[i].quantidade)
+                            console.log('qtde: ' + itensReceitaPorDia[i].quantidade.toString().replace(/\,/, '.'))
                             console.log('insumoOld: ' + insumoOld.nome)
                             console.log('qtdeEstoque: ' + qtdeEstoque)
                             console.log('qtdeInsumo: ' + qtdeInsumo)

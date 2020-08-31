@@ -5,7 +5,6 @@ const Produto = require('../models/Produto');
 const Estoque = require('../models/Estoque');
 const Receita = require('../models/Receita');
 const moment = require('moment');
-// const dateformat = require('dateformat')
 
 class vendaController {
     async index(req, res) {
@@ -173,8 +172,9 @@ class vendaController {
             const vendas = await Venda.find()
                 .populate('usuario').sort({ data: 'desc' })
 
-            const tipoUsuario = 'Administrador' //req.session.usuario.tipo
-            return res.render('venda/listagem', { vendas, tipoUsuario, title: 'Listagem de Venda' })
+            const tipoUsuario = req.session.usuario.tipo
+            console.log(tipoUsuario)
+            return res.render('venda/listagem', { vendas, tipoUsuario: tipoUsuario, title: 'Listagem de Venda' })
         } catch (erro) {
             console.error(erro);
             res.sendStatus(500).end();
