@@ -251,8 +251,6 @@ function mostraTotais() {
   let produto = vetProduto[0]
   let $ValueCard4DashBoard = document.getElementById('ValueCard4DashBoard')
 
-  debugger
-
   if (produto != undefined) {
     $ValueCard4DashBoard.innerHTML = produto
   } else {

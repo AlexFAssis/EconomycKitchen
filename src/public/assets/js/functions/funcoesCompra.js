@@ -57,7 +57,7 @@
 function RedimensionaBotaoExluir() {
   let windowWidth = window.innerWidth;
   let $btnExcluir = document.getElementsByClassName('btnExcluir')
-  let $divBtnExcluir = document.getElementsByClassName('divBtnExcluir')
+  let $divBtnExcluir = document.getElementsByClassName('divBtnExcluirCompra')
 
   if (windowWidth < 992) {
     for (let i = $btnExcluir.length - 1; i >= 0; i--) {
@@ -65,7 +65,7 @@ function RedimensionaBotaoExluir() {
       $btnExcluir[i].textAlign = 'center'
       $btnExcluir[i].setAttribute('style', 'margin-top:5px !important');
       $btnExcluir[i].style.marginBottom = '10px'
-      $divBtnExcluir[i].setAttribute('class', 'col-md-12 divBtnExcluir');
+      $divBtnExcluir[i].setAttribute('class', 'col-md-12 divBtnExcluirCompra');
       $btnExcluir[i].style.width = '100%'
     }
   } else {
@@ -74,7 +74,7 @@ function RedimensionaBotaoExluir() {
       $btnExcluir[i].textAlign = 'center'
       $btnExcluir[i].setAttribute('style', 'margin-top: 1.5rem!important');
       $btnExcluir[i].style.marginBottom = '0px'
-      $divBtnExcluir[i].setAttribute('class', 'col-md-1 col-lg-1 col-xl-1 divBtnExcluir');
+      $divBtnExcluir[i].setAttribute('class', 'col-md-1 col-lg-1 col-xl-1 divBtnExcluirCompra');
       $btnExcluir[i].style.top = "5px"
     }
   }
