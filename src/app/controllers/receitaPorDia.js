@@ -7,6 +7,7 @@ const Estoque = require('../models/Estoque');
 const moment = require('moment');
 const ItemReceita = require('../models/ItemReceita');
 const Produto = require('../models/Produto');
+const { compare } = require('bcryptjs');
 
 class receitaPorDiaController {
 
@@ -132,6 +133,7 @@ class receitaPorDiaController {
                                 const itensReceita = await ItensReceita.find({ receita: req.body.receita[x] })
                                 var receita = await Receita.findById(req.body.receita[x])
 
+
                                 for (let i = 0; i < itensReceita.length; i++) {
                                     if (temEstoque) {
                                         var vetReceitaPorDiaItens = []
@@ -166,13 +168,13 @@ class receitaPorDiaController {
                                                 objReceitaPorDia.insumo = itensReceita[i].insumo
                                             }
                                         }
-
-                                        for (let i = 0; i < vetReceitaPorDiaItens.length; i++) {
-                                            let qtdeIngrediente = vetReceitaPorDiaItens[i].quantidade
-                                            let medida = vetReceitaPorDiaItens[i].medida
-                                            var insumoReceita = vetReceitaPorDiaItens[i].insumo
+                                        /////aquiiiiiiiiii
+                                        for (let l = 0; l < vetReceitaPorDiaItens.length; l++) {
+                                            let qtdeIngrediente = vetReceitaPorDiaItens[l].quantidade
+                                            let medida = vetReceitaPorDiaItens[l].medida
+                                            var insumoReceita = vetReceitaPorDiaItens[l].insumo
                                             var qtdeInsumo = 0
-                                            let qtdeIngredienteReceita = itensReceita[x].qtdeInsumo
+                                            let qtdeIngredienteReceita = itensReceita[i].qtdeInsumo
 
                                             switch (medida) {
                                                 case 'L':
@@ -473,8 +475,9 @@ class receitaPorDiaController {
         for (let i = 0; i < receitasPorDiaItem.length; i++) {
             let receitaItem = new Object()
             receitaItem.id = receitasPorDiaItem[i].receita
+            let quantidade = receitasPorDiaItem[i].quantidade
             const receita = await Receita.findById(receitaItem.id)
-            receitaItem.qtdeRendimento = receita.qtdeRendimento
+            receitaItem.qtdeRendimento = receita.qtdeRendimento * quantidade
             vetIdReceitaPorDiaItens.push(receitaItem)
         }
 
@@ -723,17 +726,36 @@ class receitaPorDiaController {
                     //Se houver mais que um item na receitaPorDia é um objeto
                     var totalItemReceita = req.body.quantidade.length;
 
+                    var cont1 = 0
+                    console.log('totalItemReceita: ' + totalItemReceita)
                     for (let x = 0; x < totalItemReceita; x++) {
                         const itensReceita = await ItensReceita.find({ receita: req.body.receita[x] })
                         var receita = await Receita.findById(req.body.receita[x])
 
+                        cont1++
+                        console.log('------------------------')
+                        console.log('cont1:' + cont1)
+
+                        var cont2 = 0
+                        console.log('itensReceita.length: ' + itensReceita.length)
                         for (let i = 0; i < itensReceita.length; i++) {
+
+                            cont2++
+                            console.log('cont2:' + cont2)
+
+
                             if (temEstoque) {
                                 var vetReceitaPorDiaItens = []
                                 var total = req.body.quantidade.length;
                                 var achou = false;
 
+                                var cont3 = 0
+                                console.log('total: ' + total)
                                 for (let j = 0; j < total; j++) {
+
+                                    cont3++
+                                    console.log('cont3:' + cont3)
+
                                     var objReceitaPorDia = {}
 
                                     if (vetReceitaPorDiaItens.length <= 0) {
@@ -745,7 +767,16 @@ class receitaPorDiaController {
                                         achou = true
                                     } else {
                                         achou = false
+                                        console.log('vetReceitaPorDiaItens.length:' + vetReceitaPorDiaItens.length)
                                         for (let k = 0; k < vetReceitaPorDiaItens.length; k++) {
+                                            console.log('J:' + j)
+                                            console.log('K:' + k)
+                                            console.log('vetReceitaPorDiaItens')
+                                            console.log(vetReceitaPorDiaItens)
+                                            console.log('req.body.receita[j].toString(): ' + req.body.receita[j].toString())
+                                            console.log('vetReceitaPorDiaItens[k]: ' + vetReceitaPorDiaItens[k])
+                                            console.log('vetReceitaPorDiaItens[k].id: ' + vetReceitaPorDiaItens[k].id)
+                                            console.log('vetReceitaPorDiaItens[k].id.toString(): ' + vetReceitaPorDiaItens[k].id.toString())
                                             if (req.body.receita[j].toString() == vetReceitaPorDiaItens[k].id.toString()) {
                                                 achou = true
                                                 vetReceitaPorDiaItens[k].quantidade += parseFloat(req.body.quantidade[j])
@@ -754,11 +785,11 @@ class receitaPorDiaController {
                                     }
 
                                     if (!achou) {
-                                        objReceitaPorDia.id = req.body.receita[i]
-                                        objReceitaPorDia.quantidade = parseFloat(req.body.quantidade[i])
-                                        vetReceitaPorDiaItens.push(objReceitaPorDia)
+                                        objReceitaPorDia.id = req.body.receita[j]
+                                        objReceitaPorDia.quantidade = parseFloat(req.body.quantidade[j])
                                         objReceitaPorDia.medida = itensReceita[i].medida
                                         objReceitaPorDia.insumo = itensReceita[i].insumo
+                                        vetReceitaPorDiaItens.push(objReceitaPorDia)
                                     }
                                 }
 
