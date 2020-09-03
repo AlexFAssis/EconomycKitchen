@@ -73,13 +73,16 @@ class receitaPorDiaController {
                         //Verifica se tem estoque de insumos para fazer as receitas
                         var temEstoque = true
                         var vetReceita = []
+                        var vetAcmEstoque = []
 
                         if (typeof req.body.quantidade != 'object') {
                             const itensReceita = await ItensReceita.find({ receita: req.body.receita })
                             var receita = await Receita.findById(req.body.receita)
+                            var achou = false
 
                             for (let i = 0; i < itensReceita.length; i++) {
                                 if (temEstoque) {
+                                    var objReceitaPorDiaEstoque = {}
                                     let qtdeIngrediente = req.body.quantidade
                                     let medida = itensReceita[i].medida
                                     let insumoReceita = itensReceita[i].insumo
@@ -116,121 +119,119 @@ class receitaPorDiaController {
                                             break;
                                     }
 
-                                    const insumo = await Insumo.findById(insumoReceita)
+                                    //Acumula itens da receita
+                                    if (vetAcmEstoque.length <= 0) {
+                                        achou = true
+                                        objReceitaPorDiaEstoque.insumoId = insumoReceita
+                                        objReceitaPorDiaEstoque.qtdeInsumo = qtdeInsumo
+                                        vetAcmEstoque.push(objReceitaPorDiaEstoque)
+                                    } else {
+                                        achou = false
+                                        for (let k = 0; k < vetAcmEstoque.length; k++) {
+                                            if (insumoReceita.toString() == vetAcmEstoque[k].insumoId.toString()) {
+                                                achou = true
+                                                vetAcmEstoque[k].qtdeInsumo += parseFloat(qtdeInsumo)
+                                            }
+                                        }
+                                    }
 
-                                    if (insumo.qtdeEstoque < qtdeInsumo) {
-                                        vetReceita.push(receita.nome)
-                                        temEstoque = false
+                                    if (!achou) {
+                                        objReceitaPorDiaEstoque.insumoId = insumoReceita
+                                        objReceitaPorDiaEstoque.qtdeInsumo = qtdeInsumo
+                                        vetAcmEstoque.push(objReceitaPorDiaEstoque)
                                     }
                                 } else {
                                     break
                                 }
                             }
+
+                            console.log('--------------------------')
+                            console.log(vetAcmEstoque)
+                            console.log('--------------------------')
+
+                            for (let i = 0; i < vetAcmEstoque.length; i++) {
+                                vetAcmEstoque[i].insumoId
+
+                                const insumo = await Insumo.findById(vetAcmEstoque[i].insumoId)
+
+                                if (insumo.qtdeEstoque < vetAcmEstoque[i].qtdeInsumo) {
+                                    vetReceita.push(receita.nome)
+                                    temEstoque = false
+                                    console.log('Insumo: ' + insumo.nome + ' tem estoque de: ' + insumo.qtdeEstoque + ' e a receita tem: ' + vetAcmEstoque[i].qtdeInsumo)
+                                }
+                            }
+
                         } else {
                             var totalItemReceita = req.body.quantidade.length;
+                            var vetReceitaPorDiaItens = []
 
                             for (let x = 0; x < totalItemReceita; x++) {
                                 const itensReceita = await ItensReceita.find({ receita: req.body.receita[x] })
                                 var receita = await Receita.findById(req.body.receita[x])
 
+                                console.log('x--------------------------x')
+                                console.log('Itens: ' + itensReceita)
+                                console.log('x--------------------------x')
 
                                 for (let i = 0; i < itensReceita.length; i++) {
-                                    if (temEstoque) {
-                                        var vetReceitaPorDiaItens = []
-                                        var total = req.body.quantidade.length;
-                                        var achou = false;
+                                    var achou = false;
+                                    var objReceitaPorDia = {}
 
-                                        for (let j = 0; j < total; j++) {
-                                            var objReceitaPorDia = {}
-
-                                            if (vetReceitaPorDiaItens.length <= 0) {
-                                                objReceitaPorDia.id = req.body.receita[j]
-                                                objReceitaPorDia.quantidade = parseFloat(req.body.quantidade[j])
-                                                objReceitaPorDia.medida = itensReceita[i].medida
-                                                objReceitaPorDia.insumo = itensReceita[i].insumo
-                                                vetReceitaPorDiaItens.push(objReceitaPorDia)
-                                                achou = true
-                                            } else {
-                                                achou = false
-                                                for (let k = 0; k < vetReceitaPorDiaItens.length; k++) {
-                                                    if (req.body.receita[j].toString() == vetReceitaPorDiaItens[k].id.toString()) {
-                                                        achou = true
-                                                        vetReceitaPorDiaItens[k].quantidade += parseFloat(req.body.quantidade[j])
-                                                    }
-                                                }
-                                            }
-
-                                            if (!achou) {
-                                                objReceitaPorDia.id = req.body.receita[i]
-                                                objReceitaPorDia.quantidade = parseFloat(req.body.quantidade[i])
-                                                vetReceitaPorDiaItens.push(objReceitaPorDia)
-                                                objReceitaPorDia.medida = itensReceita[i].medida
-                                                objReceitaPorDia.insumo = itensReceita[i].insumo
-                                            }
-                                        }
-                                        /////aquiiiiiiiiii
-                                        for (let l = 0; l < vetReceitaPorDiaItens.length; l++) {
-                                            let qtdeIngrediente = vetReceitaPorDiaItens[l].quantidade
-                                            let medida = vetReceitaPorDiaItens[l].medida
-                                            var insumoReceita = vetReceitaPorDiaItens[l].insumo
-                                            var qtdeInsumo = 0
-                                            let qtdeIngredienteReceita = itensReceita[i].qtdeInsumo
-
-                                            switch (medida) {
-                                                case 'L':
-                                                case 'KG':
-                                                    qtdeInsumo = parseFloat(qtdeIngrediente * 1000) * qtdeIngredienteReceita;
-                                                    break;
-                                                case 'MG':
-                                                    qtdeInsumo = parseFloat(qtdeIngrediente / 1000) * qtdeIngredienteReceita;
-                                                    break;
-                                                case 'G':
-                                                case 'Unidade':
-                                                case 'ML':
-                                                    qtdeInsumo = parseFloat(qtdeIngrediente) * qtdeIngredienteReceita;
-                                                    break;
-                                                case 'Colher Sopa':
-                                                    qtdeInsumo = parseFloat(qtdeIngrediente * 20) * qtdeIngredienteReceita;
-                                                    break;
-                                                case 'Colher Chá':
-                                                    qtdeInsumo = parseFloat(qtdeIngrediente * 10) * qtdeIngredienteReceita;
-                                                    break;
-                                                case 'Xicara':
-                                                    qtdeInsumo = parseFloat(qtdeIngrediente * 100) * qtdeIngredienteReceita;
-                                                    break;
-                                                case 'Duzia':
-                                                    qtdeInsumo = parseFloat(qtdeIngrediente * 12) * qtdeIngredienteReceita;
-                                                    break;
-                                                case 'Copo':
-                                                    qtdeInsumo = parseFloat(qtdeIngrediente * 250) * qtdeIngredienteReceita;
-                                                    break;
-                                            }
-                                        }
-
-                                        const insumo = await Insumo.findById(insumoReceita)
-
-                                        if (insumo.qtdeEstoque < qtdeInsumo) {
-                                            vetReceita.push(receita.nome)
-                                            temEstoque = false
-                                        }
+                                    if (vetReceitaPorDiaItens.length <= 0) {
+                                        objReceitaPorDia.idInsumo = itensReceita[i].insumo
+                                        objReceitaPorDia.quantidadeReceita = calculaQtdeInsumo(itensReceita[i].medida, itensReceita[i].qtdeInsumo, req.body.quantidade[x])
+                                        vetReceitaPorDiaItens.push(objReceitaPorDia)
+                                        achou = true
                                     } else {
-                                        break
+                                        achou = false
+                                        for (let k = 0; k < vetReceitaPorDiaItens.length; k++) {
+                                            let teste3 = itensReceita[i].insumo.toString()
+                                            let teste2 = vetReceitaPorDiaItens[k].idInsumo.toString()
+                                            if (itensReceita[i].insumo.toString() == vetReceitaPorDiaItens[k].idInsumo.toString()) {
+                                                achou = true
+                                                vetReceitaPorDiaItens[k].quantidadeReceita += calculaQtdeInsumo(itensReceita[i].medida, itensReceita[i].qtdeInsumo, req.body.quantidade[x])
+                                            }
+                                        }
                                     }
 
+                                    if (!achou) {
+                                        objReceitaPorDia.idInsumo = itensReceita[i].insumo
+                                        objReceitaPorDia.quantidadeReceita = calculaQtdeInsumo(itensReceita[i].medida, itensReceita[i].qtdeInsumo, req.body.quantidade[x])
+                                        vetReceitaPorDiaItens.push(objReceitaPorDia)
+                                    }
                                 }
                             }
+
+                            for (let l = 0; l < vetReceitaPorDiaItens.length; l++) {
+                                const insumo = await Insumo.findById(vetReceitaPorDiaItens[l].idInsumo)
+
+                                if (insumo.qtdeEstoque < vetReceitaPorDiaItens[l].quantidadeReceita) {
+                                    vetReceita.push(insumo.nome) //receita.nome)
+                                    temEstoque = false
+                                }
+                            }
+
+                            console.log('Start------------vetReceitaPorDiaItens------------')
+                            console.log(vetReceitaPorDiaItens)
+                            console.log('End------------vetReceitaPorDiaItens-----------')
+
+                            console.log('Start------------vetReceita-----------')
+                            console.log(vetReceita)
+                            console.log('End------------vetReceita-----------')
                         }
 
+
+                        //Parte Final
                         if (temEstoque) {
                             if (req.body.quantidade != undefined) {
-                                //Somente um item na ReceitaPorDia
+                                //         //Somente um item na ReceitaPorDia
                                 if (typeof req.body.quantidade != 'object') {
                                     try {
                                         await ItemReceitaPorDia.create({ quantidade: req.body.quantidade, receita: req.body.receita, receitaPorDia: newObj._id });
                                         const ItemReceitaDia = await ItemReceitaPorDia.find({ receitaPorDia: newObj._id })
                                         const estoque = await Estoque.find({ receita: req.body.receita })
 
-                                        //Verfica/ Cria estoque de Produtos feitos
+                                        // Verfica ou Cria estoque de Produtos feitos
                                         if (estoque.length > 0) {
                                             for (let j = 0; j < estoque.length; j++) {
                                                 if (estoque[j].receita.toString() == ItemReceitaDia[0].receita.toString()) {
@@ -259,30 +260,30 @@ class receitaPorDiaController {
                                             switch (medida) {
                                                 case 'L':
                                                 case 'KG':
-                                                    qtdeEstoque -= parseInt(qtdeInsumo * 1000) * req.body.quantidade;
+                                                    qtdeEstoque -= parseFloat(qtdeInsumo * 1000) * req.body.quantidade;
                                                     break;
                                                 case 'MG':
-                                                    qtdeEstoque -= parseInt(qtdeInsumo / 1000) * req.body.quantidade;
+                                                    qtdeEstoque -= parseFloat(qtdeInsumo / 1000) * req.body.quantidade;
                                                     break;
                                                 case 'G':
                                                 case 'ML':
                                                 case 'Unidade':
-                                                    qtdeEstoque -= parseInt(qtdeInsumo) * req.body.quantidade;
+                                                    qtdeEstoque -= parseFloat(qtdeInsumo) * req.body.quantidade;
                                                     break;
                                                 case 'Colher Sopa':
-                                                    qtdeEstoque -= parseInt(qtdeInsumo * 20) * req.body.quantidade;
+                                                    qtdeEstoque -= parseFloat(qtdeInsumo * 20) * req.body.quantidade;
                                                     break;
                                                 case 'Colher Cha':
-                                                    qtdeEstoque -= parseInt(qtdeInsumo * 10) * req.body.quantidade;
+                                                    qtdeEstoque -= parseFloat(qtdeInsumo * 10) * req.body.quantidade;
                                                     break;
                                                 case 'Xicara':
-                                                    qtdeEstoque -= parseInt(qtdeInsumo * 100) * req.body.quantidade;
+                                                    qtdeEstoque -= parseFloat(qtdeInsumo * 100) * req.body.quantidade;
                                                     break;
                                                 case 'Duzia':
-                                                    qtdeEstoque -= parseInt(qtdeInsumo * 12) * req.body.quantidade;
+                                                    qtdeEstoque -= parseFloat(qtdeInsumo * 12) * req.body.quantidade;
                                                     break;
                                                 case 'Copo':
-                                                    qtdeEstoque -= parseInt(qtdeInsumo * 250) * req.body.quantidade;
+                                                    qtdeEstoque -= parseFloat(qtdeInsumo * 250) * req.body.quantidade;
                                                     break;
                                             }
 
@@ -360,32 +361,40 @@ class receitaPorDiaController {
                                                     switch (medida) {
                                                         case 'L':
                                                         case 'KG':
-                                                            qtdeEstoque -= parseInt(qtdeInsumo * 1000) * req.body.quantidade[i].toString().replace(/\,/, '.');
+                                                            qtdeEstoque -= parseFloat(qtdeInsumo * 1000) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                         case 'MG':
-                                                            qtdeEstoque -= parseInt(qtdeInsumo / 1000) * req.body.quantidade[i].toString().replace(/\,/, '.');
+                                                            qtdeEstoque -= parseFloat(qtdeInsumo / 1000) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                         case 'ML':
                                                         case 'G':
                                                         case 'Unidade':
-                                                            qtdeEstoque -= parseInt(qtdeInsumo) * req.body.quantidade[i].toString().replace(/\,/, '.');
+                                                            qtdeEstoque -= parseFloat(qtdeInsumo) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                         case 'Colher Sopa':
-                                                            qtdeEstoque -= parseInt(qtdeInsumo * 20) * req.body.quantidade[i].toString().replace(/\,/, '.');
+                                                            qtdeEstoque -= parseFloat(qtdeInsumo * 20) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                         case 'Colher Cha':
-                                                            qtdeEstoque -= parseInt(qtdeInsumo * 10) * req.body.quantidade[i].toString().replace(/\,/, '.');
+                                                            qtdeEstoque -= parseFloat(qtdeInsumo * 10) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                         case 'Xicara':
-                                                            qtdeEstoque -= parseInt(qtdeInsumo * 100) * req.body.quantidade[i].toString().replace(/\,/, '.');
+                                                            qtdeEstoque -= parseFloat(qtdeInsumo * 100) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                         case 'Duzia':
-                                                            qtdeEstoque -= parseInt(qtdeInsumo * 12) * req.body.quantidade[i].toString().replace(/\,/, '.');
+                                                            qtdeEstoque -= parseFloat(qtdeInsumo * 12) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                         case 'Copo':
-                                                            qtdeEstoque -= parseInt(qtdeInsumo * 250) * req.body.quantidade[i].toString().replace(/\,/, '.');
+                                                            qtdeEstoque -= parseFloat(qtdeInsumo * 250) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                     }
+
+                                                    console.log('------------')
+                                                    console.log('medida: ' + medida)
+                                                    console.log('qtdeEstoque: ' + qtdeEstoque)
+                                                    console.log('qtde: ' + req.body.quantidade[i])
+                                                    console.log('insumoOld: ' + insumoOld.nome)
+                                                    console.log('qtdeInsumo: ' + qtdeInsumo)
+
 
                                                     valorEstoque = qtdeEstoque * precoMedio;
 
@@ -1085,6 +1094,42 @@ function formataData(data) {
     dtFormatada = dia + '-' + mes + '-' + ano;
 
     return dtFormatada;
+}
+
+function calculaQtdeInsumo(medida, quantidadeInsumo, quantidadeReceitasFeitas) {
+    let qtdeInsumo = 0
+
+    switch (medida) {
+        case 'L':
+        case 'KG':
+            qtdeInsumo = parseFloat(quantidadeInsumo * 1000) * quantidadeReceitasFeitas;
+            break;
+        case 'MG':
+            qtdeInsumo = parseFloat(quantidadeInsumo / 1000) * quantidadeReceitasFeitas;
+            break;
+        case 'G':
+        case 'Unidade':
+        case 'ML':
+            qtdeInsumo = parseFloat(quantidadeInsumo) * quantidadeReceitasFeitas;
+            break;
+        case 'Colher Sopa':
+            qtdeInsumo = parseFloat(quantidadeInsumo * 20) * quantidadeReceitasFeitas;
+            break;
+        case 'Colher Chá':
+            qtdeInsumo = parseFloat(quantidadeInsumo * 10) * quantidadeReceitasFeitas;
+            break;
+        case 'Xicara':
+            qtdeInsumo = parseFloat(quantidadeInsumo * 100) * quantidadeReceitasFeitas;
+            break;
+        case 'Duzia':
+            qtdeInsumo = parseFloat(quantidadeInsumo * 12) * quantidadeReceitasFeitas;
+            break;
+        case 'Copo':
+            qtdeInsumo = parseFloat(quantidadeInsumo * 250) * quantidadeReceitasFeitas;
+            break;
+    }
+
+    return qtdeInsumo
 }
 
 module.exports = new receitaPorDiaController;
