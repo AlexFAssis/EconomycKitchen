@@ -133,7 +133,7 @@ function adicionaItemCompra() {
     quantidade.setAttribute("name", "quantidade");
     quantidade.setAttribute("value", "0");
     quantidade.setAttribute("class", "qtde form-control");
-    quantidade.setAttribute("min", "1");
+    quantidade.setAttribute("min", "0.01");
     quantidade.required = true;
     div1.appendChild(quantidade);
 
