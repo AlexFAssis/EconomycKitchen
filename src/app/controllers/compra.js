@@ -219,18 +219,18 @@ class compraController {
                                     switch (req.body.unidadeMedida[i]) {
                                         case 'Litro(s)':
                                         case 'KG':
-                                            qtdeEstoque += parseInt(req.body.quantidade[i]) * 1000;
+                                            qtdeEstoque += parseFloat(req.body.quantidade[i]) * 1000;
                                             break;
                                         case 'ML':
                                         case 'Grama(s)':
                                         case 'Unidade(s)':
-                                            qtdeEstoque += parseInt(req.body.quantidade[i]);
+                                            qtdeEstoque += parseFloat(req.body.quantidade[i]);
                                             break;
                                         case 'MG':
-                                            qtdeEstoque += parseInt(req.body.quantidade[i]) / 1000;
+                                            qtdeEstoque += parseFloat(req.body.quantidade[i]) / 1000;
                                             break;
                                         case 'Dúzia':
-                                            qtdeEstoque += parseInt(req.body.quantidade[i]) * 12;
+                                            qtdeEstoque += parseFloat(req.body.quantidade[i]) * 12;
                                             break;
                                     }
 

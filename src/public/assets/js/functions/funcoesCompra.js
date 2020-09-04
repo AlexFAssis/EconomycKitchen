@@ -164,9 +164,9 @@ function adicionaItemCompra() {
     quantidade.setAttribute("name", "quantidade");
     quantidade.setAttribute("value", "0");
     quantidade.setAttribute("class", "qtde form-control");
-    quantidade.setAttribute("min", "1")
-    quantidade.min = 1;
-    quantidade.max = 9999;
+    quantidade.setAttribute("min", "0.01")
+    quantidade.min = 0.01;
+    quantidade.max = 9999.99;
     div1.appendChild(quantidade);
 
     let labelqtde = document.createElement("LABEL");
