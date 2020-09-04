@@ -498,7 +498,7 @@ function calculaPrecoMedioReceita() {
         document.getElementById("dtCalculoPrecoMedio").value = formataData(dtCalculoPrecoMedio);
       } else {
         document.getElementById("CompraNula").style.display = 'block'
-        document.getElementById("CompraNula").innerText = 'Há itens da receita que não foram comprados '
+        document.getElementById("CompraNula").innerText = 'Cálculo não realizado, há itens da receita que não possuem estoque'
       }
 
     }

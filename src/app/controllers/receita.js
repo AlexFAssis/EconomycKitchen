@@ -9,6 +9,7 @@ const ReceitaPorDia = require("../models/ReceitaPorDia")
 const ItensReceitaPorDia = require("../models/ItemReceitaPorDia")
 const Produto = require("../models/Produto");
 const ItemReceitaPorDia = require('../models/ItemReceitaPorDia');
+const Estoque = require('../models/Estoque');
 
 
 class receitaController {
@@ -305,6 +306,7 @@ class receitaController {
                 const historicoReceita = await HistoricoReceita.find({ receita: id })
                 const receita = await Receita.findByIdAndDelete(id);
                 const itensReceita = await ItemReceita.find({ receita: receita._id });
+                const estoque = await Estoque.find({ receita: receita._id })
 
                 if (historicoReceita.length > 0) {
                     await HistoricoReceita.remove({ receita: id });
@@ -312,6 +314,10 @@ class receitaController {
 
                 if (itensReceita.length > 0) {
                     await ItemReceita.remove({ receita: receita._id });
+                }
+
+                if (estoque.length > 0) {
+                    await Estoque.remove({ receita: receita._id });
                 }
 
                 if (receita) {

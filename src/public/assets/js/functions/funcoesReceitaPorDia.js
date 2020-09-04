@@ -324,8 +324,6 @@ function carregaReceitas() {
 
 function calculaRendimento(indice) {
   if ($controle) {
-
-    debugger;
     let $Receita = document.getElementsByClassName('Receita')
     let $qtde = document.getElementsByClassName('qtde')
     let $rendimentoReceita = document.getElementsByClassName('receitaRendimento')
