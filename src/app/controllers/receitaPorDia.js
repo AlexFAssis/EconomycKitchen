@@ -5,7 +5,6 @@ const ItensReceita = require('../models/ItemReceita');
 const Insumo = require('../models/Insumo');
 const Estoque = require('../models/Estoque');
 const moment = require('moment');
-const ItemReceita = require('../models/ItemReceita');
 const Produto = require('../models/Produto');
 const { compare } = require('bcryptjs');
 
@@ -65,6 +64,7 @@ class receitaPorDiaController {
                 return res.redirect('/receitaPorDia/cadastro');
             } else {
                 await ReceitaPorDia.create({ data: data._d }, async function (err, newObj) {
+                    var receitaCriadaId = newObj;
                     if (err) {
                         throw err;
                     } else if (!newObj) {
@@ -426,13 +426,19 @@ class receitaPorDiaController {
                                     if (criou) {
                                         return res.redirect('/receitaPorDia/listar');
                                     } else {
+                                        if (receitaCriadaId != ' ') {
+                                            await ReceitaPorDia.findByIdAndDelete(receitaCriadaId)
+                                        }
                                         req.flash('error', 'Ocorreu um erro ao cadastrar a receita')
                                         return res.redirect('/receitaPorDia/cadastro')
                                     }
                                 }
                             }
                         } else {
-                            //Aqui só vai listar 1 receita pq não vai chegar na segunda
+                            if (receitaCriadaId != ' ') {
+                                await ReceitaPorDia.findByIdAndDelete(receitaCriadaId)
+                            }
+
                             for (let i = 0; i < vetReceita.length; i++) {
                                 req.flash('error', 'Não há estoque para a receita ' + vetReceita[i])
                             }

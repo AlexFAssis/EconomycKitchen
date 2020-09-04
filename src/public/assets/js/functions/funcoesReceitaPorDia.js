@@ -221,10 +221,17 @@ function adicionaEventos() {
   let $btn = document.getElementsByClassName('btnExcluir btn btn-danger');
   let $receita = document.getElementsByClassName('Receita')
   let $rendimento = document.getElementsByClassName('rend')
+  let $qtde = document.getElementsByClassName('qtde')
 
   for (let i = 0; i < $btn.length; i++) {
     $btn[i].addEventListener('click', function (e) {
       deletarItem(e.target);
+    });
+  }
+
+  for (let i = 0; i < $qtde.length; i++) {
+    $qtde[i].addEventListener('change', function (e) {
+      $rendimento[i].value = calculaRendimento(i);
     });
   }
 
@@ -283,60 +290,6 @@ function removerErros() {
   }
 }
 
-// Listagem
-// function formataData(data) {
-//   let dia = data.substr(8, 2)
-//   let mes = buscaMes(data.substr(4, 3))
-//   let ano = data.substr(11, 4)
-
-//   return dia + '/' + mes + '/' + ano;
-// }
-
-// function buscaMes(mesStr) {
-//   let mes = 0
-
-//   switch (mesStr) {
-//     case 'Jan':
-//       mes = 1
-//       break;
-//     case 'Feb':
-//       mes = 2
-//       break;
-//     case 'Mar':
-//       mes = 3
-//       break;
-//     case 'Apr':
-//       mes = 4
-//       break;
-//     case 'May':
-//       mes = 5
-//       break;
-//     case 'Jun':
-//       mes = 6
-//       break;
-//     case 'Jul':
-//       mes = 7
-//       break;
-//     case 'Aug':
-//       mes = 8
-//       break;
-//     case 'Sep':
-//       mes = 9
-//       break;
-//     case 'Oct':
-//       mes = 10
-//       break;
-//     case 'Nov':
-//       mes = 11
-//       break;
-//     case 'Dec':
-//       mes = 12
-//       break;
-//   }
-
-//   return mes = mes < 10 ? '0' + mes : mes;;
-// }
-
 // Edição
 function ocultaReceitas() {
   let $qtde = document.getElementsByClassName("hidden").length
@@ -366,6 +319,27 @@ function carregaReceitas() {
 
       $selectReceitas[i].appendChild(itemSelect);
     }
+  }
+}
+
+function calculaRendimento(indice) {
+  if ($controle) {
+
+    debugger;
+    let $Receita = document.getElementsByClassName('Receita')
+    let $qtde = document.getElementsByClassName('qtde')
+    let $rendimentoReceita = document.getElementsByClassName('receitaRendimento')
+    let receitas = $Receita[indice]
+    let indiceReceita = 0
+
+    for (let i = 0; i < receitas.length; i++) {
+      if (receitas[i].selected == true) {
+        indiceReceita = i
+        break
+      }
+    }
+
+    return $qtde[indice].value * $rendimentoReceita[indiceReceita].value
   }
 }
 
