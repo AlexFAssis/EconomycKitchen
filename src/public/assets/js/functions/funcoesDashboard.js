@@ -20,13 +20,6 @@ montaGraficoTop5Produtos()
 mostraTotais()
 calculaMediaReceitas()
 
-// let $btnTeste = document.getElementById('btnPrecoMedio')
-
-// $btnTeste.addEventListener('click', function (e) {
-//   calculaMediaReceitas()
-// });
-
-
 
 function montaGraficoImpostos() {
   var ctx = document.getElementById("myChart1");

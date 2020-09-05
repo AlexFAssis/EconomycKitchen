@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
 
     //usado em todos arquivos .njk
     res.locals.usuario = req.session.usuario;
-
+    console.log('NEXTTT AUTH')
     return next();
   }
 

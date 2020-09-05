@@ -188,7 +188,12 @@ class usuarioController {
 
     async validacao(req, res) {
         const { email, senha } = req.body
+
+        console.log('Email: ' + email)
+        console.log('Senha:' + senha)
+
         var usuario = await Usuario.findOne({ email });
+        let erroLogin = false
 
         if (!usuario) {
             let login = email
@@ -201,27 +206,38 @@ class usuarioController {
             usuario.nome = 'Administrador'
 
             req.session.usuario = usuario
+            console.log('5')
+            erroLogin = true
             return res.redirect('../app/dashboard')
         }
 
         if (!usuario && !senha) {
-            req.flash('error', 'Informe um login ou e-mail e senha');
-            return res.redirect('/usuario/login')
+            console.log('1')
+            erroLogin = true
+            res.send('1'); //'Informe um login ou e-mail e senha'
         } else if (!usuario) {
-            req.flash('error', 'Usuário não encontrado');
-            return res.redirect('/usuario/login')
+            console.log('1')
+            erroLogin = true
+            res.send('2'); //Usuário não encontrado
         } else if (!senha) {
-            req.flash('error', 'Informe uma senha');
-            return res.redirect('/usuario/login')
+            console.log('3')
+            erroLogin = true
+            res.send('3');//'Informe uma senha'
         }
 
-        if (!await usuario.compareHash(senha)) {
-            req.flash('error', 'Senha inválida');
-            return res.redirect('/usuario/login')
+        if (!erroLogin) {
+            if (!await usuario.compareHash(senha)) {
+                console.log('4')
+                erroLogin = true
+                res.send('4'); //'Senha inválida'
+            }
         }
 
-        req.session.usuario = usuario
-        return res.redirect('../app/dashboard')
+        if (!erroLogin) {
+            console.log('7')
+            req.session.usuario = usuario
+            return res.redirect('../app/dashboard')
+        }
     }
 
     async logout(req, res) {

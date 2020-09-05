@@ -26,10 +26,9 @@ routes.use('/insumo', authMiddleware)
 routes.use('/produto', authMiddleware)
 routes.use('/receita', authMiddleware)
 routes.use('/receitaPorDia', authMiddleware)
-// routes.use('/usuario', authMiddleware)
 routes.use('/venda', authMiddleware)
 routes.use('/estoque', authMiddleware)
-routes.use('/dicas', authMiddleware)
+// routes.use('/dicas', authMiddleware)
 
 //Verificação de erros
 // const  = require('express-async-r');
@@ -108,6 +107,7 @@ routes.post('/receitaPorDia/editar/:id', controllers.receitaPorDia.atualizar);
 routes.post('/receitaPorDia/deletar/:id', controllers.receitaPorDia.excluir);
 routes.post('/receitaPorDia/listar', controllers.receitaPorDia.indexFilter);
 
+// Sem auth ou guest
 // routes.get('/usuario/cadastro', controllers.usuario.cadastro);
 // routes.get('/usuario/cadastroLogin', controllers.usuario.cadastroLogin);
 // routes.get('/usuario/listar', controllers.usuario.listar);
@@ -119,6 +119,8 @@ routes.post('/receitaPorDia/listar', controllers.receitaPorDia.indexFilter);
 // routes.get('/usuario/editar/:id', controllers.usuario.editar);
 // routes.post('/usuario/editar/:id', controllers.usuario.atualizar);
 // routes.post('/usuario/deletar/:id', controllers.usuario.excluir);
+
+// Com auth e guest
 routes.get('/usuario/cadastro', authMiddleware, controllers.usuario.cadastro);
 routes.get('/usuario/cadastroLogin', guestMiddleware, controllers.usuario.cadastroLogin);
 routes.get('/usuario/listar', authMiddleware, controllers.usuario.listar);
@@ -141,21 +143,20 @@ routes.post('/venda/editar/:id', controllers.venda.atualizar);
 routes.post('/venda/deletar/:id', controllers.venda.excluir);
 routes.post("/venda/listar", controllers.venda.indexFilter);
 
-routes.get('/estoque/listar', authMiddleware, controllers.estoque.listar);
-
-routes.get('/dicas/instrucoes', authMiddleware, controllers.dicas.instrucoes);
-
+// routes.get('/estoque/listar', authMiddleware, controllers.estoque.listar);
+// routes.get('/dicas/instrucoes', authMiddleware, controllers.dicas.instrucoes);
+routes.get('/estoque/listar', controllers.estoque.listar);
+routes.get('/dicas/instrucoes', controllers.dicas.instrucoes);
 
 routes.get("/app/dashboard", authMiddleware, controllers.DashboardController.listarDashboard);
 routes.post('/app/dashboard', authMiddleware, controllers.DashboardController.indexFilter);
-// routes.get("/app/start", authMiddleware, controllers.DashboardController.start);
 
-// routes.get("/", controllers.DashboardController.start);
 routes.get("/", guestMiddleware, controllers.DashboardController.start);
+//wrong
 // routes.get("/", authMiddleware, controllers.DashboardController.start);
 
-// routes.get("/app/dashboard", controllers.DashboardController.listarDashboard);
-// routes.post('/app/dashboard', controllers.DashboardController.indexFilter);
-// routes.get("/app/start", controllers.DashboardController.start);
+routes.get("/app/dashboard", controllers.DashboardController.listarDashboard);
+routes.post('/app/dashboard', controllers.DashboardController.indexFilter);
+routes.get("/", controllers.DashboardController.start);
 
 module.exports = routes;
