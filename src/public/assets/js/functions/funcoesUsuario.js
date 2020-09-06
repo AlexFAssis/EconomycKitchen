@@ -70,6 +70,7 @@
               document.getElementById("ErroLogin").innerText = 'Senha inválida'
               break
             default:
+              document.getElementById("ErroLogin").style.display = 'none'
               document.location.reload(true);
           }
 
