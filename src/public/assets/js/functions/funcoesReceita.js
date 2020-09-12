@@ -121,7 +121,7 @@ function RedimensionaBotaoExluir() {
     }
   }
 
-  document.querySelector('.window-size').innerHTML = windowWidth;
+  // document.querySelector('.window-size').innerHTML = windowWidth;
 };
 
 // })()

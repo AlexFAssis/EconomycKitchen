@@ -356,7 +356,7 @@ function carregaMetodoPgto() {
 
   $qtdeParcelas.disabled = false;
   if (metodoPagto.value != 'Credito') {
-    $qtdeParcelas.value = 0
+    $qtdeParcelas.value = 1
     $qtdeParcelas.disabled = true;
   }
 
