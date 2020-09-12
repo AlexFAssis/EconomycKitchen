@@ -25,11 +25,11 @@ class App {
 
   database() {
     var uri = ''
-    // if (process.env.NODE_ENV == "production") {
-    uri = process.env.URI_PROD
-    // } else {
-    //   uri = process.env.URI_HOMOLOG
-    // }
+    if (process.env.NODE_ENV == "production") {
+      uri = process.env.URI_PROD
+    } else {
+      uri = process.env.URI_HOMOLOG
+    }
     database(uri)
   }
 

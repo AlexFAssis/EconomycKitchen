@@ -157,6 +157,8 @@ footer i{
   color: #FF6347;
 }
 
+#btnBuscarHistorico,
+#btnBuscarValorFinal,
 #btnPrecoMedio,
 .cadastro button,
 .card-footer a{
@@ -165,14 +167,14 @@ footer i{
   border-color: #fff
 }
 
+#btnBuscarHistorico,
+#btnBuscarValorFinal,
 #btnPrecoMedio:hover,
 .cadastro button:hover,
 .card-footer a:hover{
   background-color: #FF7F50 !important;
   border-color: #fff
 }
-
-
 
 .main-wrapper {
   height: 100%;
@@ -196,7 +198,6 @@ footer i{
   border-color: #96e89c;
 }
 
-/* Alex */
 .scheduleFilter{
   max-width: none;
   float: none;
