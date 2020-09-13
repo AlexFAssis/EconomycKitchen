@@ -103,19 +103,19 @@ class receitaPorDiaController {
                                             qtdeInsumo = parseFloat(qtdeIngrediente) * qtdeIngredienteReceita;
                                             break;
                                         case 'Colher Sopa':
-                                            qtdeInsumo = parseFloat(qtdeIngrediente * 20) * qtdeIngredienteReceita;
+                                            qtdeInsumo = parseFloat(qtdeIngrediente * 15) * qtdeIngredienteReceita;
                                             break;
                                         case 'Colher Chá':
-                                            qtdeInsumo = parseFloat(qtdeIngrediente * 10) * qtdeIngredienteReceita;
+                                            qtdeInsumo = parseFloat(qtdeIngrediente * 5) * qtdeIngredienteReceita;
                                             break;
                                         case 'Xicara':
-                                            qtdeInsumo = parseFloat(qtdeIngrediente * 100) * qtdeIngredienteReceita;
+                                            qtdeInsumo = parseFloat(qtdeIngrediente * 250) * qtdeIngredienteReceita;
                                             break;
                                         case 'Duzia':
                                             qtdeInsumo = parseFloat(qtdeIngrediente * 12) * qtdeIngredienteReceita;
                                             break;
                                         case 'Copo':
-                                            qtdeInsumo = parseFloat(qtdeIngrediente * 250) * qtdeIngredienteReceita;
+                                            qtdeInsumo = parseFloat(qtdeIngrediente * 200) * qtdeIngredienteReceita;
                                             break;
                                     }
 
@@ -271,19 +271,19 @@ class receitaPorDiaController {
                                                     qtdeEstoque -= parseFloat(qtdeInsumo) * req.body.quantidade;
                                                     break;
                                                 case 'Colher Sopa':
-                                                    qtdeEstoque -= parseFloat(qtdeInsumo * 20) * req.body.quantidade;
+                                                    qtdeEstoque -= parseFloat(qtdeInsumo * 15) * req.body.quantidade;
                                                     break;
                                                 case 'Colher Cha':
-                                                    qtdeEstoque -= parseFloat(qtdeInsumo * 10) * req.body.quantidade;
+                                                    qtdeEstoque -= parseFloat(qtdeInsumo * 5) * req.body.quantidade;
                                                     break;
                                                 case 'Xicara':
-                                                    qtdeEstoque -= parseFloat(qtdeInsumo * 100) * req.body.quantidade;
+                                                    qtdeEstoque -= parseFloat(qtdeInsumo * 250) * req.body.quantidade;
                                                     break;
                                                 case 'Duzia':
                                                     qtdeEstoque -= parseFloat(qtdeInsumo * 12) * req.body.quantidade;
                                                     break;
                                                 case 'Copo':
-                                                    qtdeEstoque -= parseFloat(qtdeInsumo * 250) * req.body.quantidade;
+                                                    qtdeEstoque -= parseFloat(qtdeInsumo * 200) * req.body.quantidade;
                                                     break;
                                             }
 
@@ -372,19 +372,19 @@ class receitaPorDiaController {
                                                             qtdeEstoque -= parseFloat(qtdeInsumo) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                         case 'Colher Sopa':
-                                                            qtdeEstoque -= parseFloat(qtdeInsumo * 20) * req.body.quantidade[i].toString().replace(/\,/, '.');
+                                                            qtdeEstoque -= parseFloat(qtdeInsumo * 15) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                         case 'Colher Cha':
-                                                            qtdeEstoque -= parseFloat(qtdeInsumo * 10) * req.body.quantidade[i].toString().replace(/\,/, '.');
+                                                            qtdeEstoque -= parseFloat(qtdeInsumo * 5) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                         case 'Xicara':
-                                                            qtdeEstoque -= parseFloat(qtdeInsumo * 100) * req.body.quantidade[i].toString().replace(/\,/, '.');
+                                                            qtdeEstoque -= parseFloat(qtdeInsumo * 250) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                         case 'Duzia':
                                                             qtdeEstoque -= parseFloat(qtdeInsumo * 12) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                         case 'Copo':
-                                                            qtdeEstoque -= parseFloat(qtdeInsumo * 250) * req.body.quantidade[i].toString().replace(/\,/, '.');
+                                                            qtdeEstoque -= parseFloat(qtdeInsumo * 200) * req.body.quantidade[i].toString().replace(/\,/, '.');
                                                             break;
                                                     }
 
@@ -570,19 +570,19 @@ class receitaPorDiaController {
                                     qtdeEstoque += parseFloat(qtdeInsumo) * itensReceitaPorDia[i].quantidade;
                                     break;
                                 case 'Colher Sopa':
-                                    qtdeEstoque += parseFloat(qtdeInsumo * 20) * itensReceitaPorDia[i].quantidade;
+                                    qtdeEstoque += parseFloat(qtdeInsumo * 15) * itensReceitaPorDia[i].quantidade;
                                     break;
                                 case 'Colher Cha':
-                                    qtdeEstoque += parseFloat(qtdeInsumo * 10) * itensReceitaPorDia[i].quantidade;
+                                    qtdeEstoque += parseFloat(qtdeInsumo * 5) * itensReceitaPorDia[i].quantidade;
                                     break;
                                 case 'Xicara':
-                                    qtdeEstoque += parseFloat(qtdeInsumo * 100) * itensReceitaPorDia[i].quantidade;
+                                    qtdeEstoque += parseFloat(qtdeInsumo * 250) * itensReceitaPorDia[i].quantidade;
                                     break;
                                 case 'Duzia':
                                     qtdeEstoque += parseFloat(qtdeInsumo * 12) * itensReceitaPorDia[i].quantidade;
                                     break;
                                 case 'Copo':
-                                    qtdeEstoque += parseFloat(qtdeInsumo * 250) * itensReceitaPorDia[i].quantidade;
+                                    qtdeEstoque += parseFloat(qtdeInsumo * 200) * itensReceitaPorDia[i].quantidade;
                                     break;
                             }
 
@@ -628,19 +628,19 @@ class receitaPorDiaController {
                                     qtdeInsumo = parseFloat(qtdeIngrediente) * qtdeIngredienteReceita;
                                     break;
                                 case 'Colher Sopa':
-                                    qtdeInsumo = parseFloat(qtdeIngrediente * 20) * qtdeIngredienteReceita;
+                                    qtdeInsumo = parseFloat(qtdeIngrediente * 15) * qtdeIngredienteReceita;
                                     break;
                                 case 'Colher Chá':
-                                    qtdeInsumo = parseFloat(qtdeIngrediente * 10) * qtdeIngredienteReceita;
+                                    qtdeInsumo = parseFloat(qtdeIngrediente * 5) * qtdeIngredienteReceita;
                                     break;
                                 case 'Xicara':
-                                    qtdeInsumo = parseFloat(qtdeIngrediente * 100) * qtdeIngredienteReceita;
+                                    qtdeInsumo = parseFloat(qtdeIngrediente * 250) * qtdeIngredienteReceita;
                                     break;
                                 case 'Duzia':
                                     qtdeInsumo = parseFloat(qtdeIngrediente * 12) * qtdeIngredienteReceita;
                                     break;
                                 case 'Copo':
-                                    qtdeInsumo = parseFloat(qtdeIngrediente) * qtdeIngredienteReceita;
+                                    qtdeInsumo = parseFloat(qtdeIngrediente * 200) * qtdeIngredienteReceita;
                                     break;
                             }
 
@@ -708,19 +708,19 @@ class receitaPorDiaController {
                                     qtdeEstoque -= parseFloat(qtdeInsumo) * req.body.quantidade;
                                     break;
                                 case 'Colher Sopa':
-                                    qtdeEstoque -= parseFloat(qtdeInsumo * 20) * req.body.quantidade;
+                                    qtdeEstoque -= parseFloat(qtdeInsumo * 15) * req.body.quantidade;
                                     break;
                                 case 'Colher Cha':
-                                    qtdeEstoque -= parseFloat(qtdeInsumo * 10) * req.body.quantidade;
+                                    qtdeEstoque -= parseFloat(qtdeInsumo * 5) * req.body.quantidade;
                                     break;
                                 case 'Xicara':
-                                    qtdeEstoque -= parseFloat(qtdeInsumo * 100) * req.body.quantidade;
+                                    qtdeEstoque -= parseFloat(qtdeInsumo * 250) * req.body.quantidade;
                                     break;
                                 case 'Duzia':
                                     qtdeEstoque -= parseFloat(qtdeInsumo * 12) * req.body.quantidade;
                                     break;
                                 case 'Copo':
-                                    qtdeEstoque -= parseFloat(qtdeInsumo * 250) * req.body.quantidade;
+                                    qtdeEstoque -= parseFloat(qtdeInsumo * 200) * req.body.quantidade;
                                     break;
                             }
 
@@ -829,19 +829,19 @@ class receitaPorDiaController {
                                             qtdeInsumo = parseFloat(qtdeIngrediente) * qtdeIngredienteReceita;
                                             break;
                                         case 'Colher Sopa':
-                                            qtdeInsumo = parseFloat(qtdeIngrediente * 20) * qtdeIngredienteReceita;
+                                            qtdeInsumo = parseFloat(qtdeIngrediente * 15) * qtdeIngredienteReceita;
                                             break;
                                         case 'Colher Chá':
-                                            qtdeInsumo = parseFloat(qtdeIngrediente * 10) * qtdeIngredienteReceita;
+                                            qtdeInsumo = parseFloat(qtdeIngrediente * 5) * qtdeIngredienteReceita;
                                             break;
                                         case 'Xicara':
-                                            qtdeInsumo = parseFloat(qtdeIngrediente * 100) * qtdeIngredienteReceita;
+                                            qtdeInsumo = parseFloat(qtdeIngrediente * 250) * qtdeIngredienteReceita;
                                             break;
                                         case 'Duzia':
                                             qtdeInsumo = parseFloat(qtdeIngrediente * 12) * qtdeIngredienteReceita;
                                             break;
                                         case 'Copo':
-                                            qtdeInsumo = parseFloat(qtdeIngrediente * 250) * qtdeIngredienteReceita;
+                                            qtdeInsumo = parseFloat(qtdeIngrediente * 200) * qtdeIngredienteReceita;
                                             break;
                                     }
                                 }
@@ -917,19 +917,19 @@ class receitaPorDiaController {
                                                 qtdeEstoque -= parseFloat(qtdeInsumo) * req.body.quantidade[i];
                                                 break;
                                             case 'Colher Sopa':
-                                                qtdeEstoque -= parseFloat(qtdeInsumo * 20) * req.body.quantidade[i];
+                                                qtdeEstoque -= parseFloat(qtdeInsumo * 15) * req.body.quantidade[i];
                                                 break;
                                             case 'Colher Chá':
-                                                qtdeEstoque -= parseFloat(qtdeInsumo * 10) * req.body.quantidade[i];
+                                                qtdeEstoque -= parseFloat(qtdeInsumo * 5) * req.body.quantidade[i];
                                                 break;
                                             case 'Xicara':
-                                                qtdeEstoque -= parseFloat(qtdeInsumo * 100) * req.body.quantidade[i];
+                                                qtdeEstoque -= parseFloat(qtdeInsumo * 250) * req.body.quantidade[i];
                                                 break;
                                             case 'Duzia':
                                                 qtdeEstoque -= parseFloat(qtdeInsumo * 12) * req.body.quantidade[i];
                                                 break;
                                             case 'Copo':
-                                                qtdeEstoque -= parseFloat(qtdeInsumo * 250) * req.body.quantidade[i];
+                                                qtdeEstoque -= parseFloat(qtdeInsumo * 200) * req.body.quantidade[i];
                                                 break;
                                         }
 
@@ -1015,19 +1015,19 @@ class receitaPorDiaController {
                                     qtdeEstoque += parseFloat(qtdeInsumo) * itensReceitaPorDia[i].quantidade.toString().replace(/\,/, '.');
                                     break;
                                 case 'Colher Sopa':
-                                    qtdeEstoque += parseFloat(qtdeInsumo * 20) * itensReceitaPorDia[i].quantidade.toString().replace(/\,/, '.');
+                                    qtdeEstoque += parseFloat(qtdeInsumo * 15) * itensReceitaPorDia[i].quantidade.toString().replace(/\,/, '.');
                                     break;
                                 case 'Colher Cha':
-                                    qtdeEstoque += parseFloat(qtdeInsumo * 10) * itensReceitaPorDia[i].quantidade.toString().replace(/\,/, '.');
+                                    qtdeEstoque += parseFloat(qtdeInsumo * 5) * itensReceitaPorDia[i].quantidade.toString().replace(/\,/, '.');
                                     break;
                                 case 'Xicara':
-                                    qtdeEstoque += parseFloat(qtdeInsumo * 100) * itensReceitaPorDia[i].quantidade.toString().replace(/\,/, '.');
+                                    qtdeEstoque += parseFloat(qtdeInsumo * 250) * itensReceitaPorDia[i].quantidade.toString().replace(/\,/, '.');
                                     break;
                                 case 'Duzia':
                                     qtdeEstoque += parseFloat(qtdeInsumo * 12) * itensReceitaPorDia[i].quantidade.toString().replace(/\,/, '.');
                                     break;
                                 case 'Copo':
-                                    qtdeEstoque += parseFloat(qtdeInsumo * 250) * itensReceitaPorDia[i].quantidade.toString().replace(/\,/, '.');
+                                    qtdeEstoque += parseFloat(qtdeInsumo * 200) * itensReceitaPorDia[i].quantidade.toString().replace(/\,/, '.');
                                     break;
                             }
 
@@ -1119,19 +1119,19 @@ function calculaQtdeInsumo(medida, quantidadeInsumo, quantidadeReceitasFeitas) {
             qtdeInsumo = parseFloat(quantidadeInsumo) * quantidadeReceitasFeitas;
             break;
         case 'Colher Sopa':
-            qtdeInsumo = parseFloat(quantidadeInsumo * 20) * quantidadeReceitasFeitas;
+            qtdeInsumo = parseFloat(quantidadeInsumo * 15) * quantidadeReceitasFeitas;
             break;
         case 'Colher Chá':
-            qtdeInsumo = parseFloat(quantidadeInsumo * 10) * quantidadeReceitasFeitas;
+            qtdeInsumo = parseFloat(quantidadeInsumo * 5) * quantidadeReceitasFeitas;
             break;
         case 'Xicara':
-            qtdeInsumo = parseFloat(quantidadeInsumo * 100) * quantidadeReceitasFeitas;
+            qtdeInsumo = parseFloat(quantidadeInsumo * 250) * quantidadeReceitasFeitas;
             break;
         case 'Duzia':
             qtdeInsumo = parseFloat(quantidadeInsumo * 12) * quantidadeReceitasFeitas;
             break;
         case 'Copo':
-            qtdeInsumo = parseFloat(quantidadeInsumo * 250) * quantidadeReceitasFeitas;
+            qtdeInsumo = parseFloat(quantidadeInsumo * 200) * quantidadeReceitasFeitas;
             break;
     }
 

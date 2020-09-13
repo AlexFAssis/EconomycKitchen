@@ -385,19 +385,19 @@ class receitaController {
                         qtdeInsumo = parseFloat(qtdeItemReceita);
                         break;
                     case 'Colher Sopa':
-                        qtdeInsumo = parseFloat(qtdeItemReceita * 20);
+                        qtdeInsumo = parseFloat(qtdeItemReceita * 15);
                         break;
                     case 'Colher Chá':
-                        qtdeInsumo = parseFloat(qtdeItemReceita * 10);
+                        qtdeInsumo = parseFloat(qtdeItemReceita * 5);
                         break;
                     case 'Xicara':
-                        qtdeInsumo = parseFloat(qtdeItemReceita * 100);
+                        qtdeInsumo = parseFloat(qtdeItemReceita * 250);
                         break;
                     case 'Duzia':
                         qtdeInsumo = parseFloat(qtdeItemReceita * 12);
                         break;
                     case 'Copo':
-                        qtdeInsumo = parseFloat(qtdeItemReceita * 250);
+                        qtdeInsumo = parseFloat(qtdeItemReceita * 200);
                         break;
                 }
 
@@ -511,19 +511,19 @@ class receitaController {
                             qtdeInsumo = parseFloat(qtdeItemReceita);
                             break;
                         case 'Colher Sopa':
-                            qtdeInsumo = parseFloat(qtdeItemReceita * 20);
+                            qtdeInsumo = parseFloat(qtdeItemReceita * 15);
                             break;
                         case 'Colher Chá':
-                            qtdeInsumo = parseFloat(qtdeItemReceita * 10);
+                            qtdeInsumo = parseFloat(qtdeItemReceita * 5);
                             break;
                         case 'Xicara':
-                            qtdeInsumo = parseFloat(qtdeItemReceita * 100);
+                            qtdeInsumo = parseFloat(qtdeItemReceita * 250);
                             break;
                         case 'Duzia':
                             qtdeInsumo = parseFloat(qtdeItemReceita * 12);
                             break;
                         case 'Copo':
-                            qtdeInsumo = parseFloat(qtdeItemReceita * 250);
+                            qtdeInsumo = parseFloat(qtdeItemReceita * 200);
                             break;
                     }
 
