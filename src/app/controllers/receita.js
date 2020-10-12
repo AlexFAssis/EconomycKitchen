@@ -230,12 +230,17 @@ class receitaController {
 
         try {
             if (req.file) {
-                const { filename } = req.file
+                var { filename } = req.file
             }
 
             if (req.body.dtCalculoPrecoMedio) {
                 const data = moment(formatDate(req.body.dtCalculoPrecoMedio))
                 if (req.file) {
+
+                    console.log('---------------filename---')
+                    console.log(filename)
+                    console.log('--------------------------')
+
                     var receita = await Receita.findByIdAndUpdate(id, { ...req.body, dtCalculoPrecoMedio: data, imgReceita: filename });
                 } else {
                     var receita = await Receita.findByIdAndUpdate(id, { ...req.body, dtCalculoPrecoMedio: data });
