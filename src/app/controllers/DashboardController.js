@@ -180,7 +180,7 @@ class DashboardController {
       var vendas = await Venda.aggregate([
         {
           $match: {
-            data: { $gte: dtInicialMoment._d, $lt: dtFinalMoment._d }
+            data: { $gte: dtInicialMoment._d, $lte: dtFinalMoment._d }
           }
         },
         {
@@ -203,7 +203,7 @@ class DashboardController {
       var compras = await Compra.aggregate([
         {
           $match: {
-            data: { $gte: dtInicialMoment._d, $lt: dtFinalMoment._d }
+            data: { $gte: dtInicialMoment._d, $lte: dtFinalMoment._d }
           }
         },
         {
@@ -291,7 +291,7 @@ class DashboardController {
       const impostos = await Imposto.aggregate([
         {
           $match: {
-            dataPgto: { $gte: dtInicialMoment._d, $lt: dtFinalMoment._d }
+            dataPgto: { $gte: dtInicialMoment._d, $lte: dtFinalMoment._d }
           }
         },
         {
