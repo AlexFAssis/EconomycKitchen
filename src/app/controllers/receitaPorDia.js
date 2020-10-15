@@ -230,18 +230,21 @@ class receitaPorDiaController {
                                         await ItemReceitaPorDia.create({ quantidade: req.body.quantidade, receita: req.body.receita, receitaPorDia: newObj._id });
                                         const ItemReceitaDia = await ItemReceitaPorDia.find({ receitaPorDia: newObj._id })
                                         const estoque = await Estoque.find({ receita: req.body.receita })
+                                        const receita = await Receita.findById(req.body.receita)
 
                                         // Verfica ou Cria estoque de Produtos feitos
                                         if (estoque.length > 0) {
                                             for (let j = 0; j < estoque.length; j++) {
                                                 if (estoque[j].receita.toString() == ItemReceitaDia[0].receita.toString()) {
                                                     const estoqueUpdate = parseFloat(estoque[j].quantidade) + parseFloat(req.body.quantidade)
-                                                    await Estoque.findByIdAndUpdate(estoque[j]._id, { quantidade: estoqueUpdate })
+                                                    let qtdeAux = estoqueUpdate * receita.qtdeRendimento
+                                                    await Estoque.findByIdAndUpdate(estoque[j]._id, { quantidade: qtdeAux })
                                                     break;
                                                 }
                                             }
                                         } else {
-                                            await Estoque.create({ quantidade: req.body.quantidade, receita: req.body.receita });
+                                            let qtdeAux = parseFloat(req.body.quantidade) * receita.qtdeRendimento
+                                            await Estoque.create({ quantidade: qtdeAux, receita: req.body.receita });
                                         }
 
                                         criou = true;
@@ -334,17 +337,20 @@ class receitaPorDiaController {
                                             await ItemReceitaPorDia.create({ quantidade: req.body.quantidade[i], receita: req.body.receita[i], receitaPorDia: newObj._id });
                                             const ItemReceitaDia = await ItemReceitaPorDia.find({ receitaPorDia: newObj._id })
                                             const estoque = await Estoque.find({ receita: req.body.receita[i] })
+                                            const receita = await Receita.findById(req.body.receita[i])
 
                                             if (estoque.length > 0) {
                                                 for (let j = 0; j < estoque.length; j++) {
                                                     if (estoque[j].receita.toString() == ItemReceitaDia[i].receita.toString()) {
-                                                        const estoqueUpdate = parseFloat(estoque[j].quantidade) + parseFloat(req.body.quantidade[i])
+                                                        const estoqueUpdate = parseFloat(estoque[j].quantidade) + parseFloat(req.body.quantidade[i] * receita.qtdeRendimento)
+                                                        // let qtdeAux = estoqueUpdate * receita.qtdeRendimento
                                                         await Estoque.findByIdAndUpdate(estoque[j]._id, { quantidade: estoqueUpdate })
                                                         break;
                                                     }
                                                 }
                                             } else {
-                                                await Estoque.create({ quantidade: req.body.quantidade[i], receita: req.body.receita[i] });
+                                                let qtdeAux = parseFloat(req.body.quantidade[i]) * receita.qtdeRendimento
+                                                await Estoque.create({ quantidade: qtdeAux, receita: req.body.receita[i] });
                                             }
 
                                             criou = true;
@@ -518,10 +524,11 @@ class receitaPorDiaController {
             if (itensReceitaPorDia.length > 0) {
                 for (let i = 0; i < itensReceitaPorDia.length; i++) {
                     var objVenda = {}
+                    let receita = await Receita.findById(itensReceitaPorDia[i].receita)
 
                     if (vetEstoqueItens.length <= 0) {
                         objVenda.id = itensReceitaPorDia[i].receita
-                        objVenda.quantidade = itensReceitaPorDia[i].quantidade
+                        objVenda.quantidade = itensReceitaPorDia[i].quantidade * receita.qtdeRendimento
                         vetEstoqueItens.push(objVenda)
                         achou = true
                     } else {
@@ -529,14 +536,14 @@ class receitaPorDiaController {
                         for (let j = 0; j < vetEstoqueItens.length; j++) {
                             if (itensReceitaPorDia[i].receita.toString() == vetEstoqueItens[j].id.toString()) {
                                 achou = true
-                                vetEstoqueItens[j].quantidade += itensReceitaPorDia[i].quantidade
+                                vetEstoqueItens[j].quantidade += itensReceitaPorDia[i].quantidade * receita.qtdeRendimento
                             }
                         }
                     }
 
                     if (!achou) {
                         objVenda.id = itensReceitaPorDia[i].receita
-                        objVenda.quantidade = itensReceitaPorDia[i].quantidade
+                        objVenda.quantidade = itensReceitaPorDia[i].quantidade * receita.qtdeRendimento
                         vetEstoqueItens.push(objVenda)
                     }
                 }
@@ -669,7 +676,8 @@ class receitaPorDiaController {
                             //capturar valor antigo da venda e calcular
                             for (let i = 0; i < vetEstoqueItens.length; i++) {
                                 if (req.body.receita.toString() == vetEstoqueItens[i].id.toString()) {
-                                    diferencaEstoque = req.body.quantidade - vetEstoqueItens[i].quantidade
+                                    // diferencaEstoque = req.body.quantidade - vetEstoqueItens[i].quantidade
+                                    diferencaEstoque = req.body.rendimento - vetEstoqueItens[i].quantidade
                                     vetEstoqueItens[i].quantidade = 0;
                                     estoqueUpdate = estoque[0].quantidade + diferencaEstoque
                                     break
@@ -677,13 +685,17 @@ class receitaPorDiaController {
                             }
                         } else {
                             if (req.body.receita.toString() == estoque[0].receita.toString()) {
-                                estoqueUpdate = estoque[0].quantidade - req.body.quantidade
+                                // estoqueUpdate = estoque[0].quantidade - req.body.quantidade * parseFloat(req.body.rendimento)
+                                estoqueUpdate = estoque[0].quantidade - parseFloat(req.body.rendimento)
                             } else {
                                 /////Ver se é realmente possível no final dos testes
-                                await Estoque.create({ quantidade: parseFloat(req.body.quantidade) * -1, receita: req.body.receita });
+                                // let qtdeAux = parseFloat(req.body.quantidade) * parseFloat(req.body.rendimento)
+                                let qtdeAux = parseFloat(req.body.rendimento)
+                                await Estoque.create({ quantidade: qtdeAux * -1, receita: req.body.receita });
                             }
                         }
 
+                        // let qtdeAux = estoqueUpdate * parseFloat(req.body.rendimento)
                         await Estoque.findByIdAndUpdate(estoque[0]._id, { quantidade: estoqueUpdate })
 
                         for (let i = 0; i < itensReceita.length; i++) {
@@ -757,7 +769,6 @@ class receitaPorDiaController {
 
                             cont2++
                             console.log('cont2:' + cont2)
-
 
                             if (temEstoque) {
                                 var vetReceitaPorDiaItens = []
@@ -867,6 +878,7 @@ class receitaPorDiaController {
 
                                 await ItemReceitaPorDia.create({ quantidade: req.body.quantidade[i], receita: req.body.receita[i], receitaPorDia: receitasPorDia._id });
                                 const itensReceita = await ItensReceita.find({ receita: req.body.receita[i] });
+                                const receita = await Receita.findById(req.body.receita[i])
 
                                 if (itensReceita) {
                                     const estoque = await Estoque.find({ receita: req.body.receita[i] })
@@ -877,7 +889,8 @@ class receitaPorDiaController {
                                         //capturar valor antigo da venda e calcular
                                         for (let j = 0; j < vetEstoqueItens.length; j++) {
                                             if (req.body.receita[i].toString() == vetEstoqueItens[j].id.toString()) {
-                                                diferencaEstoque = req.body.quantidade[i] - vetEstoqueItens[j].quantidade
+                                                // diferencaEstoque = req.body.quantidade[i] - vetEstoqueItens[j].quantidade
+                                                diferencaEstoque = req.body.rendimento[i] - vetEstoqueItens[j].quantidade
                                                 vetEstoqueItens[j].quantidade = 0;
                                                 estoqueUpdate = estoque[0].quantidade + diferencaEstoque
                                                 break
@@ -885,13 +898,15 @@ class receitaPorDiaController {
                                         }
                                     } else {
                                         if (req.body.receita.toString() == estoque[0].receita.toString()) {
-                                            estoqueUpdate = estoque[0].quantidade - req.body.quantidade[i]
+                                            estoqueUpdate = estoque[0].quantidade - req.body.quantidade[i] * req.body.rendimento[i]
                                         } else {
                                             /////Ver se é realmente possível no final dos testes
-                                            await Estoque.create({ quantidade: parseFloat(req.body.quantidade[i]) * -1, receita: req.body.receita[i] });
+                                            await Estoque.create({ quantidade: parseFloat(req.body.rendimento[i]) * -1, receita: req.body.receita[i] });
+                                            // await Estoque.create({ quantidade: parseFloat(req.body.quantidade[i]) * -1, receita: req.body.receita[i] });
                                         }
                                     }
 
+                                    // let qtdeAux = receita.qtdeRendimento * estoqueUpdate
                                     await Estoque.findByIdAndUpdate(estoque[0]._id, { quantidade: estoqueUpdate })
 
 
@@ -981,11 +996,13 @@ class receitaPorDiaController {
                     const itensReceita = await ItensReceita.find({ receita: itensReceitaPorDia[i].receita });
 
                     const estoque = await Estoque.find({ receita: itensReceitaPorDia[i].receita })
+                    const receita = await Receita.findById(itensReceitaPorDia[i].receita)
 
                     if (estoque.length > 0) {
                         for (let j = 0; j < estoque.length; j++) {
                             if (estoque[j].receita.toString() == itensReceitaPorDia[i].receita.toString()) {
-                                const estoqueUpdate = estoque[j].quantidade - itensReceitaPorDia[i].quantidade
+                                const estoqueUpdate = estoque[j].quantidade - itensReceitaPorDia[i].quantidade * receita.qtdeRendimento
+                                // let qtdeAux = estoqueUpdate * receita.qtdeRendimento
                                 await Estoque.findByIdAndUpdate(estoque[j]._id, { quantidade: estoqueUpdate })
                                 break;
                             }

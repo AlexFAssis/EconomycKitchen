@@ -202,7 +202,7 @@ function adicionaItemCompra() {
     divGroup.appendChild(valor);
 
     let labelqtde = document.createElement("LABEL");
-    let txtQtde = document.createTextNode("Valor");
+    let txtQtde = document.createTextNode("Valor Un.");
     labelqtde.setAttribute("for", "valor");
     labelqtde.appendChild(txtQtde);
 
@@ -318,6 +318,7 @@ function buscaValor(indice) {
 }
 
 function somaItens() {
+  debugger
   let $campoValor = document.getElementsByClassName('vl')
   let $produtos = document.getElementsByClassName('Prod');
   let $qtde = document.getElementsByClassName('qtde');
@@ -325,10 +326,10 @@ function somaItens() {
   let vlTotal = 0
 
   for (let i = 0; i < $campoValor.length; i++) {
-    vlTotal += ($qtde[i]).value * parseFloat($campoValor[i].value)
+    vlTotal += ($qtde[i]).value * parseFloat($campoValor[i].value.replace(/\,/, '.'))
   }
 
-  $vlTotal.value = vlTotal.toFixed(2)
+  $vlTotal.value = vlTotal.toFixed(2).replace(/\./, ',');
 }
 
 //Somente Edição

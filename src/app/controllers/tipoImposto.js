@@ -117,7 +117,7 @@ class tipoImpostoController {
 
         if (!podeExcluir) {
             req.flash('error', vetError)
-            return res.redirect('/insumo/listar');
+            return res.redirect('/tipoImposto/listar');
         } else {
             try {
                 const tipoImposto = await TipoImposto.findByIdAndDelete(id);
