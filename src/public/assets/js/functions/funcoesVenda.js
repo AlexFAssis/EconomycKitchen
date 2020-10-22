@@ -129,11 +129,11 @@ function adicionaItemCompra() {
 
     let quantidade = document.createElement("INPUT");
     quantidade.setAttribute("type", "number");
-    quantidade.setAttribute("step", "0.01");
+    quantidade.setAttribute("step", "1");
     quantidade.setAttribute("name", "quantidade");
     quantidade.setAttribute("value", "0");
     quantidade.setAttribute("class", "qtde form-control");
-    quantidade.setAttribute("min", "0.01");
+    quantidade.setAttribute("min", "1");
     quantidade.required = true;
     div1.appendChild(quantidade);
 

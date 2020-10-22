@@ -34,15 +34,17 @@ class impostoController {
                 req.flash('error', vetError)
                 return res.redirect('/imposto/cadastro')
             } else {
-                let valorAux = parseFloat(req.body.valor)
+                // let valorAux = parseFloat(req.body.valor)
+                let valor = req.body.valor.replace(/,/g, ".")
+                let valorTotal = req.body.valorTotal.replace(/,/g, ".")
                 await Imposto.create({
                     dataPgto: data,
-                    valor: valorAux,
+                    valor: valor,
                     tipoImposto: req.body.tipoImposto,
                     qtde: req.body.qtde,
                     itemImposto: req.body.itemImposto,
                     usuario: req.body.usuario,
-                    valorTotal: req.body.valorTotal
+                    valorTotal: valorTotal
                 });
 
                 return res.redirect('/imposto/listar');
