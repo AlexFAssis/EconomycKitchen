@@ -18,8 +18,13 @@ if ($desconto) {
 }
 
 if ($btn) {
-  $btn.addEventListener('click', removerErros);
+  // $btn.addEventListener('click', removerErros);
+
   $btn.addEventListener('click', adicionaItemCompra);
+
+  $btn.addEventListener('click', function (e) {
+    removerErros('adicionar');
+  });
 }
 
 let $qtdeParcelas = document.getElementById('qtdeParcelas')
@@ -27,7 +32,7 @@ if ($qtdeParcelas) {
   $qtdeParcelas.disabled = true;
 }
 
-
+verificaQtdeItens()
 //Variavel para controle de edição
 //somente edição
 if ($controle) {
@@ -36,6 +41,7 @@ if ($controle) {
   carregaUsuario()
   carregaProduto()
   casasDecimais()
+  // verificaQtdeItens()
 }
 // });
 flatpickr('.flatpickr', {
@@ -273,12 +279,12 @@ function adicionaItemCompra() {
   }
 }
 
-function removerErros() {
-  let $erros = document.getElementById('error');
-  if ($erros) {
-    $erros.remove();
-  }
-}
+// function removerErros() {
+//   let $erros = document.getElementById('error');
+//   if ($erros) {
+//     $erros.remove();
+//   }
+// }
 
 function ocultaProdutos() {
   let $qtde = document.getElementsByClassName("hidden").length
@@ -318,7 +324,6 @@ function buscaValor(indice) {
 }
 
 function somaItens() {
-  debugger
   let $campoValor = document.getElementsByClassName('vl')
   let $produtos = document.getElementsByClassName('Prod');
   let $qtde = document.getElementsByClassName('qtde');
@@ -448,6 +453,8 @@ function deletarItem(btn) {
   if (elementoPai.parentNode) {
     elementoPai.parentNode.removeChild(elementoPai);
   }
+
+  removerErros('deletar')
 }
 
 function calculaDesconto() {
@@ -502,6 +509,51 @@ function casasDecimais() {
     } else {
       vetAux.push(parseFloat(campo.value).toFixed(2));
       document.getElementById(seletor).value = vetAux[0].replace(/\./, ',');
+    }
+  }
+}
+
+function removerErros(tipo) {
+  let $erros = document.getElementsByClassName('error');
+  let $btnGravar = document.getElementById('btnConfirmarVenda');
+  let $qtdeItem = document.getElementsByClassName('qtde')
+
+  if (tipo == 'adicionar' && $qtdeItem.length > 0) {
+    $btnGravar.disabled = false
+    for (let i = 0; i < $erros.length; i++) {
+      $erros[i].style.display = 'none';
+    }
+  } else {
+    for (let i = 0; i < $erros.length; i++) {
+      if ($qtdeItem.length == 0) {
+        $btnGravar.disabled = true
+        $erros[i].style.display = 'flex'
+      } else {
+        break
+      }
+    }
+  }
+}
+
+function verificaQtdeItens() {
+  let $erros = document.getElementsByClassName('error');
+  let $btnGravar = document.getElementById('btnConfirmarVenda');
+  let $qtdeItem = document.getElementsByClassName('qtde')
+  let $erroBackEnd = document.getElementById('error');
+  if ($btnGravar) {
+    $btnGravar.disabled = true
+
+    if ($qtdeItem.length > 0) {
+      for (let i = 0; i < $erros.length; i++) {
+        $erros[i].style.display = 'none'
+      }
+      $btnGravar.disabled = false
+    }
+  }
+
+  if ($erroBackEnd.style.display != 'none') {
+    for (let i = 0; i < $erros.length; i++) {
+      $erros[i].style.display = 'none'
     }
   }
 }

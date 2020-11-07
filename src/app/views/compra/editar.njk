@@ -22,7 +22,7 @@
               </div>
               <div class="col-md-4 col-lg-3 col-xl-2">
                 <div class="form-group">
-                  <label for="valor">Valor</label>
+                  <label for="valor">Valor da Compra</label>
                   <div class="input-group">
                     <div class="input-group-prepend">    
                       <span class="input-group-text" id="input1">R$</span>
@@ -43,7 +43,7 @@
                 <div class="row">
                   <div class="col-md-12 col-lg-2 col-xl-1">
                     <label for="quantidade">Qtde</label>
-                    <input type="number" step="0.01" name="quantidade" value="{{ itemCompra.quantidade }}" class="qtde form-control" min="0.01" required>
+                    <input type="number" step="0.001" name="quantidade" value="{{ itemCompra.quantidade }}" class="qtde form-control" min="0.001" required>
                   </div>
                   <div class="col-md-12 col-lg-2 col-xl-2">
                     <label for="unidadeMedida">Un. Medida</label>
@@ -75,11 +75,15 @@
                   </div>  
                 </div>  
               {% else %}
-                  <h4 class="mt-3">Não há itens para exibir nessa compra </h4>
+                  <h4 class="mt-3 error">Não há itens para exibir nessa compra </h4>
               {% endfor %}
             </div>
             
-            <button type="submit" class="btn btn-primary col-xl-2 col-lg-3 col-md-4 mt-4">Confirmar</button>
+            <div class="row col error">
+              <div class="alert alert-danger">É necessário adicionar um item para realizar a gravação</div>
+            </div> 
+
+            <button type="submit" class="btn btn-primary col-xl-2 col-lg-3 col-md-4 mt-4" id="btnConfirmarCompra" >Confirmar</button>
             <a class="btn btn-primary mt-2 col-xl-2 col-lg-3 col-md-4 mt-4 btnVoltar" href="/compra/listar" role="button">Voltar</a>
 
             <select class="hidden" id="insumosHidden">

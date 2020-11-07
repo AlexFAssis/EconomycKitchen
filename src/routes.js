@@ -28,7 +28,7 @@ routes.use('/receita', authMiddleware)
 routes.use('/receitaPorDia', authMiddleware)
 routes.use('/venda', authMiddleware)
 routes.use('/estoque', authMiddleware)
-// routes.use('/dicas', authMiddleware)
+routes.use('/dicas', authMiddleware)
 
 //Verificação de erros
 // const  = require('express-async-r');

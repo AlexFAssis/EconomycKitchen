@@ -23,7 +23,7 @@
               </div>
               <div class="col-md-4 col-lg-3 col-xl-2">
                 <div class="form-group">
-                  <label for="valor">Valor</label>
+                  <label for="valor">Valor da Compra</label>
                   <div class="input-group">
                     <div class="input-group-prepend">    
                       <span class="input-group-text" id="input1">R$</span>
@@ -44,7 +44,11 @@
             <div id="itens">
             </div>
 
-            <button type="submit" class="btn btn-primary col-xl-2 col-lg-3 col-md-4 mt-2">Criar</button>
+            <div class="row col error">
+              <div class="alert alert-danger">É necessário adicionar um item para realizar a gravação</div>
+            </div> 
+
+            <button type="submit" class="btn btn-primary col-xl-2 col-lg-3 col-md-4 mt-2" id="btnConfirmarCompra">Criar</button>
 
             <select class="hidden">
               {% for insumo in insumos %}

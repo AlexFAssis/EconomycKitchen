@@ -143,7 +143,7 @@ function adicionaIngrediente() {
   function campoQtde() {
     //Adiciona Campo Quantidade
     let div1 = document.createElement("DIV")
-    div1.setAttribute("class", "col-md-2 col-lg-2 col-xl-1")
+    div1.setAttribute("class", "col-md-3 col-lg-2 col-xl-2")
     div.appendChild(div1);
 
     let quantidade = document.createElement("INPUT");
@@ -487,7 +487,7 @@ function calculaPrecoMedioReceita() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      if (this.responseText != '') {
+      if (this.responseText != '' && this.responseText != 'Nenhum') {
         let resposta = this.responseText.split('/');
         let valorMedio = resposta[0];
         let valorMedioPorcao = resposta[1];
@@ -496,9 +496,15 @@ function calculaPrecoMedioReceita() {
         document.getElementById("valorMedioPorcao").value = valorMedioPorcao;
         document.getElementById("valorMedio").value = valorMedio;
         document.getElementById("dtCalculoPrecoMedio").value = formataData(dtCalculoPrecoMedio);
+        document.getElementById("CompraNula").style.display = 'none'
       } else {
-        document.getElementById("CompraNula").style.display = 'block'
-        document.getElementById("CompraNula").innerText = 'Cálculo não realizado, há itens da receita que não possuem estoque'
+        if (this.responseText == 'Nenhum') {
+          document.getElementById("CompraNula").style.display = 'block'
+          document.getElementById("CompraNula").innerText = 'Cálculo não realizado, não há itens na receita'
+        } else {
+          document.getElementById("CompraNula").style.display = 'block'
+          document.getElementById("CompraNula").innerText = 'Cálculo não realizado, há itens da receita que não possuem estoque'
+        }
       }
 
     }

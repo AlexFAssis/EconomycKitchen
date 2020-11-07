@@ -202,6 +202,8 @@ function montaGraficoTop5Produtos() {
     myChart4.data.datasets[0].data.push(parseFloat(vetQtde[i]));
   }
 
+  myChart4.update();
+
 }
 
 function mostraTotais() {

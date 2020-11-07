@@ -346,8 +346,10 @@ class receitaController {
         let custoPorcao = 0;
         let custoReceita = 0;
         const itensReceita = await ItemReceita.find({ receita: receita._id });
+
         console.log('itens receita')
         console.log(itensReceita)
+
         let valorZerado = false;
 
         if (itensReceita.length > 0) {
@@ -392,7 +394,7 @@ class receitaController {
                     case 'Colher Sopa':
                         qtdeInsumo = parseFloat(qtdeItemReceita * 15);
                         break;
-                    case 'Colher Chá':
+                    case 'Colher Cha':
                         qtdeInsumo = parseFloat(qtdeItemReceita * 5);
                         break;
                     case 'Xicara':
@@ -464,6 +466,8 @@ class receitaController {
 
                 res.send(custoReceita.toFixed(2) + '/' + custoPorcao.toFixed(2) + '/' + dtCalculoPrecoMedio);
             }
+        } else {
+            res.send('Nenhum');
         }
     }
 
@@ -518,7 +522,7 @@ class receitaController {
                         case 'Colher Sopa':
                             qtdeInsumo = parseFloat(qtdeItemReceita * 15);
                             break;
-                        case 'Colher Chá':
+                        case 'Colher Cha':
                             qtdeInsumo = parseFloat(qtdeItemReceita * 5);
                             break;
                         case 'Xicara':

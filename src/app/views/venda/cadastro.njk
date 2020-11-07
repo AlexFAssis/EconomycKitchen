@@ -82,7 +82,11 @@
             <div id="itens"> 
             </div>  
 
-            <button type="submit" class="btn btn-primary col-md-4 col-lg-2 col-xl-2 mt-2">Criar</button>
+            <div class="row col error mt-2">
+              <div class="alert alert-danger">É necessário adicionar um item para realizar a gravação</div>
+            </div> 
+
+            <button type="submit" class="btn btn-primary col-md-4 col-lg-2 col-xl-2 mt-2" id="btnConfirmarVenda">Criar</button>
 
             <select class="hidden">
               {% for produto in produtos %}

@@ -418,6 +418,7 @@ class compraController {
                     }
 
                     if (insumoOld) {
+                        valorEstoque = valorEstoque.toFixed(2)
                         const insumo = await Insumo.findByIdAndUpdate(req.body.insumo, { qtdeEstoque: qtdeEstoque, valorEstoque: valorEstoque, precoMedio: precoMedio })
                     }
 
@@ -460,6 +461,8 @@ class compraController {
 
                             //Atualiza Preço Médio
                             valorEstoque += parseFloat(req.body.valor[i].toString().replace(/\,/, '.'));
+                            valorEstoque = valorEstoque.toFixed(2)
+
                             if (qtdeEstoque > 0) {
                                 precoMedio = parseFloat(valorEstoque / qtdeEstoque);
                             } else {
@@ -524,6 +527,8 @@ class compraController {
 
                     //Atualiza Preço Médio
                     valorEstoque -= parseFloat(itemCompra[i].valor.toString().replace(/\,/, '.'));
+                    valorEstoque = valorEstoque.toFixed(2)
+
                     if (qtdeEstoque > 0) {
                         precoMedio = parseFloat(valorEstoque / qtdeEstoque);
                     } else {

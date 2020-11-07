@@ -4,8 +4,12 @@ let $btn = document.getElementById('btnAdicionar')
 let $controle = document.getElementById('controle')
 
 if ($btn) {
-  $btn.addEventListener('click', removerErros);
+  // $btn.addEventListener('click', removerErros);
   $btn.addEventListener('click', adicionarItemReceitaDia);
+
+  $btn.addEventListener('click', function (e) {
+    removerErros('adicionar');
+  });
 }
 
 // window.addEventListener("load", function (event) {
@@ -26,10 +30,23 @@ flatpickr('.flatpickr', {
 // });
 
 ocultaReceitas()
+verificaQtdeItens()
+
 if ($controle) {
   adicionaEventos()
   carregaReceitas()
+  buscaMaxSobra()
+
+  let $btnExcluir = document.getElementsByClassName('btnExcluir btn btn-danger');
+
+  for (let i = 0; i < $btnExcluir.length; i++) {
+
+    $btnExcluir[i].addEventListener('click', function (e) {
+      deletarItem(e.target);
+    });
+  }
 }
+
 
 RedimensionaBotaoExluir()
 
@@ -77,6 +94,7 @@ function adicionarItemReceitaDia() {
   if ($controle) {
     campoRendimento()
     campoSobra()
+    buscaMaxSobra()
   }
   botaoExcluir()
   adicionaEventos()
@@ -89,11 +107,11 @@ function adicionarItemReceitaDia() {
 
     let quantidade = document.createElement("INPUT");
     quantidade.setAttribute("type", "number");
-    quantidade.setAttribute("step", "0.01");
+    quantidade.setAttribute("step", "0.1");
     quantidade.setAttribute("name", "quantidade");
     quantidade.setAttribute("value", "0");
     quantidade.setAttribute("class", "qtde form-control");
-    quantidade.setAttribute("min", "0.01");
+    quantidade.setAttribute("min", "0.1");
     quantidade.required = true;
     div1.appendChild(quantidade);
 
@@ -108,7 +126,7 @@ function adicionarItemReceitaDia() {
   function campoReceita() {
     //Adiciona Select Campo Receita
     let div2 = document.createElement("DIV")
-    div2.setAttribute("class", "col-xl-5 col-lg-4 col-md-4 ")
+    div2.setAttribute("class", "col-xl-5 col-lg-5 col-md-5")
     div.appendChild(div2);
     let select = document.createElement("SELECT");
     select.setAttribute("name", "receita");
@@ -165,10 +183,11 @@ function adicionarItemReceitaDia() {
 
     let sobra = document.createElement("INPUT");
     sobra.setAttribute("type", "number");
-    sobra.setAttribute("step", "0.01");
+    sobra.setAttribute("step", "1");
     sobra.setAttribute("name", "sobra");
     sobra.setAttribute("value", "0");
-    sobra.setAttribute("class", "rend form-control");
+    sobra.setAttribute("min", "0");
+    sobra.setAttribute("class", "sobra form-control");
     div5.appendChild(sobra);
 
     let labelSobra = document.createElement("LABEL");
@@ -212,9 +231,10 @@ function adicionarItemReceitaDia() {
 }
 
 function carregaRendimentoReceita() {
-  let $receitasItem = document.getElementById('receitasItem')
+  // let $receitasItem = document.getElementById('receitasItem')
+  let $rendimentoReceita = document.getElementsByClassName('receitaRendimento')
 
-  return $receitasItem[0].text;
+  return $rendimentoReceita[0].value
 }
 
 function adicionaEventos() {
@@ -222,6 +242,7 @@ function adicionaEventos() {
   let $receita = document.getElementsByClassName('Receita')
   let $rendimento = document.getElementsByClassName('rend')
   let $qtde = document.getElementsByClassName('qtde')
+  let $sobra = document.getElementsByClassName('sobra')
 
   for (let i = 0; i < $btn.length; i++) {
     $btn[i].addEventListener('click', function (e) {
@@ -232,21 +253,48 @@ function adicionaEventos() {
   for (let i = 0; i < $qtde.length; i++) {
     $qtde[i].addEventListener('change', function (e) {
       $rendimento[i].value = calculaRendimento(i);
+      $sobra[i].setAttribute("max", $rendimento[i].value);
     });
   }
 
   if ($controle) {
     for (let i = 0; i < $receita.length; i++) {
       $receita[i].addEventListener('change', function (e) {
-        $rendimento[i].value = buscaRendimento(e.target);
+        // $rendimento[i].value = buscaRendimento(e.target, i);
+        $rendimento[i].value = calculaRendimento(i);
+        $sobra[i].setAttribute("max", $rendimento[i].value);
       });
     }
+
+    for (let i = 0; i < $sobra.length; i++) {
+      $sobra[i].setAttribute("max", $rendimento[i].value);
+    }
+
   }
 }
 
-function buscaRendimento(indice) {
-  let $receitasItem = document.getElementById('receitasItem')
+function buscaMaxSobra() {
+  let $sobra = document.getElementsByClassName('sobra')
+  let $rendimento = document.getElementsByClassName('rend')
+
+  for (let i = 0; i < $sobra.length; i++) {
+    $sobra[i].setAttribute("max", $rendimento[i].value);
+  }
+}
+
+function buscaRendimento(indiceCombo, indiceItem) {
+
+  // let $receitasItem = document.getElementById('receitasItem')
   let $rendimentoReceita = document.getElementsByClassName('receitaRendimento')
+  let $qtde = document.getElementsByClassName('qtde')
+
+  $valor = $rendimentoReceita[indiceCombo.selectedIndex].value;
+
+  for (let i = 0; i < $qtde.length; i++) {
+    if (indiceItem == i) {
+      $valor * $qtde[i].value
+    }
+  }
 
   // if (indice == 0) {
   //   for (let i = 0; i < $receitasItem.length; i++) {
@@ -256,7 +304,7 @@ function buscaRendimento(indice) {
   //   }
   // }
   // else {
-  $valor = $rendimentoReceita[indice.selectedIndex].value;
+  // $valor = $rendimentoReceita[indiceCombo.selectedIndex].value;
   // }
 
   return $valor;
@@ -275,6 +323,8 @@ function deletarItem(btn) {
   if (elementoPai.parentNode) {
     elementoPai.parentNode.removeChild(elementoPai);
   }
+
+  removerErros('deletar')
 }
 
 function carregaItens(indice) {
@@ -283,10 +333,74 @@ function carregaItens(indice) {
   return $receitaItem;
 }
 
-function removerErros() {
-  let $erros = document.getElementById('error');
-  if ($erros) {
-    $erros.remove();
+// function removerErros() {
+//   let $erros = document.getElementById('error');
+//   if ($erros) {
+//     $erros.remove();
+//   }
+// }
+
+function removerErros(tipo) {
+  let $erros = document.getElementsByClassName('error');
+  let $errosAlert = document.getElementsByClassName('alert ');
+  let $btnGravar = document.getElementById('btnGravaReceitaDia');
+  let $qtdeItem = document.getElementsByClassName('qtde')
+
+  if (tipo == 'adicionar' && $qtdeItem.length > 0) {
+    $btnGravar.disabled = false
+    for (let i = 0; i < $erros.length; i++) {
+      $erros[i].style.display = 'none'
+    }
+
+    for (let i = 0; i < $errosAlert.length; i++) {
+      $errosAlert[i].style.display = 'none';
+    }
+
+  } else {
+    for (let i = 0; i < $erros.length; i++) {
+      if ($qtdeItem.length == 0) {
+        $btnGravar.disabled = true
+        $erros[i].style.display = 'flex'
+      } else {
+        break
+      }
+    }
+
+    for (let i = 0; i < $errosAlert.length; i++) {
+      if ($qtdeItem.length == 0) {
+        $btnGravar.disabled = true
+        $errosAlert[i].style.display = 'flex'
+      } else {
+        break
+      }
+    }
+  }
+}
+
+function verificaQtdeItens() {
+  let $erros = document.getElementsByClassName('error');
+  let $erroBackEnd = document.getElementById('error');
+  let $btnGravar = document.getElementById('btnGravaReceitaDia');
+  let $qtdeItem = document.getElementsByClassName('qtde')
+
+
+  if ($btnGravar) {
+    $btnGravar.disabled = true
+
+    if ($qtdeItem.length > 0) {
+      for (let i = 0; i < $erros.length; i++) {
+        $erros[i].style.display = 'none'
+      }
+      $btnGravar.disabled = false
+    }
+  }
+
+  if ($erroBackEnd) {
+    if ($erroBackEnd.style.display != 'none') {
+      for (let i = 0; i < $erros.length; i++) {
+        $erros[i].style.display = 'none'
+      }
+    }
   }
 }
 

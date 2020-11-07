@@ -3,6 +3,8 @@
 
   // window.addEventListener("load", function (event) {
 
+  verificaQtdeItens()
+
   let $btnExcluir = document.getElementsByClassName('btnExcluir btn btn-danger');
   let $select = document.getElementsByClassName('selectInsumo')
   // Validação, função somente para edição
@@ -14,6 +16,7 @@
     adicionaEventos()
     carregaUnidadeMedida()
     casasDecimais()
+    // verificaQtdeItens()
   }
 
   for (let i = 0; i < $btnExcluir.length; i++) {
@@ -26,8 +29,13 @@
 
   let $btn = document.getElementById('btnAdicionar');
   if ($btn) {
-    $btn.addEventListener('click', removerErros);
+    // $btn.addEventListener('click', removerErros);
     $btn.addEventListener('click', adicionaItemCompra);
+
+    $btn.addEventListener('click', function (e) {
+      removerErros('adicionar');
+    });
+
   }
 
   flatpickr('.flatpickr', {
@@ -160,11 +168,11 @@ function adicionaItemCompra() {
 
     let quantidade = document.createElement("INPUT");
     quantidade.setAttribute("type", "number");
-    quantidade.setAttribute("step", "0.01");
+    quantidade.setAttribute("step", "0.001");
     quantidade.setAttribute("name", "quantidade");
     quantidade.setAttribute("value", "0");
     quantidade.setAttribute("class", "qtde form-control");
-    quantidade.setAttribute("min", "0.01")
+    quantidade.setAttribute("min", "0.001")
     quantidade.min = 0.01;
     quantidade.max = 9999.99;
     div1.appendChild(quantidade);
@@ -374,12 +382,12 @@ function somaItens() {
   $vlTotalCompra.value = valorTotal.toFixed(2)
 }
 
-function removerErros() {
-  let $erros = document.getElementById('error');
-  if ($erros) {
-    $erros.remove();
-  }
-}
+// function removerErros() {
+//   let $erros = document.getElementById('error');
+//   if ($erros) {
+//     $erros.remove();
+//   }
+// }
 
 // Somente para edição
 function carregaInsumos() {
@@ -456,6 +464,8 @@ function deletarItem(btn) {
   if (elementoPai.parentNode) {
     elementoPai.parentNode.removeChild(elementoPai);
   }
+
+  removerErros('deletar')
 }
 
 function carregaUnidadeMedida(indice) {
@@ -512,6 +522,45 @@ function casasDecimais() {
     } else {
       vetAux.push(parseFloat(campo.value).toFixed(2));
       document.getElementById(seletor).value = vetAux[0].replace(/\./, ',');
+    }
+  }
+}
+
+function removerErros(tipo) {
+  let $erros = document.getElementsByClassName('error');
+  let $btnGravar = document.getElementById('btnConfirmarCompra');
+  let $qtdeItem = document.getElementsByClassName('qtde')
+
+  if (tipo == 'adicionar' && $qtdeItem.length > 0) {
+    $btnGravar.disabled = false
+    for (let i = 0; i < $erros.length; i++) {
+      $erros[i].style.display = 'none';
+    }
+  } else {
+    for (let i = 0; i < $erros.length; i++) {
+      if ($qtdeItem.length == 0) {
+        $btnGravar.disabled = true
+        $erros[i].style.display = 'flex'
+      } else {
+        break
+      }
+    }
+  }
+}
+
+function verificaQtdeItens() {
+  let $erros = document.getElementsByClassName('error');
+  let $btnGravar = document.getElementById('btnConfirmarCompra');
+  let $qtdeItem = document.getElementsByClassName('qtde')
+
+  if ($btnGravar) {
+    $btnGravar.disabled = true
+
+    if ($qtdeItem.length > 0) {
+      for (let i = 0; i < $erros.length; i++) {
+        $erros[i].style.display = 'none'
+      }
+      $btnGravar.disabled = false
     }
   }
 }
