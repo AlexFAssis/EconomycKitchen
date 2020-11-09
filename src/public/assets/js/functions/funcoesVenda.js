@@ -551,9 +551,11 @@ function verificaQtdeItens() {
     }
   }
 
-  if ($erroBackEnd.style.display != 'none') {
-    for (let i = 0; i < $erros.length; i++) {
-      $erros[i].style.display = 'none'
+  if ($erroBackEnd) {
+    if ($erroBackEnd.style.display != 'none') {
+      for (let i = 0; i < $erros.length; i++) {
+        $erros[i].style.display = 'none'
+      }
     }
   }
 }

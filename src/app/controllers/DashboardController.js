@@ -305,8 +305,7 @@ class DashboardController {
       ])
 
       const usuario = req.session.usuario.nome
-      console.log('Sessão')
-      console.log(req.session)
+
       return res.render('menu/dashboard', { impostos, vendas, compras, dataInicial, dataFinal, usuario, receitas: JSON.stringify(VetProdutosAux), title: 'Dashboard' })
     } catch (erro4) {
       console.error(erro4);

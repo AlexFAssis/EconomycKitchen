@@ -59,7 +59,7 @@ function montaGraficoImpostos() {
   });
 
   for (let i = 0; i < $dataPgtoImposto.length; i++) {
-    let dataImpostoAux = new Date(Date.parse($dataPgtoImposto[i].value)).toLocaleDateString()
+    let dataImpostoAux = new Date(Date.parse($dataPgtoImposto[i].value))//.toLocaleDateString()
     myChart1.data.labels.push(dataImpostoAux);
   }
 
