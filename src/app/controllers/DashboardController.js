@@ -31,8 +31,13 @@ class DashboardController {
     const date30 = new Date()
     date30.setDate(date30.getDate() - 30);
     const dtInicialMoment = moment(date30, "DD/MM/YYYY");
-    const dtFinalMoment = moment(date, "DD/MM/YYYY H:mm:ss");
-
+    const dtFinalMomentAux = moment(date, "DD/MM/YYYY H:mm:ss");
+    //Para funcionar no Heroku
+    if (process.env.NODE_ENV == "production") {
+      var dtFinalMoment = dtFinalMomentAux.add(1, "day");
+    } else {
+      var dtFinalMoment = dtFinalMomentAux
+    }
     //Vendas
     try {
       var vendas = await Venda.aggregate([
@@ -173,7 +178,14 @@ class DashboardController {
   async indexFilter(req, res) {
     var { dataInicial, dataFinal } = req.body;
     const dtInicialMoment = moment(dataInicial, "DD/MM/YYYY");
-    const dtFinalMoment = moment(dataFinal, "DD/MM/YYYY H:mm:ss");
+    const dtFinalMomentAux = moment(dataFinal, "DD/MM/YYYY H:mm:ss");
+
+    //Para funcionar no Heroku
+    if (process.env.NODE_ENV == "production") {
+      var dtFinalMoment = dtFinalMomentAux.add(1, "day");
+    } else {
+      var dtFinalMoment = dtFinalMomentAux
+    }
 
     //Vendas
     try {
@@ -306,7 +318,7 @@ class DashboardController {
 
       const usuario = req.session.usuario.nome
 
-      return res.render('menu/dashboard', { impostos, vendas, compras, dataInicial, dataFinal, usuario, receitas: JSON.stringify(VetProdutosAux), title: 'Dashboard' })
+      return res.render('menu/dashboard', { impostos, vendas, compras, dataInicial, dataFinal, usuario, receitas: JSON.stringify(VetProdutosAux), title: 'Dashboard', dtInicialMoment, dtFinalMoment })
     } catch (erro4) {
       console.error(erro4);
       res.sendStatus(500).end();
