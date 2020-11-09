@@ -62,10 +62,11 @@ function montaGraficoImpostos() {
     debugger
     let data = new Date();
     let dataVet = Date.parse($dataPgtoImposto[i].value)
-    let fusoHorario = data.getTimezoneOffset() * 90000
+    let fusoHorario = data.getTimezoneOffset() * 60000
     let dataImpostoAux = new Date(dataVet - fusoHorario).toLocaleDateString()
     // let dataImpostoAux = new Date(Date.parse($dataPgtoImposto[i].value - data.getTimezoneOffset() * 90000)).toLocaleDateString()
 
+    // myChart1.data.labels.push(dataImpostoAux);
     myChart1.data.labels.push(dataImpostoAux);
   }
 
@@ -113,11 +114,7 @@ function montaGraficoVendas() {
   });
 
   for (let i = 0; i < $dataPgtoVenda.length; i++) {
-    let data = new Date();
-    let dataVet = Date.parse($dataPgtoVenda[i].value)
-    let fusoHorario = data.getTimezoneOffset() * 90000
-    let dataVendaAux = new Date(dataVet - fusoHorario).toLocaleDateString()
-    // let dataVendaAux = new Date(Date.parse($dataPgtoVenda[i].value)).toLocaleDateString()
+    let dataVendaAux = new Date(Date.parse($dataPgtoVenda[i].value)).toLocaleDateString()
     myChart2.data.labels.push(dataVendaAux);
   }
 
@@ -165,12 +162,7 @@ function montaGraficoCompras() {
   });
 
   for (let i = 0; i < $dataCompra.length; i++) {
-    let data = new Date();
-    let dataVet = Date.parse($dataCompra[i].value)
-    let fusoHorario = data.getTimezoneOffset() * 90000
-    let dataCompraAux = new Date(dataVet - fusoHorario).toLocaleDateString()
-
-    // let dataCompraAux = new Date(Date.parse($dataCompra[i].value)).toLocaleDateString()
+    let dataCompraAux = new Date(Date.parse($dataCompra[i].value)).toLocaleDateString()
     myChart3.data.labels.push(dataCompraAux);
   }
 
