@@ -1291,7 +1291,7 @@ class receitaPorDiaController {
                 }
             })
         } else {
-            data = await ReceitaPorDia.find()
+            receitasPorDia = await ReceitaPorDia.find()
         }
 
         return res.render('receitaPorDia/listagem', { receitasPorDia, dtInicial, dtFinal })
