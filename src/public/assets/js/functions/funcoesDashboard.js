@@ -59,9 +59,11 @@ function montaGraficoImpostos() {
   });
 
   for (let i = 0; i < $dataPgtoImposto.length; i++) {
-    let dataImpostoAux = new Date(Date.parse($dataPgtoImposto[i].value)).toLocaleDateString()
+    let data = new Date();
+    let dataImpostoAux = new Date(Date.parse($dataPgtoImposto[i].value - data.getTimezoneOffset() * 90000)).toLocaleDateString()
+
     // myChart1.data.labels.push(dataImpostoAux);
-    myChart1.data.labels.push($dataPgtoImposto[i].value);
+    myChart1.data.labels.push(dataImpostoAux);
   }
 
   for (let i = 0; i < $totalImposto.length; i++) {
