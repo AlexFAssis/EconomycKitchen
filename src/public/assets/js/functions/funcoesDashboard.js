@@ -65,7 +65,8 @@ function montaGraficoImpostos() {
     let dataVet = Date.parse($dataPgtoImposto[i].value)
     let dataVet2 = new Date(dataVet).toLocaleDateString()
     let fusoHorario = data.getTimezoneOffset() * 60000
-    let dataImpostoAux = new Date(dataVet - fusoHorario).toLocaleDateString()
+    let dataVet3 = dataVet2 - fusoHorario
+    let dataImpostoAux = new Date(dataVet + fusoHorario).toLocaleDateString()
     // let dataImpostoAux = new Date(Date.parse($dataPgtoImposto[i].value)).toLocaleDateString()
     myChart1.data.labels.push(dataImpostoAux);
   }
