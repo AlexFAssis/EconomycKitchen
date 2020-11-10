@@ -33,11 +33,11 @@ class DashboardController {
     const dtInicialMoment = moment(date30, "DD/MM/YYYY");
     const dtFinalMomentAux = moment(date, "DD/MM/YYYY H:mm:ss");
     //Para funcionar no Heroku
-    if (process.env.NODE_ENV == "production") {
-      var dtFinalMoment = dtFinalMomentAux.add(1, "day");
-    } else {
-      var dtFinalMoment = dtFinalMomentAux
-    }
+    // if (process.env.NODE_ENV == "production") {
+    //   var dtFinalMoment = dtFinalMomentAux.add(1, "day");
+    // } else {
+    var dtFinalMoment = dtFinalMomentAux
+    // }
     //Vendas
     try {
       var vendas = await Venda.aggregate([
@@ -181,11 +181,11 @@ class DashboardController {
     const dtFinalMomentAux = moment(dataFinal, "DD/MM/YYYY H:mm:ss");
 
     //Para funcionar no Heroku
-    if (process.env.NODE_ENV == "production") {
-      var dtFinalMoment = dtFinalMomentAux.add(1, "day");
-    } else {
-      var dtFinalMoment = dtFinalMomentAux
-    }
+    // if (process.env.NODE_ENV == "production") {
+    //   var dtFinalMoment = dtFinalMomentAux.add(1, "day");
+    // } else {
+    var dtFinalMoment = dtFinalMomentAux
+    // }
 
     //Vendas
     try {
