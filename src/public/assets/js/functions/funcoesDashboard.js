@@ -171,11 +171,11 @@ function montaGraficoCompras() {
     let fusoHorario2 = data.getTimezoneOffset() * 120000
     let dataCompraAux2 = new Date(dataVet + fusoHorario2).toLocaleDateString()
     let fusoHorario5 = data.getTimezoneOffset() * 150000
-    let dataCompraAux5 = new Date(dataVet + fusoHorario3).toLocaleDateString()
+    let dataCompraAux5 = new Date(dataVet + fusoHorario5).toLocaleDateString()
     let fusoHorario3 = data.getTimezoneOffset() * 180000
-    let dataCompraAu3 = new Date(dataVet + fusoHorario4).toLocaleDateString()
+    let dataCompraAu3 = new Date(dataVet + fusoHorario3).toLocaleDateString()
     let fusoHorario4 = data.getTimezoneOffset() * 210000
-    let dataCompraAux4 = new Date(dataVet + fusoHorario5).toLocaleDateString()
+    let dataCompraAux4 = new Date(dataVet + fusoHorario4).toLocaleDateString()
     let fusoHorario = data.getTimezoneOffset() * 240000
     let dataCompraAux = new Date(dataVet + fusoHorario).toLocaleDateString()
     // let dataCompraAux = new Date(Date.parse($dataCompra[i].value)).toLocaleDateString()
