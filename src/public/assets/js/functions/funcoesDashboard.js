@@ -59,7 +59,14 @@ function montaGraficoImpostos() {
   });
 
   for (let i = 0; i < $dataPgtoImposto.length; i++) {
-    let dataImpostoAux = new Date(Date.parse($dataPgtoImposto[i].value)).toLocaleDateString()
+    debugger
+    let data = new Date();
+    let data2 = new Date().toLocaleDateString();
+    let dataVet = Date.parse($dataPgtoImposto[i].value)
+    let dataVet2 = new Date(dataVet).toLocaleDateString()
+    let fusoHorario = data.getTimezoneOffset() * 60000
+    let dataImpostoAux = new Date(dataVet - fusoHorario).toLocaleDateString()
+    // let dataImpostoAux = new Date(Date.parse($dataPgtoImposto[i].value)).toLocaleDateString()
     myChart1.data.labels.push(dataImpostoAux);
   }
 
