@@ -53,13 +53,11 @@
     <script src="/assets/js/sb-admin-datatables.min_name.js" type="text/javascript"></script>
 
     <script>
-        debugger
         let $valores = document.getElementsByClassName('VlDecimal')
         let vetAux = []
 
         if ($valores.length > 0){
             for(let i=0; i < $valores.length; i++){
-                debugger
                 vetAux.push(parseFloat($valores[i].innerText).toFixed(2));
                 document.getElementsByClassName('VlDecimal')[i].innerText = 'R$' + vetAux[i].replace(/\./, ',');
             }
