@@ -29,8 +29,7 @@
                             <th scope="row" style="display:none" class="tirarNegrito classDesc">{{insumo_id}}</th>
                             <th scope="row" class="tirarNegrito classDesc">{{insumo.nome}}</th>
                             <th scope="row" class="tirarNegrito classDesc">{{insumo.qtdeEstoque}}</th>
-                            <th scope="row" class="tirarNegrito classDesc">{{insumo.valorEstoque}}</th>
-
+                            <th scope="row" class="tirarNegrito classDesc VlDecimal">{{insumo.valorEstoque}}</th>
                         {% if insumo.qtdeEstoque > 1 %}
                             <th scope="row" class="tirarNegrito classDesc">{{insumo.precoMedio}}</th>
                         {% else %}    
@@ -49,6 +48,22 @@
             </div>
         </main>
     </div> 
+
     <script src="/assets/js/functions/funcoesPopup.js"></script>
     <script src="/assets/js/sb-admin-datatables.min_name.js" type="text/javascript"></script>
+
+    <script>
+        debugger
+        let $valores = document.getElementsByClassName('VlDecimal')
+        let vetAux = []
+
+        if ($valores.length > 0){
+            for(let i=0; i < $valores.length; i++){
+                debugger
+                vetAux.push(parseFloat($valores[i].innerText).toFixed(2));
+                document.getElementsByClassName('VlDecimal')[i].innerText = 'R$' + vetAux[i].replace(/\./, ',');
+            }
+        }
+    </script>
+
 {% endblock%}
