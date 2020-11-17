@@ -601,6 +601,9 @@ class receitaController {
         var dtInicialMoment = moment(dtInicial, "DD/MM/YYYY");
         var dtFinalMoment = moment(dataFinal, "DD/MM/YYYY H:mm:ss");
 
+        console.log('Dt Inicial:' + dtInicialMoment._id)
+        console.log('Dt Final:' + dtFinalMoment._id)
+
         var historicoReceita = await HistoricoReceita.find({
             receita: receita,
             dtCalculoPrecoMedio: {
@@ -634,6 +637,7 @@ class receitaController {
         let dataFinalString = dtFinal.split('-');
         var dataInicial = new Date(`${dataInicialString[1]} ${dataInicialString[0]} ,${dataInicialString[2]}`);
         var dataFinal = new Date(`${dataFinalString[1]} ${dataFinalString[0]} ,${dataFinalString[2]}  23:59:59`);
+        // dataFinal.setDate(dataFinal.getDate() - 1);
         var dtInicialMoment = moment(dataInicial, "DD/MM/YYYY");
         var dtFinalMoment = moment(dataFinal, "DD/MM/YYYY H:mm:ss");
 
@@ -646,8 +650,8 @@ class receitaController {
             }
         })
 
-        console.log(dtInicialMoment._d)
-        console.log(dtFinalMoment._d)
+        console.log('Data Inicial: ' + dtInicialMoment._d)
+        console.log('Data Final: ' + dtFinalMoment._d)
         console.log('--------------------INICIO-------------------------------')
 
         var vlTotalImpostos = 0;
@@ -708,9 +712,12 @@ class receitaController {
 
             let varTrue1 = true
             if (varTrue1) {
-                console.log('----------------')
-                console.log('----------------')
+                console.log('vetItemReceitasAcm')
                 console.log('vetor de Receitas Acumuladas')
+                console.log(vetItemReceitasAcm)
+                console.log('----------------')
+                console.log('----------------')
+                console.log('')
             }
 
             //2 - Com o acumulado das receitas é buscado o histórico de cada uma
@@ -718,6 +725,7 @@ class receitaController {
                 console.log('----xxx---')
                 console.log(vetItemReceitasAcm[i].receitaId.toString())
                 console.log(vetItemReceitasAcm[i].quantidade)
+                console.log('')
 
                 var historicoReceitas = await HistoricoReceita.find({
                     dtCalculoPrecoMedio: {
@@ -727,7 +735,11 @@ class receitaController {
                 })//.sort({ data: 'desc' })
 
                 console.log('Length historicoReceitas: ' + historicoReceitas.length)
-                // console.log(historicoReceitas[j].receitaNome)
+                console.log(historicoReceitas[i].receitaNome)
+                console.log(historicoReceitas[i].dtCalculoPrecoMedio)
+                console.log(historicoReceitas[i].valorMedio)
+                console.log(historicoReceitas[i].valorMedioPorcao)
+                console.log('')
 
                 //Acumula valores médios do histórico
                 if (historicoReceitas.length > 0) {
@@ -740,18 +752,24 @@ class receitaController {
                         console.log(historicoReceitas[j].receitaNome)
                         console.log(historicoReceitas[j].receita.toString())
                         console.log(historicoReceitas[j].valorMedio)
+                        console.log(historicoReceitas[j].dtCalculoPrecoMedio)
+                        console.log('XXXXXX--XXXXXX')
+                        console.log('')
 
                         objReceitaHistorico.id = historicoReceitas[j].receita
                         objReceitaHistorico.vlMedio += parseFloat(historicoReceitas[j].valorMedio)
-                        objReceitaHistorico.quantidade = historicoReceitas.length
+                        objReceitaHistorico.quantidade = vetItemReceitasAcm[i].quantidade
+                        // objReceitaHistorico.quantidade = historicoReceitas.length
                     }
 
                     vetReceitasHistorico.push(objReceitaHistorico)
-
+                    console.log('vetReceitasHistorico')
                     for (let h = 0; h < vetReceitasHistorico.length; h++) {
+                        console.log('vetReceitasHistorico: ' + h)
                         console.log(vetReceitasHistorico[h].id.toString())
                         console.log(vetReceitasHistorico[h].vlMedio)
                         console.log(vetReceitasHistorico[h].quantidade)
+                        console.log('')
                     }
                 }
             }
@@ -785,7 +803,8 @@ class receitaController {
 
                 //Calcula da porcentagem de cada item
                 for (let i = 0; i < vetFinal.length; i++) {
-                    vetFinal[i].porcentagem = (vetFinal[i].qtde / acmPorcentagem).toFixed(2);
+                    vetFinal[i].porcentagem = (vetFinal[i].qtde / acmPorcentagem).toFixed(3);
+                    console.log('vetFinal[i].porcentagem:' + i)
                     console.log(vetFinal[i].porcentagem)
                 }
 
@@ -793,10 +812,10 @@ class receitaController {
                 for (let i = 0; i < vetFinal.length; i++) {
                     var receita = await Receita.findById(vetFinal[i].id);
                     vetFinal[i].nomeReceita = receita.nome;
-                    vetFinal[i].qtdeRendimento = receita.qtdeRendimento;
-                    console.log(vetFinal[i].vlMedio)
-                    console.log(vetFinal[i].porcentagem)
-                    console.log(vlTotalImpostos)
+                    vetFinal[i].qtdeRendimento = receita.qtdeRendimento * vetFinal[i].qtde;
+                    console.log('Vl Medio:' + vetFinal[i].vlMedio)
+                    console.log('Porcentagem: ' + vetFinal[i].porcentagem)
+                    console.log('Total Impostos: ' + vlTotalImpostos)
                     vetFinal[i].vlReceita = vetFinal[i].vlMedio + (vetFinal[i].porcentagem * vlTotalImpostos);
                 }
             }
