@@ -816,12 +816,13 @@ class receitaController {
                 for (let i = 0; i < vetFinal.length; i++) {
                     var receita = await Receita.findById(vetFinal[i].id);
                     vetFinal[i].nomeReceita = receita.nome;
-                    vetFinal[i].qtdeRendimento = receita.qtdeRendimento //* vetFinal[i].qtde;
+                    // vetFinal[i].qtdeRendimento = receita.qtdeRendimento //* vetFinal[i].qtde;
+                    vetFinal[i].qtdeRendimento = vetFinal[i].porcentagem
                     console.log('Vl Medio:' + vetFinal[i].vlMedio)
                     console.log('Porcentagem: ' + vetFinal[i].porcentagem)
                     console.log('Total Impostos: ' + vlTotalImpostos)
                     //vetFinal[i].vlReceita = vetFinal[i].vlMedio + ((vetFinal[i].porcentagem * vlTotalImpostos) / vetFinal[i].qtde);
-                    vetFinal[i].vlReceita = vetFinal[i].porcentagem
+                    vetFinal[i].vlReceita = vlTotalImpostos
                     //vetFinal[i].vlReceita = vetFinal[i].vlMedio //+ ((vetFinal[i].porcentagem * vlTotalImpostos) / vetFinal[i].qtde);
                 }
             }
