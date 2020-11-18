@@ -820,7 +820,7 @@ class receitaController {
                     console.log('Vl Medio:' + vetFinal[i].vlMedio)
                     console.log('Porcentagem: ' + vetFinal[i].porcentagem)
                     console.log('Total Impostos: ' + vlTotalImpostos)
-                    vetFinal[i].vlReceita = vetFinal[i].vlMedio + ((vetFinal[i].porcentagem * vlTotalImpostos) / vetFinal[i].qtde);
+                    vetFinal[i].vlReceita = vetFinal[i].vlMedio //+ ((vetFinal[i].porcentagem * vlTotalImpostos) / vetFinal[i].qtde);
                 }
             }
             return res.send(vetFinal)
